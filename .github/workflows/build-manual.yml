@@ -1,0 +1,50 @@
+# SPDX-License-Identifier: Unlicense
+name: Build Omarchy Quattro Manual
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-manual
+  cancel-in-progress: false
+
+env:
+  SOURCE_REPO: https://github.com/basecamp/omarchy.git
+  SOURCE_BRANCH: quattro
+  MANUAL_PATH: manual
+  OUTPUT_FILE: omarchy-quattro-manual.md
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Clone source repo
+        run: git clone --depth 1 --branch "$SOURCE_BRANCH" "$SOURCE_REPO" /tmp/source
+
+      - name: Run builder tests
+        run: python3 -B -m unittest discover -s tests -v
+
+      - name: Build single-file manual
+        run: >-
+          python3 scripts/build-manual.py
+          --source "/tmp/source/$MANUAL_PATH"
+          --output "$OUTPUT_FILE"
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add "$OUTPUT_FILE"
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Update manual ($(date -u +%Y-%m-%d))"
+            git push
+          fi
