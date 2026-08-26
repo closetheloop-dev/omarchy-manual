@@ -101,34 +101,69 @@ def collect_link_targets(
     return required_fragments
 
 
-def add_explicit_anchors(
-    name: str, markdown: str, required_fragments: set[str]
+def number_chapter_heading(name: str, markdown: str) -> str:
+    """Prefix a chapter's top-level heading with its filename number."""
+    number_match = re.match(r"^(\d+)-", name)
+    if number_match is None:
+        raise BuildError(f"{name}: chapter filename must start with a number")
+
+    heading_match = next(
+        (match for match in HEADING_RE.finditer(markdown) if match.group(1) == "#"),
+        None,
+    )
+    if heading_match is None:
+        raise BuildError(f"{name}: chapter has no top-level heading")
+
+    chapter_number = int(number_match.group(1))
+    numbered_heading = f"# Chapter {chapter_number}: {heading_match.group(2)}"
+    return (
+        markdown[: heading_match.start()]
+        + numbered_heading
+        + markdown[heading_match.end() :]
+    )
+
+
+def combined_heading_anchors(
+    source_chapters: dict[str, str], rendered_chapters: dict[str, str]
+) -> tuple[dict[str, str], dict[tuple[str, str], str]]:
+    """Map source chapter headings to their anchors in the combined document."""
+    occurrences: defaultdict[str, int] = defaultdict(int)
+    chapter_anchors: dict[str, str] = {}
+    fragment_anchors: dict[tuple[str, str], str] = {}
+
+    for name, source_markdown in source_chapters.items():
+        source_matches = list(HEADING_RE.finditer(source_markdown))
+        rendered_matches = list(HEADING_RE.finditer(rendered_chapters[name]))
+        if len(source_matches) != len(rendered_matches):
+            raise BuildError(f"{name}: heading count changed while rendering")
+
+        source_fragments = {
+            match.start(): fragment
+            for fragment, match in heading_fragments(source_markdown).items()
+        }
+
+        for source_match, rendered_match in zip(source_matches, rendered_matches):
+            base = github_slug(rendered_match.group(2))
+            duplicate_number = occurrences[base]
+            occurrences[base] += 1
+            combined_fragment = (
+                base if duplicate_number == 0 else f"{base}-{duplicate_number}"
+            )
+            source_fragment = source_fragments[source_match.start()]
+            fragment_anchors[(name, source_fragment)] = combined_fragment
+
+            if rendered_match.group(1) == "#" and name not in chapter_anchors:
+                chapter_anchors[name] = combined_fragment
+
+    return chapter_anchors, fragment_anchors
+
+
+def rewrite_links(
+    markdown: str,
+    chapter_names: set[str],
+    chapter_anchors: dict[str, str],
+    fragment_anchors: dict[tuple[str, str], str],
 ) -> str:
-    chapter_id = f"chapter-{Path(name).stem}"
-    fragments = heading_fragments(markdown)
-    missing = sorted(required_fragments - fragments.keys())
-    if missing:
-        raise BuildError(
-            f"{name}: linked heading fragment(s) not found: {', '.join(missing)}"
-        )
-
-    aliases = {
-        match.start(): f'<a id="{chapter_id}--{fragment}"></a>\n'
-        for fragment, match in fragments.items()
-        if fragment in required_fragments
-    }
-
-    pieces: list[str] = [f'<a id="{chapter_id}"></a>\n']
-    position = 0
-    for offset in sorted(aliases):
-        pieces.append(markdown[position:offset])
-        pieces.append(aliases[offset])
-        position = offset
-    pieces.append(markdown[position:])
-    return "".join(pieces)
-
-
-def rewrite_links(markdown: str, chapter_names: set[str]) -> str:
     def replacement(match: re.Match[str]) -> str:
         label, destination = match.groups()
         path, fragment = split_destination(destination)
@@ -138,10 +173,15 @@ def rewrite_links(markdown: str, chapter_names: set[str]) -> str:
         if target_name not in chapter_names:
             raise BuildError(f"link target does not exist: {destination}")
 
-        target = f"#chapter-{Path(target_name).stem}"
         if fragment:
-            target = f"{target}--{fragment}"
-        return f"[{label}]({target})"
+            target = fragment_anchors.get((target_name, fragment))
+            if target is None:
+                raise BuildError(
+                    f"{target_name}: linked heading fragment not found: {fragment}"
+                )
+        else:
+            target = chapter_anchors[target_name]
+        return f"[{label}](#{target})"
 
     return MARKDOWN_LINK_RE.sub(replacement, markdown)
 
@@ -162,14 +202,23 @@ def build(source_directory: Path) -> str:
         raise BuildError(f"no Markdown chapters found in {source_directory}")
 
     chapters = {path.name: path.read_text(encoding="utf-8") for path in chapter_paths}
-    required_fragments = collect_link_targets(chapters)
+    collect_link_targets(chapters)
     chapter_names = set(chapters)
-    rendered_chapters: list[str] = []
+    prepared_chapters: dict[str, str] = {}
 
     for name, markdown in chapters.items():
         markdown = strip_images(markdown, name)
-        markdown = add_explicit_anchors(name, markdown, required_fragments[name])
-        markdown = rewrite_links(markdown, chapter_names)
+        markdown = number_chapter_heading(name, markdown)
+        prepared_chapters[name] = markdown
+
+    chapter_anchors, fragment_anchors = combined_heading_anchors(
+        chapters, prepared_chapters
+    )
+    rendered_chapters: list[str] = []
+    for markdown in prepared_chapters.values():
+        markdown = rewrite_links(
+            markdown, chapter_names, chapter_anchors, fragment_anchors
+        )
         rendered_chapters.append(markdown.strip())
 
     output = GENERATED_HEADER + "\n" + "\n\n".join(rendered_chapters) + "\n"

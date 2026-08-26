@@ -14,9 +14,10 @@ Every six hours, the GitHub Actions workflow:
 
 1. Fetches the `quattro` branch of [`basecamp/omarchy`](https://github.com/basecamp/omarchy).
 2. Concatenates the numbered manual chapters in order.
-3. Rewrites links between chapters as links within the combined document.
-4. Removes image references to keep the result text-only and self-contained.
-5. Updates `omarchy-quattro-manual.md` when the generated content changes.
+3. Prefixes each top-level heading with its chapter number.
+4. Rewrites links between chapters as links within the combined document.
+5. Removes image references to keep the result text-only and self-contained.
+6. Updates `omarchy-quattro-manual.md` when the generated content changes.
 
 The generated file should not be edited directly.
 
