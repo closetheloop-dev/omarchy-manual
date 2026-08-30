@@ -47,6 +47,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes"
           else
-            git commit -m "Update manual ($(date -u +%Y-%m-%d), upstream ${SOURCE_SHORT})"
+            git commit -m "Update manual - $(date -u +%Y-%m-%d) (upstream ${SOURCE_SHORT})"
             git push
           fi
