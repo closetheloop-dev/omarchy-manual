@@ -1224,6 +1224,7 @@ Omarchy treats AI coding agents as first-class citizens, but it doesn't pick a f
 | `omp`      | [Oh My Pi](https://github.com/can1357/oh-my-pi)                  |
 | `ori`      | [Ori](https://openrouter.ai/docs/guides/ori/harness), OpenRouter's harness |
 | `hermes`   | [Hermes](https://hermes-agent.nousresearch.com/), Nous Research's agent  |
+| `cursor-agent` | [Cursor CLI](https://cursor.com/cli)                         |
 
 `ori` is the odd one out: it runs the other harnesses against OpenRouter's whole model catalog, so `ori claude`, `ori codex`, or `ori opencode` start those agents on whichever model you point them at, and `ori code` is Ori's own agent.
 
@@ -2326,6 +2327,8 @@ You can install other popular programming fonts via _Install > Style > Font_ in 
 Every theme ships with its own set of backgrounds, and you can add extras of your own in `~/.config/omarchy/backgrounds/[theme]`. If you want to add an extra background image to, say, the nord theme, you just put the file in `~/.config/omarchy/backgrounds/nord`.
 
 You can do this most easily by going to _Install > Style > Background_ in the Omarchy Menu. That'll bring up the folder where the backgrounds for that theme is stored. Hit `Super + Shift + F` to start another file manager, find your background, copy it over.  Now it'll be included in the choices of backgrounds you can select between using `Super + Ctrl + Space`.
+
+Backgrounds can be videos as well as stills. Drop an `mp4`, `m4v`, `mov`, `webm`, `mkv`, or `avi` file in the same folder and it appears alongside the images, playing on a loop. Only your first monitor's wallpaper plays a video's sound track, through the default audio output at the system volume, and the lock screen stays silent. Playback stops on its own whenever nothing can see it — while a fullscreen window covers that monitor, while the screensaver is up, and once a locked screen has gone dark — but a video wallpaper still costs far more power than a still one, and each monitor decodes its own copy.
 
 You can find a huge collection of cool curated backgrounds on https://github.com/dharmx/walls.
 
