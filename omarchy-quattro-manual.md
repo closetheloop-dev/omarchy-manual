@@ -1238,6 +1238,8 @@ To wrap an additional CLI the same way, run `omarchy-mise-install <package> [com
 
 Pick your default agent with `omarchy default agent <name>` or under _Setup > Defaults > Agent_ in the Omarchy Menu (`Super + Space`). If the agent isn't installed yet, picking it installs it first. A fresh Omarchy will invite you to make this choice with a one-time notification.
 
+Choosing Claude also attempts to set up its browser extension for Chromium, Chrome, Brave, Brave Origin, and Edge. The extension setup applies to all users and may ask for your system password; cancelling or a failed extension install still selects and launches Claude. Restart your browser, enable the extension if prompted, and sign in to Claude to finish connecting it. Run `/chrome` in Claude to check the connection. Firefox and Zen do not support this extension. If Claude was already your default before this setup was added, select it again to install the extension.
+
 [Muse Code](https://dev.meta.ai) — Meta's `muse` — uses a preinstalled mise stub like the other agents. Picking it as the default installs Meta's official launcher through mise's HTTP backend. The launcher verifies and updates the native binary for your machine.
 
 Once you've chosen, `Super + Shift + Ctrl + A` launches the default agent in a dedicated terminal window (or brings up the picker if you haven't chosen yet). You can also launch it straight into a task with `omarchy agent prompt "Review this project"`. Agents launched this way run unattended in their respective don't-stop-to-ask modes, so be ready for them to actually do things! And since agents refuse to remember trust for your home directory, launches from `$HOME` start in `~/Work` instead.
@@ -1373,6 +1375,8 @@ The full manual can be found via `man yt-dlp`.
 ## try
 
 [try](https://github.com/tobi/try) makes it easy to manage programming experiments with date-stamped directories. All experiments live in `~/Work/tries` and you can access them via `try`.
+
+Omarchy does not add a project's `bin/` directory to `PATH` automatically. Run trusted project-local tools with an explicit relative path, such as `bin/rails` or `./bin/dev`.
 
 # Chapter 20: Shell Functions
 
