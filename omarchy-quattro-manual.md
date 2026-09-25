@@ -902,11 +902,11 @@ Everything you can grab off the screen hangs off the Print Screen key. One key o
 
 Hit `Print Screen` and Omasnap captures the focused monitor before its overlay appears, so nothing shifts under you while you aim. Drag a freeform region, click a window to capture it, or click open space to capture the whole monitor. Press `S` before drawing to capture a scrolling region. Changed your mind? Hit `Print Screen` again to dismiss Omasnap.
 
-After you select an area, Omasnap copies the capture to the clipboard and shows a preview for 10 seconds. Use the preview's pin button or `Ctrl + P` to keep it on screen, or choose Edit to annotate it.
+After you select an area, Omasnap saves the capture, copies it to the clipboard, and shows a preview for 10 seconds. Use the preview's pin button or `Ctrl + P` to keep it on screen, or choose Edit to annotate it.
 
 The annotation editor can draw arrows, lines, shapes, highlights, numbered markers, text, and secure redactions; crop or cut out part of the image; OCR its text; and add a backdrop. In the editor, press `Enter` to copy and save the finished PNG, `Ctrl + C` to copy it without saving, or `Ctrl + S` to save it without copying.
 
-Saved screenshots land in `~/Pictures/Screenshots` by default, with a name such as `screenshot-2026-08-13_14-22-05-firefox.png`. Set `OMASNAP_SCREENSHOT_DIR` to use another directory — see [the FAQ](#chapter-46-faq) for where to put session environment variables. Omasnap creates the directory when it saves the first shot.
+Saved screenshots land in `~/Pictures/Screenshots` by default, with a name such as `screenshot-2026-08-13_14-22-05-firefox.png`. Set `OMASNAP_SCREENSHOT_DIR` to use another directory — see [the FAQ](#chapter-46-faq) for where to put session environment variables. Omasnap creates the directory when it saves the first shot. Set `[output] autosave = false` in `~/.config/omasnap/omasnap.conf` to disable automatic saving.
 
 From the terminal, `omarchy screenshot` opens the same overlay, and you can choose its starting mode: `omarchy capture screenshot region`, `windows`, `fullscreen`, or `scroll`. A second argument of `copy` or `save` skips the preview and sends the shot straight to that destination. To edit before output, use `omarchy screenshot --editor=overlay` for a fullscreen editor or `omarchy screenshot --editor=window` for a separate window.
 
@@ -1968,11 +1968,13 @@ Omarchy fires hooks at a handful of moments, and you can hang your own scripts o
 | Event | When it runs |
 | ----- | ------------ |
 | `post-boot` | Right after the desktop has started |
-| `post-update` | During `omarchy update`, after packages and migrations |
-| `pre-refresh-pacman` | Before `omarchy refresh pacman` re-syncs the package config |
+| `post-update` | Near the end of `omarchy update`, after packages, migrations, and service restarts, before mise tools are updated |
+| `pre-refresh-pacman` | After `omarchy refresh pacman` re-syncs the package config, before it updates packages; a channel switch runs it during that same refresh step |
 | `theme-set` | After a theme change (theme name in `$1`) |
 | `font-set` | After a font change (font name in `$1`) |
 | `battery-low` | When the battery gets low (percentage in `$1`) |
+
+The `pre-refresh-pacman` hook is where custom repositories or `IgnorePkg` lines belong, since it runs before the package transaction. Both update-related hooks run as your user after Omarchy clears its cached sudo authorization, so a hook that uses `sudo` needs its own authorization and may ask for your password.
 
 Each of those directories already holds a `.sample` file showing the shape of a hook — drop the `.sample` from the name to put it to work. To install a script you've written elsewhere, use `omarchy hook install post-boot ~/my-hook`, which copies it in and makes it executable.
 
@@ -2755,7 +2757,9 @@ It works by restoring the baseline snapshot the installer takes, so it's only av
 
 ## Passwordless sudo
 
-Sometimes you want `sudo` to stop asking, most often when an AI agent is doing a long stretch of system work for you. _Setup > Security > Passwordless Sudo_ turns that off for 15 minutes and then puts it back automatically. Run it again before the timer runs out to end it early, and pass your own number of minutes with `omarchy-sudo-passwordless 30` if 15 isn't enough. A restart removes the passwordless sudo rule as well.
+Sometimes you want `sudo` to stop asking, most often when an AI agent is doing a long stretch of system work for you. _Setup > Security > Passwordless Sudo_ turns that off for 15 wall-clock minutes and then puts it back automatically, including immediately after resuming from a suspend that crossed the deadline. A package-owned boot-time cleanup rule removes the grant before logins if the computer restarts first. Run the command again before the timer runs out to end it early, and pass your own number of minutes (from 1 to 1440) with `omarchy-sudo-passwordless 30` if 15 isn't enough.
+
+Updating or removing Omarchy's settings package ends any temporary grant before its expiry support changes. If the command reports an authorization or cleanup error, resolve it before trying to enable another grant; an error does not mean passwordless access is inactive.
 
 Be clear-eyed about this one: while it's on, anything running as your user can do anything as root without being asked. That's the whole point, and it's also the whole risk.
 
