@@ -257,7 +257,7 @@ Removing either service takes its widget back off the bar.
 
 ## Indicators
 
-The little cluster in the center is the indicators widget. These are status glyphs for modes you've turned on: do not disturb, night light, a queued [reminder](#chapter-9-reminders), an active screen recording, stay awake, and [dictation](#chapter-11-text-extraction--dictation). They light up when the mode is active and otherwise stay out of the way — hover the center of the bar to peek at the inactive ones. Clicking an indicator toggles that mode.
+The little cluster in the center is the indicators widget. These are status glyphs for modes you've turned on: do not disturb, night light, a queued [reminder](#chapter-9-reminders), an active screen recording, stay awake, and [dictation](#chapter-11-text-extraction--dictation). They light up when the mode is active and otherwise stay out of the way — hover to the left of the clock (above it on a vertical bar) to peek at the inactive ones. Clicking an indicator toggles that mode.
 
 If you'd rather they were always visible, set `alwaysShow` to `true` on the widget. And if you only care about some of them, list the ones you want in `items`: `["Dnd", "Reminder", "NightLight"]`. You can have more than one indicators widget, so different sections can show different subsets.
 
@@ -566,7 +566,6 @@ You can see all the main keyboard bindings with `Super + K` (Tmux bindings with 
 | `Super + Shift + S`           | Google Maps  |
 | `Super + Shift + Alt + G`           | Messenger (WhatsApp)  |
 | `Super + Shift + Ctrl + G`           | Messenger (Google)  |
-| `Super + Shift + D`           | Docker (LazyDocker)  |
 | `Super + Shift + O`           | Obsidian  |
 | `Super + Shift + W`           | Writing (Omawrite)  |
 | `Super + Shift + X`           | X |
@@ -1265,11 +1264,11 @@ Left-click the bar icon for the panel, right-click to launch your default agent.
 
 If you pay for more than one Claude, Codex, or Grok plan — a personal Max and a work one, say — Omarchy can keep them all signed in and move between them. Add a subscription with the + in the agents panel, which walks you through it right there, or with `omarchy agent account add claude Work` (or `codex`, or `grok`). It installs the CLI if it's missing. The first account for a provider signs in through your normal browser, right where the CLI always looks. Every one after that signs in through a private window, so the account your browser is already signed in to doesn't get picked up by mistake; sign in there as the account you're adding, and close any private window you already had open first. Never log out of the CLI to do this: logging out revokes the saved sign-in, and that account would have to be added again.
 
-One account per provider is active, and every new session starts as it: `cx`, `cy`, a plain `claude`, `codex`, or `grok`, and anything launched through `omarchy agent`. Switch with `omarchy agent account use work` (and back with `omarchy agent account use main`), or in the panel by pressing an account's number and then `Enter` (or clicking its Use button). Sessions that are already running stay on the account they started with. Conversation history, settings, skills, and plugins are shared across accounts, so `claude --continue` in the same folder picks up where you left off on the new account.
+One account per provider is active, and every new session starts as it: `cx`, `cy`, a plain `claude`, `codex`, or `grok`, anything launched through `omarchy agent`, and scripts or editors that find the CLI on `PATH`. Switch with `omarchy agent account use work` (and back with `omarchy agent account use main`), or in the panel by pressing an account's number and then `Enter` (or clicking its Use button). Sessions that are already running stay on the account they started with. Conversation history, settings, skills, and plugins are shared across accounts, so `claude --continue` in the same folder picks up where you left off on the new account.
 
 With more than one account, the panel shows each account's limits side by side, with the active one marked. By default Omarchy notifies you when the active account passes 95% of a limit, and clicking the notification switches to the account with the most headroom. Hover an account's line in the panel and click the Autoswitch that appears beside Use (or press `m`), or run `omarchy agent account mode auto`, to have it switch on its own instead; while it's on, Autoswitch takes Use's place, and clicking it again goes back to notifying. Add a number to change the threshold, as in `omarchy agent account mode auto 90`. If every account is over the threshold, you'll hear about it once, along with which account frees up first. While an active account is within 15 points of its threshold (80% at the default), its limits are checked every three minutes rather than every 15.
 
-`omarchy agent account list` shows every account and its latest limits, `omarchy agent account remove work` forgets one, and `omarchy agent account rename primary Hey` renames one (or click an account's name in the panel). These commands work on your default agent's accounts; to reach the other provider, name it first, as in `omarchy agent account use codex side`. The login you already had in `~/.claude` or `~/.codex` is the _Main_ account and stays where it is. An account left unused for more than about eight hours shows its last known limits until a session runs in it again. MCP servers you had when an account was added come along to it, but ones you add later with `claude mcp add` only reach the account you added them in. Claude Desktop and editors that start `claude` themselves don't follow the switch.
+`omarchy agent account list` shows every account and its latest limits, `omarchy agent account remove work` forgets one, and `omarchy agent account rename primary Hey` renames one (or click an account's name in the panel). These commands work on your default agent's accounts; to reach the other provider, name it first, as in `omarchy agent account use codex side`. The login you already had in `~/.claude` or `~/.codex` is the _Main_ account and stays where it is. An account left unused for more than about eight hours shows its last known limits until a session runs in it again. MCP servers you had when an account was added come along to it, but ones you add later with `claude mcp add` only reach the account you added them in. Claude Desktop and tools configured with an absolute path to a CLI binary do not follow the switch. An explicit `CLAUDE_CONFIG_DIR`, `CODEX_HOME`, or `GROK_HOME` takes precedence over the selected account.
 
 ### Crash diagnosis
 
@@ -1321,9 +1320,7 @@ To install, say, Ruby, you'd run `mise use -g ruby`, which will both install Rub
 
 [Docker](https://www.docker.com/) hardly needs any introduction. It allows you to run isolated containers, and Omarchy installs everything needed to run it well, including Docker itself and [Docker Compose](https://docs.docker.com/compose/).
 
-By default your user is *not* in the `docker` group. That group is effectively passwordless root — anything in it can `docker run -v /:/host` and take over the machine — so a single rogue script or dependency running as you would otherwise be one command away from root. So on the command line you run Docker with `sudo` (`sudo docker ps`, `sudo docker compose up`), and the graphical tools that talk to the daemon — the Docker TUI on `Super + Shift + D` and the Windows VM — ask for authorization when they need it. If you want the convenience of a groupless setup back and understand the tradeoff, enable it from **Setup > Security > Sudoless Docker** (or run `omarchy-setup-security-sudoless-docker`), which adds you to the `docker` group after a warning; then plain `docker` and the `d` alias work without `sudo` again.
-
-Remember to checkout the Lazydocker command to manage your containers in a cool TUI using `Super + Shift + D`; it asks for authorization the first time unless you have enabled sudoless Docker.
+By default your user is *not* in the `docker` group. That group is effectively passwordless root — anything in it can `docker run -v /:/host` and take over the machine — so a single rogue script or dependency running as you would otherwise be one command away from root. So on the command line you run Docker with `sudo` (`sudo docker ps`, `sudo docker compose up`), and the graphical tools that talk to the daemon — the Windows VM — ask for authorization when they need it. If you want the convenience of a groupless setup back and understand the tradeoff, enable it from **Setup > Security > Sudoless Docker** (or run `omarchy-setup-security-sudoless-docker`), which adds you to the `docker` group after a warning; then plain `docker` and the `d` alias work without `sudo` again.
 
 You can setup the common databases for local development in Docker using _Install > Development > Docker DB_ in the Omarchy menu.
 
@@ -1456,14 +1453,6 @@ Say you start a dev server on port `3000` on a machine accessible as `nyc-dev`, 
 You can run it directly, by going to any directory managed by git and running `lazygit`. Or you can run it inside Neovim where it can be started with `Space G G`.
 
 You hop between the different panes using `Tab`. In the Files pane, you select files for staging using `Space`, and then you can create a new commit using `c`. You can see all the commands available using `?`.
-
-## Lazydocker
-
-[Lazydocker](https://github.com/jesseduffield/lazydocker) is made in the same spirit like Lazygit, and also gives you a terminal interface for managing your containers and images.
-
-You can start it with `Super + Shift + D`.
-
-You stop a container using `s` or start/restart it using `r`. See all commands using `?`.
 
 ## Btop
 
@@ -1763,6 +1752,22 @@ You start Zoom using the application launcher (`Super + Space`).
 [Discord](https://discord.com/) is where most gaming and open source communities hang out, including [Omarchy's own](https://discord.gg/tXFUdasqhY).
 
 You start Discord using the application launcher (`Super + Space`).
+
+## Microsoft apps
+
+Select _Install > Service > Microsoft_ to add Outlook, Office, Teams, and OneDrive as web apps. These use the commercial Microsoft 365 URLs and your existing browser profile. They open in the same browser app windows as Omarchy's other web apps; they do not install the separate Teams for Linux client.
+
+Remove the bundle with _Remove > Service > Microsoft_, or remove individual apps with _Remove > Web App_. You can also install just the apps you want through _Install > Web App_.
+
+For a government or sovereign cloud, edit the URL on the `Exec=` line in the relevant launcher under `~/.local/share/applications/`, such as `Microsoft Teams.desktop`, using the URL supplied by your organization. Write any literal `%` in that line as `%%`. Changes apply on the next launch. Running the bundle installer again replaces its launchers with the default URLs.
+
+To keep work sign-ins separate, append a browser data directory to each launcher's `Exec=` line:
+
+```ini
+Exec=omarchy-launch-webapp "https://teams.cloud.microsoft/" --user-data-dir=/absolute/path/to/work-browser-profile
+```
+
+Replace the example directory with an absolute path of your choice and use the same path for all four launchers to share work sign-ins between them. The web apps use Omarchy's selected supported browser, falling back to Chromium when the default browser is unsupported.
 
 # Chapter 26: Gaming
 
