@@ -1256,7 +1256,7 @@ There are terminal shortcuts too: `a` runs the default agent inline in the curre
 
 ### The agents panel
 
-The top bar has an agents icon. Before you've set up an agent, its panel walks you through signing in to Claude, Codex, or Grok, and the first one becomes your default agent. After that, the panel puts every subscription on one page: each agent and account with its plan and the percentage used of its 5-hour session and weekly limits (or the remaining prepaid balance), under a line that rotates through what you've used across all of them, like tokens this week and your most used model. Under _Make something_ it offers starter prompts for a new theme, plugin, or app that hand the task to your default agent. Apps are built the way Omarchy's own Hype, Monologue, and Omacut are, in C++ and Qt Quick, following the omarchy-app agent skill, and the compiler and Qt pieces they need come installed. Claude Code, Codex, Grok, and Fireworks are covered out of the box.
+The top bar has an agents icon. Before you've set up an agent, its panel walks you through signing in to Claude, Codex, or Grok, and the first one becomes your default agent. After that, the panel puts every subscription on one page: each agent and account with its plan, a meter for each of its 5-hour session and weekly limits with the time until it resets (hover for the exact percentage), or the remaining prepaid balance, under a line that rotates through what you've used across all of them, like tokens this week and your most used model. Under _Make something_ it offers starter prompts for a new theme, plugin, or app that hand the task to your default agent. Apps are built the way Omarchy's own Hype, Monologue, and Omacut are, in C++ and Qt Quick, following the omarchy-app agent skill, and the compiler and Qt pieces they need come installed. Claude Code, Codex, Grok, and Fireworks are covered out of the box.
 
 Left-click the bar icon for the panel, right-click to launch your default agent. The usage records behind it are regenerated every 15 minutes by `omarchy agent usage-update`, and the panel can even merge usage from your other machines via a synced folder. See the README under `$OMARCHY_PATH/shell/plugins/agents/` for the full settings.
 
@@ -1268,7 +1268,7 @@ One account per provider is active, and every new session starts as it: `cx`, `c
 
 With more than one account, the panel shows each account's limits side by side, with the active one marked. By default Omarchy notifies you when the active account passes 95% of a limit, and clicking the notification switches to the account with the most headroom. Hover an account's line in the panel and click the Autoswitch that appears beside Use (or press `m`), or run `omarchy agent account mode auto`, to have it switch on its own instead; while it's on, Autoswitch takes Use's place, and clicking it again goes back to notifying. Add a number to change the threshold, as in `omarchy agent account mode auto 90`. If every account is over the threshold, you'll hear about it once, along with which account frees up first. While an active account is within 15 points of its threshold (80% at the default), its limits are checked every three minutes rather than every 15.
 
-`omarchy agent account list` shows every account and its latest limits, `omarchy agent account remove work` forgets one, and `omarchy agent account rename primary Hey` renames one (or click an account's name in the panel). These commands work on your default agent's accounts; to reach the other provider, name it first, as in `omarchy agent account use codex side`. The login you already had in `~/.claude` or `~/.codex` is the _Main_ account and stays where it is. An account left unused for more than about eight hours shows its last known limits until a session runs in it again. MCP servers you had when an account was added come along to it, but ones you add later with `claude mcp add` only reach the account you added them in. Claude Desktop and tools configured with an absolute path to a CLI binary do not follow the switch. An explicit `CLAUDE_CONFIG_DIR`, `CODEX_HOME`, or `GROK_HOME` takes precedence over the selected account.
+`omarchy agent account list` shows every account and its latest limits, `omarchy agent account remove work` forgets one, and `omarchy agent account rename primary Hey` renames one (or click an account's name in the panel). These commands work on your default agent's accounts; to reach the other provider, name it first, as in `omarchy agent account use codex side`. The login you already had in `~/.claude` or `~/.codex` is the _Main_ account and stays where it is. An account left unused for more than about eight hours can show _Sign-in required_; click it to sign that account in again right in the panel, or start a session in it, which refreshes the sign-in on its own. MCP servers you had when an account was added come along to it, but ones you add later with `claude mcp add` only reach the account you added them in. Claude Desktop and tools configured with an absolute path to a CLI binary do not follow the switch. An explicit `CLAUDE_CONFIG_DIR`, `CODEX_HOME`, or `GROK_HOME` takes precedence over the selected account.
 
 ### Crash diagnosis
 
@@ -1472,10 +1472,6 @@ You start it (or reattach to your existing session) with `Super + Ctrl + Return`
 
 Omarchy has packaged this as _About_ in the Omarchy menu (`Super + Space`).
 
-## Disk Usage
-
-When the drive fills up and you have no idea what's eating it, launch _Disk Usage_ from the app launcher (`Super + Space`). It's [dua](https://github.com/Byron/dua-cli) in interactive mode pointed at the whole file system, so you can walk down into whatever directory is the culprit, sorted biggest first, and delete from right inside it.
-
 ## Cliamp
 
 [Cliamp](https://www.cliamp.stream/) is a retro terminal music player inspired by Winamp 2.x, complete with built-in radio stations for lo-fi beats. Launch it with `Super + Shift + Alt + M`, or from the Omarchy menu under _Apps_. Press `?` for the full keybinding list.
@@ -1497,6 +1493,10 @@ Files (Nautilus) is the graphical file manager. `Super + Shift + F` opens it, an
 Plug in a USB stick or an SD card and it's mounted automatically, so it just shows up in the sidebar. For anything more involved — formatting a drive, checking SMART health, creating partitions — launch _Disks_ from the app launcher (`Super + Space`).
 
 Double-clicking follows sensible defaults: images open in imv, video in mpv, PDFs in Document Viewer, and plain text in Neovim.
+
+## Disktree
+
+When the drive fills up and you have no idea what's eating it, launch [Disktree](https://github.com/tobi/disktree) from the app launcher (`Super + Space`). It shows a graphical treemap of your home directory. Larger blocks take up more space; walk into directories with the keyboard or mouse, mark what should go, and review your selections before removing anything. Run `disktree --disk` to scan the whole disk.
 
 ## Obsidian
 
@@ -1658,6 +1658,10 @@ You start 1Password with `Super + Shift + /`. If it isn't installed yet, that ho
 [Spotify](https://spotify.com/) is the world's most popular streaming music service. And the Linux application provides everything you'd expect, including offline playing.
 
 You start Spotify using `Super + Shift + M`. Like 1Password, the hotkey kicks off the installation first if Spotify isn't installed yet (or use _Install > Service > Spotify_ from the Omarchy menu).
+
+## Slack
+
+[Slack](https://slack.com/) is where a lot of teams do their chatting, both inside the company and with outside collaborators. Install it with _Install > Service > Slack_ from the Omarchy menu, and it'll open as soon as it's ready.
 
 ## Dropbox
 
@@ -2791,7 +2795,9 @@ It works by restoring the baseline snapshot the installer takes, so it's only av
 
 ## Passwordless sudo
 
-Sometimes you want `sudo` to stop asking, most often when an AI agent is doing a long stretch of system work for you. _Setup > Security > Passwordless Sudo_ turns that off for 15 wall-clock minutes and then puts it back automatically, including immediately after resuming from a suspend that crossed the deadline. A package-owned boot-time cleanup rule removes the grant before logins if the computer restarts first. Run the command again before the timer runs out to end it early, and pass your own number of minutes (from 1 to 1440) with `omarchy-sudo-passwordless 30` if 15 isn't enough.
+Sometimes you want `sudo` to stop asking, most often when an AI agent is doing a long stretch of system work for you. _Setup > Security > Passwordless Sudo_ asks how long to allow access: **15 minutes**, **1 Hour**, **1 Day**, or **Permanently**. A red warning icon appears beside the other menu bar indicators while access is active. Click it or run the command again to turn access off. You can also pass your own number of minutes (from 1 to 1440) with `omarchy-sudo-passwordless 30`, or use `omarchy-sudo-passwordless permanent`.
+
+Timed access expires automatically, including immediately after resuming from a suspend that crossed the deadline. Restarting the computer ends it early. Permanent access survives reboots and stays enabled until you disable it.
 
 Updating or removing Omarchy's settings package ends any temporary grant before its expiry support changes. If the command reports an authorization or cleanup error, resolve it before trying to enable another grant; an error does not mean passwordless access is inactive.
 
