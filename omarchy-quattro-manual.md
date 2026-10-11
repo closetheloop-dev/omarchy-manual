@@ -144,9 +144,11 @@ Omarchy's default layout is called dwindle. It keeps all the windows you open on
 
 But you can also choose to turn a workspace into the scrolling layout where windows are lined up side-by-side, beyond the visible edge of the display. You turn a single workspace into this layout via `Super + L`.
 
+Pressing `Super + L` again turns the workspace floating, where windows overlap freely and you place them yourself, and a third press returns it to dwindle. `Super + Alt + L` goes through them the other way. A window that floats anyway — one you popped out with `Super + T`, or an app that always opens floating — keeps floating when the workspace goes back to tiling. The top bar marks the workspace you're on with its layout: a square for dwindle, a circle for scrolling, and a triangle for floating. Clicking that mark cycles the layout too.
 
 
-The choice is per workspace, and it sticks. So you can keep workspace 1 on dwindle for browsing and workspace 2 on scrolling for code, and they'll come back that way after a restart. (The same toggle is under _Trigger > Toggle > Workspace Layout_ in the Omarchy menu).
+
+The choice is per workspace, and it sticks. So you can keep workspace 1 on dwindle for browsing and workspace 2 on scrolling for code, and they'll come back that way after a restart.
 
 If you wish to use the scrolling layout as the default, you can set that in `~/.config/hypr/looknfeel.lua`:
 
@@ -157,6 +159,12 @@ hl.config({
   },
 })
 ```
+
+### Floating workspaces
+
+A floating workspace works like a traditional desktop: windows overlap, and you move and size them yourself. Each window gets a titlebar in your theme's colors, with buttons to maximize and close. Click a window to bring it forward. Resize it from any edge or corner. Double-click a titlebar to maximize the window while keeping the top bar in view, and again to get its old size back.
+
+New workspaces, and any you haven't given a layout of their own with `Super + L`, use the default layout. Pick it under _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling, or Floating. `omarchy-hyprland-workspace-layout-default scrolling` sets it from a terminal.
 
 ### Grouping windows
 
@@ -265,15 +273,15 @@ If you'd rather they were always visible, set `alwaysShow` to `true` on the widg
 
 The bar configures itself. You don't have to open a config file to move things.
 
-Grab an empty patch of the bar around the center and drag it toward another screen edge, and the bar moves there — left, right, top, or bottom all work, and every widget adapts (vertical bars fall back to compact icon-only forms). A click-and-hold starts the same drag. Double-left-click that same empty space to toggle transparency. And drag any widget to reorder it or throw it into another section.
+Grab an empty patch of the bar around the center and drag it toward another screen edge, and the bar moves there — left, right, top, or bottom all work, and every widget adapts (vertical bars fall back to compact icon-only forms). A click-and-hold starts the same drag. Double-left-click that same empty space to cycle the bar background from clear to glassy to opaque. And drag any widget to reorder it or throw it into another section.
 
-If you'd rather pick from a menu, **Style → Menu Bar** has both position and transparency.
+If you'd rather pick from a menu, **Trigger → Appearance → Menu Bar** has the position, and **Bar Background** picks how the bar is drawn: **Opaque Bar**, **Glassy Bar** (see-through, with what's behind it blurred), or **Clear Bar**.
 
 The same things have commands, which is what you want for a [dotfiles](#chapter-31-dotfiles) setup:
 
 ```bash
 omarchy bar position bottom
-omarchy bar transparent toggle
+omarchy bar background glassy  # opaque, glassy, none, or cycle
 omarchy bar move omarchy.clock --section center --index 0
 omarchy bar set omarchy.clock format "HH:mm"
 omarchy bar defaults          # back to the shipped layout
@@ -288,7 +296,7 @@ omarchy plugin disable omarchy.weather
 
 ## Hiding the bar
 
-`Super + Shift + Space` toggles the bar off and back on without killing the shell — panels and hotkeys keep working, you just get the pixels back. It's also in the menu under **Trigger → Toggle → Menu Bar**.
+`Super + Shift + Space` toggles the bar off and back on without killing the shell — panels and hotkeys keep working, you just get the pixels back. It's also in the menu under **Trigger → Appearance → Menu Bar → Hide Bar**.
 
 ## The config file
 
@@ -299,7 +307,7 @@ All of it is stored in `~/.config/omarchy/shell.json`, under the `bar` key. Here
   "version": 1,
   "bar": {
     "position": "top",
-    "transparent": false,
+    "background": "opaque",
     "centerAnchor": "omarchy.clock",
     "layout": {
       "left": [{ "id": "omarchy.menu" }, { "id": "omarchy.workspaces" }],
@@ -463,7 +471,8 @@ You can see all the main keyboard bindings with `Super + K` (Tmux bindings with 
 | `Super + T`               | Toggle window between tiling/floating             |
 | `Super + J` | Toggle window position (horizontal/vertical) |
 | `Super + O`               | Toggle popping window into sticky'n'floating |
-| `Super + L`               | Toggle between dwindle and scrolling layout |
+| `Super + L`               | Cycle through the dwindle, scrolling, and floating layouts |
+| `Super + Alt + L`         | Cycle through the layouts in reverse |
 | `Super + P`               | Toggle pseudo window style (natural v stretch) |
 | `Super + F`                 | Go full screen              |
 | `Super + Alt + F`                 | Go full width              |
@@ -983,7 +992,7 @@ A lot of what you change day to day isn't really a setting. It's a mode you flip
 
 ### The toggle menu
 
-`Super + Ctrl + O` opens _Trigger > Toggle_ directly, or you can walk there from the Omarchy menu (`Super + Space`). Everything in that list is a switch you can flip without thinking about where the state lives.
+`Super + Ctrl + O` opens _Trigger > Toggle_ directly, or you can walk there from the Omarchy menu (`Super + Space`). Everything in that list is a switch you can flip without thinking about where the state lives. Switches for how the desktop looks sit next to it, under _Trigger > Appearance_.
 
 From the terminal, the same switches are `omarchy toggle <thing>`. Run `omarchy toggle` on its own to see the whole group.
 
@@ -1003,7 +1012,7 @@ From the terminal, the same switches are `omarchy toggle <thing>`. Run `omarchy 
 
 The touchpad, touchscreen, and hybrid GPU switches live under _Trigger > Hardware_ (`Super + Ctrl + H`) rather than under Toggle, since they only show up when you actually have that hardware. The touchpad and touchscreen ones survive a Hyprland reload — the disabled device's name is saved to a small state file that Hyprland reads on startup to disable it again.
 
-The Toggle menu also carries a few things that aren't `omarchy toggle` commands but behave the same: battery percentage in the bar, workspace layout (`Super + L`), window gaps (`Super + Shift + Backspace`), and the 1-window square aspect (`Super + Ctrl + Backspace`).
+_Trigger > Appearance_ holds the menu bar and animations, plus a few things that aren't `omarchy toggle` commands but behave the same: battery percentage in the bar, the default workspace layout, window gaps (`Super + Shift + Backspace`), and the 1-window square aspect (`Super + Ctrl + Backspace`).
 
 Most of these are just a flag file under `~/.local/state/omarchy/toggles/`. If you want to branch on one in a script, `omarchy-toggle-enabled` gives you an exit code instead of making you go looking:
 
@@ -1563,6 +1572,12 @@ You start LibreOffice via the application launcher (`Super + Space`).
 
 You start Hype via the application launcher (`Super + Space`). Press `?` inside it to see every shortcut.
 
+## Signed
+
+[Signed](https://github.com/omacom/signed) is Omarchy's own dead-simple way to sign PDFs and fill them in. Put your saved signature, text, and today's date anywhere on a page, then save a signed copy beside the original. See [Filling out PDFs](#chapter-27-filling-out-pdfs) for how.
+
+You start Signed via the application launcher (`Super + Space`), or open a PDF with it from the file manager.
+
 ## Omacalc
 
 [Omacalc](https://github.com/omacom-io/omacalc) is Omarchy's own dead-simple calculator, which opens in a floating window.
@@ -1859,11 +1874,13 @@ Like Lutris, it can feel slow and janky while installing games. Give it time.
 
 Omarchy ships with a nice, basic PDF viewer called Document Viewer. This is the program that'll open any PDFs you just double click on.
 
-But you can only use Document Viewer to fill out PDFs that have been setup as forms. If you need to fill out PDFs that haven't, or you need to sign a PDF, you'll have to right-click the file, select _Open With..._, and pick Xournal++.
+But you can only use Document Viewer to fill out PDFs that have been setup as forms. If you need to fill out PDFs that haven't, or you need to sign a PDF, use [Signed](https://github.com/omacom/signed). Start it via the application launcher (`Super + Space`), or right-click the file, select _Open With..._, and pick Signed.
 
-Xournal++ will let you write anywhere on a PDF using the T tool. If you need to sign a document, you'll need an image of your signature, and you can use the Image tool to insert this signature and resize it.
+Press `T` to type text and `D` to put down today's date. Both land where your mouse pointer is. Drag anything to move it, drag its corner to make it bigger or smaller, and double-click text to change it.
 
-When you're done filling out the PDF, use _File > Export as PDF_ to save the final version.
+To sign, you'll need a picture of your signature: a scan, or a well-lit photo of it on white paper. Open the _Signature_ menu (`Shift + S`), choose _Add signature..._, pick the picture, and give it a name. Signed removes the paper and keeps the ink. From then on, `S` puts your signature under the mouse pointer.
+
+When you're done, use _Save signed copy..._ (`Ctrl + S`) to save the filled-out PDF beside the original, which is never changed. Press `?` inside Signed to see every shortcut.
 
 # Chapter 28: Windows VM
 
@@ -2269,7 +2286,7 @@ On Dell XPS laptops with a haptic touchpad, you can also set the click strength 
 
 Select Japanese, Korean, Chinese (Simplified, Pinyin), or Chinese (Traditional, Zhuyin) when the installer asks for your keyboard. Omarchy configures the keyboard and matching input engine automatically, including during offline first-boot setup. Japanese uses Mozc, Korean uses standard two-set Hangul, Simplified Chinese uses Pinyin, and Traditional Chinese uses Chewing's standard Zhuyin arrangement. Japanese (US keyboard) provides Mozc with a US keyboard layout.
 
-Typing starts in Latin mode. Press `Super + I` to cycle through configured input methods, and `Super + Shift + I` to cycle back. On Japanese keyboards, 全角/半角 toggles input, 変換 turns it on, and 無変換 turns it off. On a Korean keyboard layout, dedicated 한/영 and 한자 keys switch Hangul and convert to Hanja. `Ctrl + Space` stays available for Tmux and Herdr; `Shift + CapsLock` stays the compose key.
+Typing starts in Latin mode. Press `Super + I` to cycle through configured input methods, and `Super + Shift + I` to cycle back. Tap `Shift` on its own to step out of an input method like Pinyin into Latin letters, and tap it again to go back, the way Sogou, Microsoft Pinyin, and macOS work; `Shift` plus a letter still types a capital. On Japanese keyboards, 全角/半角 toggles input, 変換 turns it on, and 無変換 turns it off. On a Korean keyboard layout, dedicated 한/영 and 한자 keys switch Hangul and convert to Hanja. `Ctrl + Space` stays available for Tmux and Herdr; `Shift + CapsLock` stays the compose key.
 
 The keyboard indicator appears on the right of the bar when you have multiple keyboard layouts or input methods. Click it to switch input languages; Japanese displays あ for hiragana. For Japanese character choices, switch to Japanese, type a word such as `nihongo`, then press Space twice. Press Enter to accept your choice. If you also have multiple keyboard layouts, right-click the indicator to cycle those.
 
@@ -2395,7 +2412,7 @@ Backgrounds can be videos as well as stills. Drop an `mp4`, `m4v`, `mov`, `webm`
 
 Themes can include a short intro for a still background. For `backgrounds/road.webp`, the matching video lives at `backgrounds/intros/road.mp4`. It plays automatically at boot and when switching to a theme with that background selected, then returns to the still. Intro videos stay out of the background picker and never loop.
 
-Turning off _Toggle > Animations_ also turns off background intros. Omarchy does this by default in a virtual machine. The `omarchy theme bg intro toggle` command can toggle intros separately. Refreshing a theme or choosing another background within the same theme does not play an intro.
+Turning off _Trigger > Appearance > Animations_ also turns off background intros. Omarchy does this by default in a virtual machine. The `omarchy theme bg intro toggle` command can toggle intros separately. Refreshing a theme or choosing another background within the same theme does not play an intro.
 
 You can find a huge collection of cool curated backgrounds on https://github.com/dharmx/walls.
 
