@@ -1,6 +1,6 @@
 # Chapter 1: Welcome to Omarchy!
 
-Omarchy is an [omakase](https://manuals.omamix.org/3/omacom/76/omakase-computing) Linux distribution based on [Arch](https://archlinux.org/), the tiling window manager [Hyprland](https://hypr.land/), and the desktop construction-kit [Quickshell](https://quickshell.org/). It ships with everything a modern, savvy computer user needs to be productive immediately. From [Neovim](https://neovim.io/) (btw) to Chromium, [Obsidian](https://obsidian.md/) to LibreOffice, and Kdenlive to OBS Studio. Hell, even a retro Winamp-style music player is there!
+Omarchy is an [omakase](https://manuals.omamix.org/3/omacom/76/omakase-computing) Linux distribution based on [Arch](https://archlinux.org/), the tiling window manager [Hyprland](https://hypr.land/), and the desktop construction-kit [Quickshell](https://quickshell.org/). It ships with everything a modern, savvy computer user needs to be productive immediately. From [Neovim](https://neovim.io/) (btw) to Chromium, [Obsidian](https://obsidian.md/) to LibreOffice, and [Hype](https://github.com/omacom/hype) to [Monologue](https://github.com/omacom/monologue). Hell, even a retro Winamp-style music player is there!
 
 This isn't just a grab bag of preinstalled packages, though. It's a complete system designed with both aesthetics and productivity in mind. Because a _beautiful_ system is a _motivating_ system, and productivity has always been [downstream from motivation](https://world.hey.com/dhh/beautiful-motivations-6fef7c73). There's zero bloat here: Just everything I use.
 
@@ -190,7 +190,7 @@ It's also the one piece of the desktop that's always on screen, so it's worth kn
 
 ## What's on it by default
 
-The bar has three sections. On the left sits the Omarchy logo (the menu launcher) and the workspace indicators. In the center you get the status indicators, the clock, the keyboard layout, the weather, and an Omarchy update badge. On the right: the system tray, agents, bluetooth, network, audio, display, and power.
+The bar has three sections. On the left sits the Omarchy logo (the menu launcher) and the workspace indicators. In the center you get the status indicators, the clock, Elsewhen (a world clock), the weather, and an Omarchy update badge. On the right: the keyboard layout (when more than one is configured), the system tray, agents, bluetooth, network, audio, display, and power.
 
 A few of those only show up when they have something to say. The keyboard layout appears only if you've configured more than one layout. The update badge appears only when there's an Omarchy update waiting. And the agents icon appears the first time Omarchy finds AI coding usage on the machine (see [AI](#chapter-17-ai)).
 
@@ -787,37 +787,37 @@ You can use `Super + Ctrl + E` to show a complete emoji picker that'll put the s
 
 | Hotkey       | EM | Clue       |
 | ------------ | -- | ---------- |
-| `CapsLock M S` | 😄 | smile      |
-| `CapsLock M C` | 😂 | cry        |
-| `CapsLock M L` | 😍 | love       |
-| `CapsLock M V` | ✌️ | victory    |
-| `CapsLock M H` | ❤️ | heart      |
-| `CapsLock M Y` | 👍 | yes        |
-| `CapsLock M N` | 👎 | no         |
-| `CapsLock M F` | 🖕 | fuck       |
-| `CapsLock M W` | 🤞 | wish       |
-| `CapsLock M R` | 🤘 | rock       |
-| `CapsLock M K` | 😘 | kiss       |
-| `CapsLock M E` | 🙄 | eyeroll    |
-| `CapsLock M I` | 😉 | wink       |
-| `CapsLock M P` | 🙏 | pray |
-| `CapsLock M D` | 🤤 | drool      |
-| `CapsLock M M` | 💰 | money      |
-| `CapsLock M X` | 🎉 | xellebrate |
-| `CapsLock M 1` | 💯 | 100%       |
-| `CapsLock M T` | 🥂 | toast      |
-| `CapsLock M O` |👌 | ok |
-| `CapsLock M G` |👋 | greeting |
-| `CapsLock M A` |💪 | arm |
-| `CapsLock M B` |🤯 | blowing |
+| `Shift + CapsLock M S` | 😄 | smile      |
+| `Shift + CapsLock M C` | 😂 | cry        |
+| `Shift + CapsLock M L` | 😍 | love       |
+| `Shift + CapsLock M V` | ✌️ | victory    |
+| `Shift + CapsLock M H` | ❤️ | heart      |
+| `Shift + CapsLock M Y` | 👍 | yes        |
+| `Shift + CapsLock M N` | 👎 | no         |
+| `Shift + CapsLock M F` | 🖕 | fuck       |
+| `Shift + CapsLock M W` | 🤞 | wish       |
+| `Shift + CapsLock M R` | 🤘 | rock       |
+| `Shift + CapsLock M K` | 😘 | kiss       |
+| `Shift + CapsLock M E` | 🙄 | eyeroll    |
+| `Shift + CapsLock M I` | 😉 | wink       |
+| `Shift + CapsLock M P` | 🙏 | pray |
+| `Shift + CapsLock M D` | 🤤 | drool      |
+| `Shift + CapsLock M M` | 💰 | money      |
+| `Shift + CapsLock M X` | 🎉 | xellebrate |
+| `Shift + CapsLock M 1` | 💯 | 100%       |
+| `Shift + CapsLock M T` | 🥂 | toast      |
+| `Shift + CapsLock M O` |👌 | ok |
+| `Shift + CapsLock M G` |👋 | greeting |
+| `Shift + CapsLock M A` |💪 | arm |
+| `Shift + CapsLock M B` |🤯 | blowing |
 
 ## Quick Completions
 
 | Hotkey       | Completion       |
 | ------------ |  ---------- |
-| `CapsLock Space Space` | — (mdash)   |
-| `CapsLock Space N` | Your name (as entered on setup)  |
-| `CapsLock Space E` | Your email (as entered on setup)  |
+| `Shift + CapsLock Space Space` | — (mdash)   |
+| `Shift + CapsLock Space N` | Your name (as entered on setup)  |
+| `Shift + CapsLock Space E` | Your email (as entered on setup)  |
 
 You can add more of your own by editing `~/.XCompose`, then running `omarchy-restart-xcompose` in the terminal to get the changes picked up.
 
@@ -1581,18 +1581,6 @@ You start Signal with `Super + Shift + G`. It's not part of the base install, so
 
 You start mpv via the application launcher (`Super + Space`) or just double-click on a video in the file manager.
 
-## OBS Studio
-
-[OBS Studio](https://obsproject.com/) lets you record or stream video from multiple inputs. You can mix a screencast with a webcam with a microphone input. It's what was used to record the Omarchy screencasts.
-
-You start OBS Studio via the application launcher (`Super + Space`).
-
-## Kdenlive
-
-[Kdenlive](https://kdenlive.org/) is an excellent video editor. Perfect for working on video that comes out of OBS Studio before sharing it.
-
-You start Kdenlive via the application launcher (`Super + Space`).
-
 ## Omacut
 
 [Omacut](https://github.com/omacom-io/omacut) is Omarchy's own dead-simple video trimmer. When all you need is to cut the start and end off a clip, it beats firing up a full video editor.
@@ -2160,7 +2148,7 @@ For plugin development, see the [shell reference](https://github.com/omacom/omar
 
 Once you've made something you like, put it in a public git repo. That's the whole distribution mechanism — anyone can then run `omarchy plugin add` against your URL and have it running in seconds.
 
-To help people actually find it, list it at [omarchyplugins.com](https://omarchyplugins.com). That's the community directory of Omarchy shell plugins, and it's the first place to look when you're wondering whether someone has already built the widget you're about to write. Browse it before you start!
+To help people actually find it, list it at [plugins.omarchy.org](https://plugins.omarchy.org). That's the marketplace for Omarchy shell plugins, and it's the first place to look when you're wondering whether someone has already built the widget you're about to write. Browse it before you start!
 
 # Chapter 33: Monitors
 
@@ -2229,7 +2217,7 @@ hl.config({
   input = {
     -- Use multiple keyboard layouts and switch between them with Left Alt + Right Alt
     kb_layout = "us,dk",
-    kb_options = "compose:caps,shift:both_capslock_cancel,grp:alts_toggle",
+    kb_options = "omarchy:shift_caps_compose,grp:alts_toggle",
 
     -- Change speed of keyboard repeat
     repeat_rate = 40,
@@ -2257,7 +2245,7 @@ o.window("(Alacritty|kitty|foot)", { scroll_touchpad = 1.5 })
 
 You can [see all the input options](https://wiki.hypr.land/Configuring/Basics/Variables/#input) on the Hyprland wiki for inputs.
 
-By default, Omarchy uses CapsLock as the compose key for [quick emojis](#quick-emojis) and [other completions](#quick-completions). If you'd rather use CapsLock as Caps Lock, move the compose key elsewhere by changing `compose:caps` in `kb_options`. For example, this moves the compose key to Right Alt:
+CapsLock works as a normal Caps Lock, and `Shift + CapsLock` is the compose key for [quick emojis](#quick-emojis) and [other completions](#quick-completions). If you'd rather have the compose key elsewhere, replace `omarchy:shift_caps_compose` in `kb_options`. For example, this moves the compose key to Right Alt:
 
 ```lua
 hl.config({
@@ -2279,7 +2267,17 @@ On Dell XPS laptops with a haptic touchpad, you can also set the click strength 
 
 ### Typing in Chinese, Japanese, and other languages
 
-Omarchy runs the [fcitx5](https://fcitx-im.org/) input method framework as part of every session — it's what powers the CapsLock compose sequences. That means the plumbing for non-Latin input is already in place: install an input engine like `fcitx5-mozc` (Japanese) or `fcitx5-chinese-addons` (Chinese) with `omarchy pkg add`, plus `fcitx5-configtool` to add the engine to your input methods and set the key that switches between them.
+Select Japanese, Korean, Chinese (Simplified, Pinyin), or Chinese (Traditional, Zhuyin) when the installer asks for your keyboard. Omarchy configures the keyboard and matching input engine automatically, including during offline first-boot setup. Japanese uses Mozc, Korean uses standard two-set Hangul, Simplified Chinese uses Pinyin, and Traditional Chinese uses Chewing's standard Zhuyin arrangement. Japanese (US keyboard) provides Mozc with a US keyboard layout.
+
+Typing starts in Latin mode. Press `Super + I` to cycle through configured input methods, and `Super + Shift + I` to cycle back. On Japanese keyboards, 全角/半角 toggles input, 変換 turns it on, and 無変換 turns it off. On a Korean keyboard layout, dedicated 한/영 and 한자 keys switch Hangul and convert to Hanja. `Ctrl + Space` stays available for Tmux and Herdr; `Shift + CapsLock` stays the compose key.
+
+The keyboard indicator appears on the right of the bar when you have multiple keyboard layouts or input methods. Click it to switch input languages; Japanese displays あ for hiragana. For Japanese character choices, switch to Japanese, type a word such as `nihongo`, then press Space twice. Press Enter to accept your choice. If you also have multiple keyboard layouts, right-click the indicator to cycle those.
+
+Use _Setup > Typing > Keyboard Layouts_ to select layouts such as English and French, from the same choices offered during installation. Use _Setup > Typing > Input Methods_ to select which composition engines are active. Both pickers open inside the Omarchy menu with your current selections checked. Click or press Enter to toggle a choice; each change applies immediately. Deselecting an input method removes it from the cycle without uninstalling it; the keyboard remains available.
+
+Run `omarchy setup keyboard` or `omarchy setup input` to open the same pickers. To append one language from the command line, use `omarchy setup input mozc`, `hangul`, `pinyin`, or `chewing`. Your custom switching keys are preserved. For alternative engine layouts or keys, install `fcitx5-configtool` with `omarchy pkg add fcitx5-configtool` and launch it from a terminal. Selecting an input language does not change the desktop language.
+
+Use `Super + I` to cycle through input methods or keyboard layouts, and `Super + Shift + I` to go back the other way, so with three configured you can move between two neighbours. The input indicator appears on the right of the bar only when more than one input method or layout is configured. This desktop binding works alongside your existing Fcitx switching keys; you can override it in `~/.config/hypr/bindings.lua`. Input engines and the compose sequences use the [Fcitx5](https://fcitx-im.org/) service already running in every session.
 
 ### Use ALT as SUPER
 
@@ -2288,7 +2286,7 @@ On some keyboards, it's not convenient to use the primary meta key (Windows/cmd 
 ```lua
 hl.config({
   input = {
-    kb_options = "compose:caps,shift:both_capslock_cancel,altwin:swap_alt_win",
+    kb_options = "omarchy:shift_caps_compose,altwin:swap_alt_win",
   },
 })
 ```
@@ -2618,6 +2616,7 @@ The Apple T2 Security Chip was introduced in 2017. The T2 chip was discontinued 
 - MacBook Pro 13-inch (2019, two Thunderbolt 3 ports) – Model: A2159
 - MacBook Pro 13-inch (2019, four Thunderbolt 3 ports) – Model: A2178
 - MacBook Pro 15-inch (2019) – Model: A1990
+- iMac (Retina 5K, 27-inch, 2020) – Model: A2115 (iMac20,1 and iMac20,2)
 - MacBook Pro 13-inch (2020, two Thunderbolt 3 ports) – Model: A2265
 - MacBook Pro 15-inch (2020) – Model: A1990
 
@@ -2634,18 +2633,6 @@ First try to [rollback your system](#chapter-47-system-snapshots) the version be
 Omarchy assumes a 2x high-resolution display, which requires setting `GDK_SCALE` to 2 in `~/.config/hypr/monitors.lua`. But if you're on a 1x display, you can change `local omarchy_gdk_scale = 2` to 1 (and then restart any app that's oversized). See [the manual on monitors](#chapter-33-monitors).
 
 For Spotify, you can use `Ctrl + Minus` to shrink the UI (and `Ctrl + Plus` to make it bigger).
-
-### Why isn't Caps Lock working?
-
-In Omarchy, Caps Lock has been designated to be the xcompose key. That's how you get [quick emojis](#quick-emojis) and [other autocompletions](#quick-completions) done. If you really miss using Caps Lock, you can remap the xcompose key to something else by editing `~/.config/hypr/input.lua`, like setting it to the right alt key:
-
-```
-hl.config({
-  input = {
-    kb_options = "compose:ralt",
-  },
-})
-```
 
 ### My Wi-Fi, Bluetooth, audio, or trackpad just stopped working
 
@@ -2684,7 +2671,7 @@ hl.config({
   input = {
     -- Use multiple keyboard layouts and switch between them with Left Alt + Right Alt
     kb_layout = "us,fr",
-    kb_options = "compose:caps,shift:both_capslock_cancel,grp:alts_toggle",
+    kb_options = "omarchy:shift_caps_compose,grp:alts_toggle",
   },
 })
 ```
