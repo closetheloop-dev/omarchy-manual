@@ -58,7 +58,7 @@ If you've spent years on macOS or Windows, your fingers know a hundred things yo
 
 All the muscle memory you've built around Cmd or the Windows key transfers to one key: Super. That's the Windows key on a PC keyboard, and it's the anchor for nearly every hotkey in Omarchy.
 
-Your Spotlight or Raycast or Start-menu reflex becomes `Super + Space`. That opens the Omarchy menu, which launches apps, changes settings, installs software, captures the screen — just about everything. Start typing to filter. There's also a dedicated apps-only menu on `Super + Alt + Space`. See [navigation](#chapter-4-navigation).
+Your Spotlight or Raycast or Start-menu reflex becomes `Super + Space`. That opens the Omarchy menu, which launches apps, changes settings, installs software, captures the screen — just about everything. Start typing to filter. `Super + Alt + Space` shows every app on one grid, the way Launchpad does. See [navigation](#chapter-4-navigation).
 
 ### There's no dock and no desktop icons
 
@@ -162,9 +162,11 @@ hl.config({
 
 ### Floating workspaces
 
-A floating workspace works like a traditional desktop: windows overlap, and you move and size them yourself. Each window gets a titlebar in your theme's colors, with buttons to maximize and close. Click a window to bring it forward. Resize it from any edge or corner. Double-click a titlebar to maximize the window while keeping the top bar in view, and again to get its old size back.
+A floating workspace works like a traditional desktop: windows overlap, and you move and size them yourself. Each window gets a titlebar in your theme's colors, with buttons to minimize, maximize, and close. `Super + M` minimizes the focused window too. A minimized window waits in the dock; click its app to bring it back. Click a window to bring it forward. Resize it from any edge or corner. Double-click a titlebar to maximize the window while keeping the top bar in view, and again to get its old size back.
 
-New workspaces, and any you haven't given a layout of their own with `Super + L`, use the default layout. Pick it under _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling, or Floating. `omarchy-hyprland-workspace-layout-default scrolling` sets it from a terminal.
+A floating workspace also shows a dock, with your pinned apps, everything that's running, and a grid of every app behind the apps button, which `Super + Alt + Space` and _Apps_ in the Omarchy menu open too. Right-click an app on the grid, or press `Delete`, to uninstall it. Click an app to open it, or to bring its window forward; click again to cycle through its windows. Middle-click opens a new window. Drag an icon along the dock to move it; dragging a running app in among the others keeps it there. Right-click to keep an app in the dock, take it out, or quit it. The dock gets out of the way of a fullscreen window. Right-click the apps button to move the dock to another edge or have it hide until the pointer reaches its edge. The position is also under _Trigger > Appearance > Dock > Dock Position_, and `omarchy dock position left` and `omarchy dock autohide on` set both from a terminal. Apps you keep in the dock are faded while they aren't running.
+
+New workspaces, and any you haven't given a layout of their own with `Super + L`, use the default layout. Changing the default resets every workspace without windows to it, while one with windows on it keeps the layout it has. Pick it under _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling, or Floating. `omarchy-hyprland-workspace-layout-default scrolling` sets it from a terminal.
 
 ### Grouping windows
 
@@ -209,7 +211,7 @@ Nearly every widget does something on left, right, and middle click, and several
 | Widget | Left | Right | Middle / scroll |
 | --- | --- | --- | --- |
 | Menu | Omarchy menu | New terminal | — |
-| Workspaces | Focus that workspace | — | — |
+| Workspaces | Focus that workspace | — | Scroll: next/previous workspace |
 | Clock | Calendar popup | Cycle the label format | Middle: timezone picker |
 | Weather | Forecast popup | Full weather as a notification | Middle: refresh |
 | Audio | Audio panel | Mute | Middle: panel · scroll: volume |
@@ -275,6 +277,8 @@ The bar configures itself. You don't have to open a config file to move things.
 
 Grab an empty patch of the bar around the center and drag it toward another screen edge, and the bar moves there — left, right, top, or bottom all work, and every widget adapts (vertical bars fall back to compact icon-only forms). A click-and-hold starts the same drag. Double-left-click that same empty space to cycle the bar background from clear to glassy to opaque. And drag any widget to reorder it or throw it into another section.
 
+A widget you want around but not always in view can go in the tray's drawer: drag it onto the tray, and the drawer opens to take it. It sits there after the app icons, shows up whenever the drawer does, and keeps its drawer open while its panel is up. Drag it back out onto the bar to put it back.
+
 If you'd rather pick from a menu, **Trigger → Appearance → Menu Bar** has the position, and **Bar Background** picks how the bar is drawn: **Opaque Bar**, **Glassy Bar** (see-through, with what's behind it blurred), or **Clear Bar**.
 
 The same things have commands, which is what you want for a [dotfiles](#chapter-31-dotfiles) setup:
@@ -283,6 +287,7 @@ The same things have commands, which is what you want for a [dotfiles](#chapter-
 omarchy bar position bottom
 omarchy bar background glassy  # opaque, glassy, none, or cycle
 omarchy bar move omarchy.clock --section center --index 0
+omarchy bar move omarchy.bluetooth --section tray  # into the tray's drawer
 omarchy bar set omarchy.clock format "HH:mm"
 omarchy bar defaults          # back to the shipped layout
 ```
@@ -463,7 +468,7 @@ You can see all the main keyboard bindings with `Super + K` (Tmux bindings with 
 | Hotkey                  | Function              |
 | ----------------------- | --------------------- |
 | `Super + Space`           | Omarchy menu (apps and everything else)    |
-| `Super + Alt + Space` | Apps menu |
+| `Super + Alt + Space` | App grid |
 | `Super + Escape` | System menu (suspend, restart, etc)  |
 | `Super + Ctrl + L` | Lock computer |
 | `Super + W` or `Super + Q` | Close window             |
@@ -2526,7 +2531,7 @@ You can add your own themes to `~/.config/omarchy/themes`. Just copy one of the 
 
 The main file you have to tweak is `colors.toml`. That defines the color set that's then used to generate configurations for the terminal (Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian, and the entire Omarchy shell (top bar, menu, notifications, OSD, and lock screen).
 
-You can also use the included Aether application to create a new theme using a lovely GUI interface to play with colors and search for backgrounds. Just start it via the apps menu on `Super + Alt + Space`.
+You can also use the included Aether application to create a new theme using a lovely GUI interface to play with colors and search for backgrounds. Just start it from the app grid on `Super + Alt + Space`.
 
 ### What an installed theme can contain
 
