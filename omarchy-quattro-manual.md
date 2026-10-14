@@ -46,6 +46,10 @@ Omarchy is installed with encryption by default. It's the safe, responsible choi
 
 But in special circumstances, like remote Omarchy installs on protected computers or for throw-away installations without sensitive data, you may want to install without encryption. You can hit `Ctrl + C` on the disk formatting confirmation to switch to an encryption-less installation.
 
+### Language
+
+Omarchy speaks 50 languages — the same set as omarchy.org — and English is the default. To switch, open the Omarchy menu and go to _Setup > Language_, or run `omarchy language <code>` in a terminal (`omarchy language list` shows the codes). The menu, desktop, and Omarchy's own notifications change language immediately, and every application you open afterwards follows too. Apps that were already open switch once you restart them.
+
 ### Help if you're stuck
 
 If you get stuck, you can usually find someone willing to help in the _#omarchy-help_ channel on [the community Discord](https://omarchy.org/discord).
@@ -166,7 +170,7 @@ A floating workspace works like a traditional desktop: windows overlap, and you 
 
 A floating workspace also shows a dock, with your pinned apps, everything that's running, and a grid of every app behind the apps button, which `Super + Alt + Space` and _Apps_ in the Omarchy menu open too. Right-click an app on the grid, or press `Delete`, to uninstall it. Click an app to open it, or to bring its window forward; click again to cycle through its windows. Middle-click opens a new window. Drag an icon along the dock to move it; dragging a running app in among the others keeps it there. Right-click to keep an app in the dock, take it out, or quit it. The dock gets out of the way of a fullscreen window. Right-click the apps button to move the dock to another edge or have it hide until the pointer reaches its edge. The position is also under _Trigger > Appearance > Dock > Dock Position_, and `omarchy dock position left` and `omarchy dock autohide on` set both from a terminal. Apps you keep in the dock are faded while they aren't running.
 
-New workspaces, and any you haven't given a layout of their own with `Super + L`, use the default layout. Changing the default resets every workspace without windows to it, while one with windows on it keeps the layout it has. Pick it under _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling, or Floating. `omarchy-hyprland-workspace-layout-default scrolling` sets it from a terminal.
+New workspaces, and any you haven't given a layout of their own with `Super + L`, use the default layout. Changing the default resets every workspace without windows to it, while one with windows on it keeps the layout it has. A window minimized to the dock still counts as a window on the workspace it left. Pick it under _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling, or Floating. `omarchy-hyprland-workspace-layout-default scrolling` sets it from a terminal.
 
 ### Grouping windows
 
@@ -1287,9 +1291,9 @@ Left-click the bar icon for the panel, right-click to launch your default agent.
 
 If you pay for more than one Claude, Codex, or Grok plan — a personal Max and a work one, say — Omarchy can keep them all signed in and move between them. Add a subscription with the + in the agents panel, which walks you through it right there, or with `omarchy agent account add claude Work` (or `codex`, or `grok`). It installs the CLI if it's missing. The first account for a provider signs in through your normal browser, right where the CLI always looks. Every one after that signs in through a private window, so the account your browser is already signed in to doesn't get picked up by mistake; sign in there as the account you're adding, and close any private window you already had open first. Never log out of the CLI to do this: logging out revokes the saved sign-in, and that account would have to be added again.
 
-To copy your subscription logins to another Omarchy machine over SSH, run `omarchy agent account copy user@laptop`. Both machines need the account-copy command installed. This copies all Claude, Codex, and Grok subscriptions; add provider names to select them, as in `omarchy agent account copy laptop claude`. Account labels are preserved, with a number added when a label is already in use on the destination, and settings, skills, plugins, and conversation history stay local to each machine.
+To copy your subscription logins to another Omarchy machine over SSH, run `omarchy agent account copy user@laptop`. The sender supplies a temporary receiver when the destination does not have one installed, so older Omarchy machines can receive accounts without an update. Installed receivers take precedence. This copies all Claude, Codex, and Grok subscriptions; add provider names to select them, as in `omarchy agent account copy laptop claude`. Account names and command IDs match the source, including accounts already present on the destination. Unrelated destination accounts receive a numeric suffix if their names conflict, and settings, skills, plugins, and conversation history stay local to each machine.
 
-Existing destination logins are kept. A source account that is already signed in there is skipped; other accounts are added alongside it. To replace saved credentials for matching accounts, use `omarchy agent account copy --replace laptop claude` after quitting that account's sessions on the destination. A fresh destination also gets the source's active account and switching preferences; an established destination keeps its own.
+Existing destination credentials are kept. A source account already signed in there has its name synchronized without replacing its credentials; other accounts are added alongside it. To replace saved credentials for matching accounts, use `omarchy agent account copy --replace laptop claude` after quitting that account's sessions on the destination. A fresh destination also gets the source's active account and switching preferences; an established destination keeps its own.
 
 Credentials travel through SSH and are stored in private files on the destination, so copy only to machines you trust. This is a one-time copy, not ongoing synchronization. Codex refresh tokens can be rotated by another machine, leaving a copied login in need of renewal; separate sign-ins remain the most reliable choice for simultaneous use on several machines. See [Codex's account authentication guidance](https://developers.openai.com/codex/auth/ci-cd-auth).
 
@@ -2393,6 +2397,8 @@ When set up, you'll see the hibernate option under _System_ (or `Super + Esc`), 
 A lot of laptops come with a fingerprint sensor to do authentication. You can use this with Omarchy by running _Setup > Security > Fingerprint_ in the Omarchy menu (`Super + Space`).
 
 That'll install the fingerprint package, collect your print, verify it, and you'll be set to go using your fingerprint to unlock from the lock screen (which you can trigger with `Super + Ctrl + L`), enter sudo mode, and authorize system prompts.
+
+Once the lock screen has turned the display off, the sensor rests to save power, so wake the screen with any key or the touchpad before touching it.
 
 When your laptop lid is closed, the fingerprint prompt is automatically skipped, so you go straight to the password prompt instead of waiting on a sensor you can't reach. If you otherwise need to work on an external keyboard that doesn't have a sensor, just hit `CTRL + C`, when you're prompted for your fingerprint during `sudo`.
 
