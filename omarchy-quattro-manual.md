@@ -88,7 +88,7 @@ Windows folks: your Win + V clipboard history lives on `Super + Ctrl + V`, and i
 | ------------- | ---------- |
 | Spotlight / Raycast / Start menu | `Super + Space` — the Omarchy menu |
 | AirDrop | LocalSend, via `Super + Ctrl + S` — see [GUIs](#chapter-22-guis) |
-| Cmd + Shift + 4 / Win + Shift + S | `Print Screen` — see [screenshots & recording](#chapter-12-screenshots--recording) |
+| Cmd + Shift + 4 / Win + Shift + S | `Super + Shift + S` or `Print Screen` — see [screenshots & recording](#chapter-12-screenshots--recording) |
 | Notification Center | Notification history on `Super + Shift + Alt + ,` |
 | Time Machine (for the system) | Automatic [system snapshots](#chapter-47-system-snapshots) on every update |
 | App Store / downloading an installer | _Install_ in the menu, or `omarchy pkg add` — see [other packages](#chapter-29-other-packages) |
@@ -584,7 +584,7 @@ You can see all the main keyboard bindings with `Super + K` (Tmux bindings with 
 | `Super + Shift + Alt + A`           | AI (Grok)  |
 | `Super + Shift + G`           | Messenger (Signal)  |
 | `Super + Shift + P`           | Google Photos  |
-| `Super + Shift + S`           | Google Maps  |
+| `Super + Shift + Alt + S`           | Google Maps  |
 | `Super + Shift + Alt + G`           | Messenger (WhatsApp)  |
 | `Super + Shift + Ctrl + G`           | Messenger (Google)  |
 | `Super + Shift + O`           | Obsidian  |
@@ -610,8 +610,9 @@ Usually on Linux, you need `Ctrl + Shift + C/V` to copy'n'paste in the terminal 
 
 | Hotkey              | Function                       |
 | ------------------- | ------------------------------ |
-| `Super + Ctrl + C` | Capture menu (for keyboards w/o PrintScr button) |
 | `Print Screen`            | Screenshot                      |
+| `Super + Shift + S`            | Screenshot (the same shot, for keyboards with no Print Screen key) |
+| `Super + Ctrl + C` | Capture menu |
 | `Alt + Print Screen`            | Screenrecord                     |
 | `Super + Print Screen` | Color picker |
 | `Super + Ctrl + Print Screen` | Text extraction to clipboard |
@@ -917,11 +918,12 @@ Additional backends can integrate without changing Omarchy. Provide an executabl
 
 # Chapter 12: Screenshots & Recording
 
-Everything you can grab off the screen hangs off the Print Screen key. One key on its own takes a picture, and the modifiers take a recording, a colour, or the text inside a region. If your keyboard doesn't have a Print Screen key at all, `Super + Ctrl + C` opens the same set as a menu.
+Everything you can grab off the screen hangs off the Print Screen key. One key on its own takes a picture, and the modifiers take a recording, a colour, or the text inside a region. If your keyboard doesn't have a Print Screen key at all, `Super + Shift + S` takes the same screenshot, and `Super + Ctrl + C` opens the whole set as a menu.
 
 | Hotkey | Function |
 | ------ | -------- |
 | `Print Screen` | Screenshot |
+| `Super + Shift + S` | Screenshot |
 | `Alt + Print Screen` | Screenrecord (or stop the one that's running) |
 | `Super + Print Screen` | Colour picker |
 | `Super + Ctrl + Print Screen` | Extract text from a region |
@@ -930,7 +932,7 @@ Everything you can grab off the screen hangs off the Print Screen key. One key o
 
 ## Screenshots
 
-Hit `Print Screen` and Omasnap captures the focused monitor before its overlay appears, so nothing shifts under you while you aim. Drag a freeform region, click a window to capture it, or click open space to capture the whole monitor. Press `S` before drawing to capture a scrolling region. Changed your mind? Hit `Print Screen` again to dismiss Omasnap.
+Hit `Print Screen` (or `Super + Shift + S`) and Omasnap captures the focused monitor before its overlay appears, so nothing shifts under you while you aim. Drag a freeform region, click a window to capture it, or click open space to capture the whole monitor. Press `S` before drawing to capture a scrolling region. Changed your mind? Hit the same key again to dismiss Omasnap.
 
 After you select an area, Omasnap saves the capture, copies it to the clipboard, and shows a preview for 10 seconds. Use the preview's pin button or `Ctrl + P` to keep it on screen, or choose Edit to annotate it.
 
@@ -1761,7 +1763,7 @@ You can start WhatsApp using `Super + Shift + Alt + G`.
 
 Google Messages, Google Photos, Google Maps, and Google Contacts are all included as web apps too.
 
-You can start Google Messages using `Super + Shift + Ctrl + G`, Google Photos using `Super + Shift + P`, and Google Maps using `Super + Shift + S`. Google Contacts is available through the app launcher (`Super + Space`).
+You can start Google Messages using `Super + Shift + Ctrl + G`, Google Photos using `Super + Shift + P`, and Google Maps using `Super + Shift + Alt + S`. Google Contacts is available through the app launcher (`Super + Space`).
 
 ## X
 
