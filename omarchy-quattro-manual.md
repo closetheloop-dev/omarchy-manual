@@ -1253,7 +1253,7 @@ If you need to edit files that you can only change as a super user, you can use 
 
 # Chapter 17: AI
 
-Omarchy treats AI coding agents as first-class citizens, but it doesn't pick a favorite for you. Instead, every major coding-agent CLI comes pre-wired as a lazy-loaded launcher. The launchers are tiny [mise](https://mise.jdx.dev/)-managed stubs in `~/.local/bin/`, so nothing is downloaded until the first time you actually run one. Hermes is the exception: nothing is stubbed for it, and choosing it installs Hermes Desktop, as _Desktop apps_ below explains. Invoke any of these and authenticate when prompted:
+Omarchy includes launchers for the coding agents below without choosing a default for you. Run a command to install its CLI on first use, then authenticate when prompted. Hermes is the exception: nothing is installed for it on first use, and choosing it installs Hermes Desktop, as _Desktop apps_ below explains.
 
 | Command    | Agent                                                            |
 |------------|------------------------------------------------------------------|
@@ -1274,7 +1274,13 @@ Omarchy treats AI coding agents as first-class citizens, but it doesn't pick a f
 
 `ori` is the odd one out: it runs the other harnesses against OpenRouter's whole model catalog, so `ori claude`, `ori codex`, or `ori opencode` start those agents on whichever model you point them at, and `ori code` is Ori's own agent.
 
-To wrap an additional CLI the same way, run `omarchy-mise-install <package> [command-name]`. The stubs are kept current along with everything else mise manages when you run `omarchy update` (or the `mup` alias).
+### Installing and updating agents
+
+Except for Hermes, these agents use mise's lazy installation: the first launch installs the CLI, and later launches reuse it. mise also checks an installed agent for a new release at most once every four hours, just before it starts or in the background at a shell prompt. If that update fails or you're offline, the installed version runs. `omarchy update` updates installed agents with the rest of Omarchy, and `mup` updates mise-managed tools only.
+
+An agent's own updater, such as `claude update`, `codex update`, or an update button in an app, does not update the mise-managed install. `codex update` fails, and `claude update` can report success while installing a separate copy that mise does not track. If you would rather use an agent's native installer and updater, add it to `disable_tools`; see [Preinstalled CLI tools](#preinstalled-cli-tools).
+
+To install all configured lazy tools before you need them, run `mise install --include-lazy`. This includes Omarchy's other default CLI tools as well as the agents. See [Preinstalled CLI tools](#preinstalled-cli-tools) for installing a single tool or using your own installation.
 
 `grok` is installed through mise's first-party `grok` package, the same way as `claude` and `codex`. Run `grok`, or pick it under _Setup > Defaults > Agent_. Skip the `curl | bash` installer on x.ai. That path puts a second copy in `~/.grok/bin`, prepends it on `PATH`, and overwrites Omarchy's wrapper.
 
@@ -1283,8 +1289,6 @@ To wrap an additional CLI the same way, run `omarchy-mise-install <package> [com
 Pick your default agent with `omarchy default agent <name>` or under _Setup > Defaults > Agent_ in the Omarchy Menu (`Super + Space`). If the agent isn't installed yet, picking it installs it first. A fresh Omarchy will invite you to make this choice with a one-time notification.
 
 Choosing Claude also attempts to set up its browser extension for Chromium, Chrome, Brave, Brave Origin, and Edge. The extension setup applies to all users and may ask for your system password; cancelling or a failed extension install still selects and launches Claude. Restart your browser, enable the extension if prompted, and sign in to Claude to finish connecting it. Run `/chrome` in Claude to check the connection. Firefox and Zen do not support this extension. If Claude was already your default before this setup was added, select it again to install the extension.
-
-[Muse Code](https://dev.meta.ai) — Meta's `muse` — uses a preinstalled mise stub like the other agents. Picking it as the default installs Meta's official launcher through mise's HTTP backend. The launcher verifies and updates the native binary for your machine.
 
 Once you've chosen, `Super + Shift + Ctrl + A` launches the default agent in a dedicated terminal window (or brings up the picker if you haven't chosen yet). You can also launch it straight into a task with `omarchy agent prompt "Review this project"`. Agents launched this way run unattended in their respective don't-stop-to-ask modes, so be ready for them to actually do things! And since agents refuse to remember trust for your home directory, launches from `$HOME` start in `~/Work` instead.
 
@@ -1358,6 +1362,37 @@ The majority of these environments are managed by [Mise](https://mise.jdx.dev/).
 
 To install, say, Ruby, you'd run `mise use -g ruby`, which will both install Ruby and set it as the global default. Or, if your project has a .ruby-version file, you can just run `mise i` in the root of that project.
 
+## Preinstalled CLI tools
+
+Omarchy makes tools such as `gh`, `uv`, and most [coding agents](#chapter-17-ai) available through [mise's lazy installation](https://mise.jdx.dev/dev-tools/shims.html#lazy-tools). The first time you run one, mise installs it. Later runs reuse the installed version; they do not check for an update on every launch.
+
+You can also inspect the defaults or install them ahead of time:
+
+```bash
+mise ls --current              # List the tools configured for this directory
+mise install gh               # Install one tool now
+mise install --include-lazy    # Install all configured tools, including lazy tools
+```
+
+Run `omarchy update` to update installed tools with the rest of Omarchy. The `mup` alias updates mise-managed tools only. To add another tool to your own configuration, use `mise use -g <tool>`.
+
+Python setup also installs `uv` through mise. Removing the Python development environment leaves `uv` available as an independent tool.
+
+### Using your own installation
+
+mise's commands come before `~/.local/bin` on `PATH`, so a tool you installed yourself, for example with Claude Code's or Cursor's own installer, still runs mise's copy. Apps launched from the desktop also find mise's commands before system packages, so an app that runs `gh` gets mise's copy even if you installed `github-cli` with pacman, and mise installs that copy the first time. To use yours instead, disable mise's copy in `~/.config/mise/config.toml`. For example, if you installed Cursor CLI yourself:
+
+```toml
+[settings]
+disable_tools = ["cursor-agent"]
+```
+
+If you already have a `[settings]` table, add the entry there; extend an existing `disable_tools` list rather than replacing it. Make sure your installation is on `PATH`. Use the mise tool name, which can differ from its command: `oh-my-pi` provides `omp`, for example. The default-agent launcher also prefers a user-installed Cursor or Muse in `~/.local/bin`.
+
+### Removing and restoring defaults
+
+_Remove Preinstalls_ has mise skip Omarchy's tool declarations for your user, by adding them to `ignored_config_paths` in `~/.config/mise/miserc.toml`. _Restore Preinstalls_ removes that line again. Tools you declare yourself, in your own config or in a project's `mise.toml`, keep working either way. If you choose a default agent or set up Python after removing the preinstalls, that tool is added to your own config. Both apply only to your user; other users on the machine keep their own choice.
+
 ## Docker
 
 [Docker](https://www.docker.com/) hardly needs any introduction. It allows you to run isolated containers, and Omarchy installs everything needed to run it well, including Docker itself and [Docker Compose](https://docs.docker.com/compose/).
@@ -1368,11 +1403,9 @@ You can setup the common databases for local development in Docker using _Instal
 
 ## GitHub CLI
 
-[The GitHub CLI](https://cli.github.com/) let's you authenticate with your GitHub account and clone private repositories using it. It's wired up as one of the lazy-loading mise stubs, so the first time you run `gh`, it installs itself. To authenticate, run `gh auth login`. Then you can checkout private repositories using `gh repo clone org/repo`.
+[GitHub CLI](https://cli.github.com/) is available as `gh` for working with repositories, issues, and pull requests from the terminal. Run `gh auth login` to install it on first use and authenticate, then `gh repo clone org/repo` to clone a repository. Run `gh --help` to explore its commands.
 
-You can also perform a bunch of other GitHub operations using this command. Just run `gh` to see everything that's possible.
-
-There's a lazy-installing stub for `ghui` for managing your pull requests in a TUI too. And [lazygit](https://github.com/jesseduffield/lazygit) is preinstalled, if you'd like to drive git itself from a TUI as well.
+For a terminal interface to pull requests, run `ghui`; mise installs it on first use too. [Lazygit](https://github.com/jesseduffield/lazygit) is preinstalled for working with Git itself.
 
 # Chapter 19: Shell Tools
 
