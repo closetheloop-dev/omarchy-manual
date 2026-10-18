@@ -114,7 +114,7 @@ The instincts transfer faster than you'd think. Skim the [hotkeys](#chapter-7-ho
 
 # Chapter 4: Navigation
 
-Everything in Omarchy happens via the keyboard — _EVERYTHING!_ When the system first starts, you literally can't do a thing with the mouse alone. But you can hit `Super + Space` to reveal the Omarchy Menu and from here you to do just about everything.
+Everything in Omarchy happens via the keyboard — _EVERYTHING!_ When the system first starts, you literally can't do a thing with the mouse alone. But you can hit `Super + Space` to reveal the Omarchy Menu and from here you can do just about everything.
 
 But the Omarchy menu is not even intended to be the main way to operate the system most of the time. We can get faster than that! All the most important applications are bound directly to individual hotkeys. You start the terminal with `Super + Return` and a browser with `Super + Shift + Return`. Try doing one after the other, and you'll see the magic of Hyprland's tiling in action:
 
@@ -130,9 +130,11 @@ Now try `Super + Ctrl + T` to start the Activity monitor. That'll appear as a fl
 
 
 
-You navigate between the window you want to be active with `Super + Arrow`. This will switch focus and move the cursor to the center of the new application.
+You navigate between the window you want to be active with `Super + Arrow`. This will switch focus and move the cursor to the center of the new application. At the edge of a screen, it carries on to the monitor on that side.
 
 If you hit `Super + Shift + 2`, you'll move the current focused application onto the second workspace. `Super + Shift + 1` moves it back. (And `Super + Shift + Alt + 2` will move the current focused application onto the second workspace without switching to it).
+
+With more than one monitor, every monitor has workspaces 1 through 10 of its own. `Super + 2` goes to the second workspace of the monitor you're on, and each monitor's top bar shows its own workspaces and the one it's showing. `Super + Tab` cycles through the workspaces on the monitor you're on. `Super + Shift + Ctrl + Arrows` moves the window you're on to the monitor in that direction, onto the workspace it's showing, and `Super + Shift + Alt + Arrows` moves the workspace you're on over to the monitor in that direction, where it takes the same number if it's free. A monitor keeps its workspaces when you unplug it: they join another screen's, numbered after the ones it already has, and go back under their old numbers when the monitor returns.
 
 If you hold down `Super` and use the mouse to click on a window, you'll be able to rearrange where it sits. If you hold `Super` and use the right button on the mouse, you can freely resize the window.
 
@@ -215,7 +217,7 @@ Nearly every widget does something on left, right, and middle click, and several
 | Widget | Left | Right | Middle / scroll |
 | --- | --- | --- | --- |
 | Menu | Omarchy menu | New terminal | — |
-| Workspaces | Focus that workspace | — | Scroll: next/previous workspace |
+| Workspaces | Focus that workspace on this monitor | — | Scroll: next/previous workspace |
 | Clock | Calendar popup | Cycle the label format | Middle: timezone picker |
 | Weather | Forecast popup | Full weather as a notification | Middle: refresh |
 | Audio | Audio panel | Mute | Middle: panel · scroll: volume |
@@ -489,17 +491,18 @@ You can see all the main keyboard bindings with `Super + K` (Tmux bindings with 
 | `Super + F`                 | Go full screen              |
 | `Super + Alt + F`                 | Go full width              |
 | `Super + Ctrl + F`                 | Go full screen inside window              |
-| `Super + 1/2/3/4`         | Jump to specific workspace     |
-| `Super + Tab` | Jump to next workspace |
-| `Super + Shift + Tab` | Jump to previous workspace |
-| `Super + Ctrl + Tab` | Jump to former workspace |
-| `Super + Shift + 1/2/3/4` | Move window to workspace |
-| `Super + Shift + Alt + 1/2/3/4` | Move window to workspace without following |
+| `Super + 1/2/3/4`         | Jump to specific workspace on the focused monitor |
+| `Super + Tab` | Jump to next workspace on the focused monitor |
+| `Super + Shift + Tab` | Jump to previous workspace on the focused monitor |
+| `Super + Ctrl + Tab` | Jump to former workspace on the focused monitor |
+| `Super + Shift + 1/2/3/4` | Move window to workspace on the focused monitor |
+| `Super + Shift + Alt + 1/2/3/4` | Move window to workspace on the focused monitor without following |
 | `Super + S` / `Super + Grave` | Toggle scratchpad |
 | `Super + Alt + S` / `Super + Shift + Grave` | Move window to scratchpad |
-| `Super + Shift + Alt + Arrows` | Move workspaces to directional monitor |
-| `Super + Arrow`  | Move focus to window in direction of arrow              |
-| `Super + Shift + Arrow`  | Swap window with another in direction of arrow     |
+| `Super + Shift + Ctrl + Arrows` | Move window to the monitor in that direction |
+| `Super + Shift + Alt + Arrows` | Move workspace to the monitor in that direction |
+| `Super + Arrow`  | Move focus to window in direction of arrow, crossing to the monitor on that side at the screen's edge |
+| `Super + Shift + Arrow`  | Swap window with another in direction of arrow, including one on the monitor on that side |
 | `Super + Minus` | Expand window left |
 | `Super + Equal` | Shrink window left |
 | `Super + Shift + Minus` | Shrink window up |
@@ -510,13 +513,14 @@ You can see all the main keyboard bindings with `Super + K` (Tmux bindings with 
 | `Super + Home` | Restore saved window width |
 | `Super + Left Mouse` | Drag window around |
 | `Super + Right Mouse` | Resize window |
-| `Super + Scroll Wheel` | Scroll through workspaces |
+| `Super + Scroll Wheel` | Scroll through workspaces on the focused monitor |
 | `Super + G`               | Toggle window grouping      |
 | `Super + Alt + G`               | Move window out of grouping      |
 | `Super + Alt + Tab`               | Cycle between windows in grouping      |
 | `Super + Alt + Shift + Tab`               | Cycle backward between windows in grouping      |
+| `Super + Alt + Scroll Wheel` | Cycle between windows in grouping |
 | `Super + Alt + 1/2/3/4/5`               | Jump to specific window in grouping      |
-| `Super + Alt + Arrow`  | Move window into grouping in direction of arrow  |
+| `Super + Alt + Arrow`  | Move window into grouping in direction of arrow, including one on the monitor on that side |
 | `Super + Ctrl + Left/Right`  | Move between windows inside a tiling group |
 | `Super + Ctrl + Z` | Zoom in on screen (repeat for more zoom) |
 | `Super + Ctrl + Alt + Z` | Zoom fully out from screen |
@@ -2228,7 +2232,21 @@ When you're extending, closing the lid on the laptop will automatically turn off
 
 ### Arranging multiple screens
 
-Hyprland works great with multiple screens. Read more about how to lay them out in [the Hyprland monitor documentation](https://wiki.hypr.land/Configuring/Basics/Monitors/). You can [bind specific workspaces to specific monitors](https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/) as well. In Omarchy, these rules go in `~/.config/hypr/monitors.lua` as `hl.monitor` entries — the file ships with commented examples for pinning a specific monitor to a resolution, position, and rotation.
+Hyprland works great with multiple screens. Read more about how to lay them out in [the Hyprland monitor documentation](https://wiki.hypr.land/Configuring/Basics/Monitors/). In Omarchy, these go in `~/.config/hypr/monitors.lua` as `hl.monitor` entries — the file ships with commented examples for pinning a specific monitor to a resolution, position, and rotation.
+
+Every monitor has workspaces 1 through 10 of its own, so `Super + 1` always means the first workspace of the monitor you're on. Behind the scenes, Hyprland still numbers workspaces across all monitors: your laptop screen (or first monitor) gets 1–10, the next monitor 11–20, and so on, and each monitor keeps its block every time you plug it in. Use those numbers if you write [workspace rules](https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/) or window rules for a specific monitor, so workspace 12 is the second workspace of your second monitor. `~/.local/state/omarchy/monitor-workspaces` lists which block each monitor has.
+
+The arrow keys work across monitors that share an edge in your layout. Screens that only touch at a corner, or that have a gap between them, aren't neighbors, so use `Ctrl + Alt + Tab` to get between them.
+
+| Hotkey | Across monitors |
+| --- | --- |
+| `Super + Arrow` | Moves focus to the monitor on that side once there's no window left in that direction |
+| `Super + Shift + Arrow` | Swaps with a window on the monitor on that side |
+| `Super + Alt + Arrow` | Moves the window into a group on the monitor on that side |
+| `Super + Shift + Ctrl + Arrow` | Moves the window to the monitor on that side, onto the workspace it's showing |
+| `Super + Shift + Alt + Arrow` | Moves the workspace to the monitor on that side, keeping its number if it's free |
+| `Ctrl + Alt + Tab` / `Ctrl + Alt + Shift + Tab` | Moves focus to the next or previous monitor, whatever the layout |
+| `Super + 1-0`, `Super + Tab`, `Super + Scroll Wheel` | Stay on the monitor you're on |
 
 You can also checkout [Hyprmon](https://github.com/erans/hyprmon/), if you'd like a TUI to help you with the positioning of multiple screens.
 
@@ -2823,10 +2841,10 @@ The trade-off is the one mentioned at the top: with direct boot on, getting to a
 Omarchy takes security extremely seriously. This is meant to be an operating system that you can use to do _Real Work_ in the _Real World_. Where losing a laptop can't lead to a security emergency. So here's what we do:
 
 1. *Full-disk encryption is mandatory*: This is the most important step to securing the physical protection of your data. If your computer is lost or stolen, the data is fully encrypted using standard LUKS (Linux Unified Key Setup).
-2. *Firewall is enabled by default*: All incoming traffic is blocked by default except for port 53317 for [LocalSend](https://localsend.org/). Even ssh is off until you turn it on via _Setup > Security > SSHD_, which opens port 22 (rate limited against brute force) as part of the setup. We even lock down Docker access using the [ufw-docker](https://github.com/chaifeng/ufw-docker) setup to prevent that your containers are accidentally exposed to the world.
-3. *Arch always have the latest updates*: Arch, the underlying distro that Omarchy is built on, is a rolling distribution. This means that any security vulnerability that's discovered and patched in any package is quickly available for install using `omarchy-update`. You're always running the latest, most secure versions of everything that way.
+2. *Firewall is enabled by default*: All incoming traffic is blocked by default except for port 53317 for [LocalSend](https://localsend.org/). Even ssh is off until you turn it on via _Setup > Security > SSHD_, which opens port 22 (rate limited against brute force) as part of the setup. We even lock down Docker access using the [ufw-docker](https://github.com/chaifeng/ufw-docker) setup to prevent your containers from accidentally being exposed to the world.
+3. *Arch always has the latest updates*: Arch, the underlying distro that Omarchy is built on, is a rolling distribution. This means that any security vulnerability that's discovered and patched in any package is quickly available for install using `omarchy-update`. You're always running the latest, most secure versions of everything that way.
 4. *Omarchy maintains its own packages and mirror*: Omarchy only relies on packages from Arch's own core/extra/multilib repositories and its own Omarchy Package Repository by default. You can install software directly from AUR, but the base install doesn't — only a few optional installs, like the third-party browsers, pull from the AUR.
-5. *Cloudflare protects us from DDoS*: All the Omarchy distribution infrastructure — the ISOs, the Omarchy packages, the Arch mirror — is protected behind Cloudflare's formidable DDoS shield and hosted on their CDN. This provides superb availability.
+5. *Cloudflare protects us from DDoS*: Omarchy distribution infrastructure — the ISOs, the Omarchy packages, the Arch mirror — is protected behind Cloudflare's formidable DDoS shield and hosted on their CDN. This provides superb availability.
 
 ## Changing your passwords
 
