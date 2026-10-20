@@ -126,7 +126,7 @@ You can then hit `Super + J` to stack them on top of each other instead of side 
 
 Hit `Super + J` again to return them to their side-by-side positions. Then try `Super + Shift + Arrow Right` while on the browser to swap the windows.
 
-Now try `Super + Ctrl + T` to start the Activity monitor. That'll appear as a floating window. You can tile it using `Super + T` (and hit that again to make it floating again). Now press `Super + Shift + F` to open the files manager. You'll have a neat four-way setup:
+Now try `Super + Shift + T` to start the Activity monitor. That'll appear as a floating window. You can tile it using `Super + T` (and hit that again to make it floating again). Now press `Super + Shift + F` to open the files manager. You'll have a neat four-way setup:
 
 
 
@@ -170,9 +170,9 @@ hl.config({
 
 A floating workspace works like a traditional desktop: windows overlap, and you move and size them yourself. Each window gets a titlebar in your theme's colors, with buttons to minimize, maximize, and close. `Super + M` minimizes the focused window too. A minimized window waits in the dock; click its app to bring it back. Click a window to bring it forward. Resize it from any edge or corner. Double-click a titlebar to maximize the window while keeping the top bar in view, and again to get its old size back.
 
-A floating workspace also shows a dock, with your pinned apps, everything that's running, and a grid of every app behind the apps button, which `Super + Alt + Space` and _Apps_ in the Omarchy menu open too. Right-click an app on the grid, or press `Delete`, to uninstall it. Click an app to open it, or to bring its window forward; click again to cycle through its windows. Middle-click opens a new window. Drag an icon along the dock to move it; dragging a running app in among the others keeps it there. Right-click to keep an app in the dock, take it out, or quit it. The dock gets out of the way of a fullscreen window. Right-click the apps button to move the dock to another edge or have it hide until the pointer reaches its edge. The position is also under _Trigger > Appearance > Dock > Dock Position_, and `omarchy dock position left` and `omarchy dock autohide on` set both from a terminal. Apps you keep in the dock are faded while they aren't running.
+A floating workspace also shows a dock, with your pinned apps, everything that's running, and a grid of every app behind the apps button, which `Super + Alt + Space` and _Apps_ in the Omarchy menu open too. Right-click an app on the grid, or press `Delete`, to uninstall it. Click an app to open it, or to bring its window forward; click again to cycle through its windows. Middle-click opens a new window. Drag an icon along the dock to move it; dragging a running app in among the others keeps it there. Right-click to keep an app in the dock, take it out, or quit it. The dock gets out of the way of a fullscreen window. Right-click the apps button to move the dock to another edge or have it hide until the pointer reaches its edge. The position is also under _Appearance > Dock > Dock Position_, and `omarchy dock position left` and `omarchy dock autohide on` set both from a terminal. Apps you keep in the dock are faded while they aren't running.
 
-New workspaces, and any you haven't given a layout of their own with `Super + L`, use the default layout. Changing the default resets every workspace without windows to it, while one with windows on it keeps the layout it has. A window minimized to the dock still counts as a window on the workspace it left. Pick it under _Trigger > Appearance > Workspace Layout_: Tiling, Scrolling, or Floating. `omarchy-hyprland-workspace-layout-default scrolling` sets it from a terminal.
+New workspaces, and any you haven't given a layout of their own with `Super + L`, use the default layout. Changing the default resets every workspace without windows to it, while one with windows on it keeps the layout it has. A window minimized to the dock still counts as a window on the workspace it left. Pick it under _Appearance > Workspace Layout_: Tiling, Scrolling, or Floating. `omarchy-hyprland-workspace-layout-default scrolling` sets it from a terminal.
 
 ### Grouping windows
 
@@ -240,7 +240,7 @@ Clicking a bar icon opens a panel, which is a proper popup with sliders, lists, 
 | Hotkey | Panel |
 | --- | --- |
 | `Super + Ctrl + A` | Audio |
-| `Super + Ctrl + W` | Network |
+| `Super + Ctrl + N` | Network |
 | `Super + Ctrl + B` | Bluetooth |
 | `Super + Ctrl + D` | Display |
 | `Super + Ctrl + P` | Power |
@@ -288,7 +288,7 @@ The middle of the bar is a box: whatever is in it stays centered as one group, a
 
 A widget you want around but not always in view can go in the tray's drawer: drag it onto the tray, and the drawer opens to take it. It sits there after the app icons, shows up whenever the drawer does, and keeps its drawer open while its panel is up. Drag it back out onto the bar to put it back.
 
-If you'd rather pick from a menu, **Trigger → Appearance → Menu Bar** has the position, and **Bar Background** picks how the bar is drawn: **Opaque Bar**, **Glassy Bar** (see-through, with what's behind it blurred), or **Clear Bar**.
+If you'd rather pick from a menu, **Appearance → Menu Bar** has the position, and **Bar Background** picks how the bar is drawn: **Opaque Bar**, **Glassy Bar** (see-through, with what's behind it blurred), or **Clear Bar**.
 
 The same things have commands, which is what you want for a [dotfiles](#chapter-31-dotfiles) setup:
 
@@ -310,7 +310,7 @@ omarchy plugin disable omarchy.weather
 
 ## Hiding the bar
 
-`Super + Shift + Space` toggles the bar off and back on without killing the shell — panels and hotkeys keep working, you just get the pixels back. It's also in the menu under **Trigger → Appearance → Menu Bar → Hide Bar**.
+`Super + Shift + Space` toggles the bar off and back on without killing the shell — panels and hotkeys keep working, you just get the pixels back. It's also in the menu under **Appearance → Menu Bar → Hide Bar**.
 
 ## The config file
 
@@ -343,11 +343,11 @@ The same file also holds your idle timings at the top level, outside the `bar` k
 
 # Chapter 6: Themes
 
-Omarchy comes with twenty-two beautiful themes. You can select between them via _Style > Theme_ in the Omarchy Menu (`Super + Space`) or hop directly to the theme selector using `Super + Ctrl + Shift + Space`.
+Omarchy comes with twenty-two beautiful themes. You can select between them via _Appearance > Theme_ in the Omarchy Menu (`Super + Space`) or hop directly to the theme selector using `Super + Ctrl + T`.
 
 Each theme styles the desktop, terminal, neovim, activity screen (btop), Chromium, and the entire Omarchy shell: top bar, menu, notifications, OSD, and the lock screen. (For Obsidian, you must manually select the Omarchy theme via _Appearance > Themes_ inside the app).
 
-Themes have a set of background images that you can pick between using `Super + Ctrl + Space`.
+Themes have a set of background images that you can pick between using `Super + Ctrl + W`.
 
 You can find even more themes on [the extra themes page](https://omarchy.org/themes/) or even [make your own theme](#chapter-43-making-your-own-theme).
 
@@ -410,7 +410,7 @@ _White_
 
 ### Unlocks
 
-Themes can also have a custom unlock design, which is used for the boot decryption process. You can select one of these under _Style > Unlock_. They look like this:
+Themes can also have a custom unlock design, which is used for the boot decryption process. You can select one of these under _Appearance > Unlock_. They look like this:
 
 
 _Catppuccin_
@@ -538,18 +538,16 @@ You can see all the main keyboard bindings with `Super + K` (Tmux bindings with 
 | ----------------------- | --------------------- |
 | `Super + Ctrl + A`           | Audio panel    |
 | `Super + Ctrl + B`           | Bluetooth panel    |
-| `Super + Ctrl + W`           | Wifi/network panel    |
+| `Super + Ctrl + N`           | Wifi/network panel    |
 | `Super + Ctrl + D`           | Display panel    |
 | `Super + Ctrl + P`           | Power panel    |
 | `Super + Ctrl + Alt + D`           | Calendar panel    |
 | `Super + Ctrl + Alt + E`           | World clock panel    |
 | `Super + Ctrl + 1-9`           | Toggle bar panel by position    |
 | `Super + Ctrl + S` | Share menu (via LocalSend) |
-| `Super + Ctrl + T`           | Activity (btop)    |
 | `Super + Ctrl + C` | Capture controls (screenshot/-recording/picker) |
 | `Super + Ctrl + O` | Toggle menu |
 | `Super + Ctrl + H` | Hardware menu |
-| `Super + Ctrl + Q` | Calculator |
 | `Super + Ctrl + E` | Emoji picker |
 | `Super + Ctrl + .` | Transcode media |
 | `Super + Shift + Ctrl + A` | Pick an AI agent |
@@ -581,6 +579,8 @@ You can see all the main keyboard bindings with `Super + K` (Tmux bindings with 
 | `Super + Shift + M`           | Music (Spotify)    |
 | `Super + Shift + Alt + M`           | Music (cliamp)    |
 | `Super + Shift + /`           | Password manager (1password)    |
+| `Super + Shift + Q`           | Calculator (Omacalc)    |
+| `Super + Shift + T`           | Activity (btop)    |
 | `Super + Shift + N`           | Editor (Neovim)  |
 | `Super + Shift + C`           | Calendar ([HEY](https://hey.com/))  |
 | `Super + Shift + E`           | Email ([HEY](https://hey.com/))  |
@@ -646,8 +646,8 @@ All capture options are also accessible under _Trigger > Capture_ in the Omarchy
 
 | Hotkey                  | Function              |
 | ----------------------- | --------------------- |
-| `Super + Ctrl + Shift + Space` | Pick a new theme  |
-| `Super + Ctrl + Space` | Pick theme background |
+| `Super + Ctrl + T` | Pick a new theme (also `Super + Ctrl + Shift + Space`) |
+| `Super + Ctrl + W` | Pick theme background (also `Super + Ctrl + Space`) |
 | `Super + Backspace` | Toggle transparency on a window |
 | `Super + Ctrl + Backspace` | Toggle single-window square aspect |
 
@@ -660,7 +660,6 @@ All style options are also accessible under _Style_ in the Omarchy menu (`Super 
 | Hotkey                  | Function              |
 | ----------------------- | --------------------- |
 | `Super + Ctrl + I` | Toggle locking on idle |
-| `Super + Ctrl + N` | Toggle nightlight display temperature |
 | `Super + Ctrl + Delete` | Toggle laptop display on/off |
 | `Super + Ctrl + Alt + Delete` | Toggle laptop display mirroring |
 | `Super + Shift + Space` | Toggle the top bar  |
@@ -1025,13 +1024,13 @@ A lot of what you change day to day isn't really a setting. It's a mode you flip
 
 ### The toggle menu
 
-`Super + Ctrl + O` opens _Trigger > Toggle_ directly, or you can walk there from the Omarchy menu (`Super + Space`). Everything in that list is a switch you can flip without thinking about where the state lives. Switches for how the desktop looks sit next to it, under _Trigger > Appearance_.
+`Super + Ctrl + O` opens _Trigger > Toggle_ directly, or you can walk there from the Omarchy menu (`Super + Space`). Everything in that list is a switch you can flip without thinking about where the state lives. Switches for how the desktop looks sit next to it, under _Appearance_.
 
 From the terminal, the same switches are `omarchy toggle <thing>`. Run `omarchy toggle` on its own to see the whole group.
 
 | Toggle | Hotkey | Command |
 | ------ | ------ | ------- |
-| Night light | `Super + Ctrl + N` | `omarchy toggle nightlight` |
+| Night light | — | `omarchy toggle nightlight` |
 | Silence notifications | `Super + Ctrl + ,` | `omarchy toggle notification silencing` |
 | Stay awake (no idle lock) | `Super + Ctrl + I` | `omarchy toggle idle` |
 | Crash capture | — | `omarchy toggle crash-capture` |
@@ -1045,7 +1044,7 @@ From the terminal, the same switches are `omarchy toggle <thing>`. Run `omarchy 
 
 The touchpad, touchscreen, and hybrid GPU switches live under _Trigger > Hardware_ (`Super + Ctrl + H`) rather than under Toggle, since they only show up when you actually have that hardware. The touchpad and touchscreen ones survive a Hyprland reload — the disabled device's name is saved to a small state file that Hyprland reads on startup to disable it again.
 
-_Trigger > Appearance_ holds the menu bar and animations, plus a few things that aren't `omarchy toggle` commands but behave the same: battery percentage in the bar, the default workspace layout, window gaps (`Super + Shift + Backspace`), and the 1-window square aspect (`Super + Ctrl + Backspace`).
+_Appearance_ holds the menu bar and animations, plus a few things that aren't `omarchy toggle` commands but behave the same: battery percentage in the bar, the default workspace layout, and under _Windows_, window gaps (`Super + Shift + Backspace`) and the 1-window square aspect (`Super + Ctrl + Backspace`).
 
 Most of these are just a flag file under `~/.local/state/omarchy/toggles/`. If you want to branch on one in a script, `omarchy-toggle-enabled` gives you an exit code instead of making you go looking:
 
@@ -1063,7 +1062,7 @@ Inactive indicators are hidden. Hover anywhere on the bar and they fade in dimme
 
 ### Night light
 
-`Super + Ctrl + N` warms the screen to 4000K, and hitting it again puts it back to 6500K. It's driven by hyprsunset, which the toggle starts for you if it isn't already running.
+Night light warms the screen to 4000K, and toggling it again puts it back to 6500K. Flip it from the toggle menu (`Super + Ctrl + O`) or with `omarchy toggle nightlight`. It's driven by hyprsunset, which the toggle starts for you if it isn't already running.
 
 By default hyprsunset does nothing to your screen at all. `~/.config/hypr/hyprsunset.conf` ships with an identity profile precisely so the display stays untouched until you ask for warmth. If you'd rather have it switch by the clock, replace that with a time profile:
 
@@ -1114,7 +1113,7 @@ You can start it on demand from _System > Screensaver_ (`Super + Esc`), which fo
 
 `omarchy toggle screensaver` is what turns the idle one off, if you'd rather go straight from working to locked. It needs a terminal it knows how to configure — Alacritty, Foot, Ghostty, or Kitty — and will tell you so if your default terminal is something else.
 
-The logo it draws is yours to change, under _Style > Screensaver_. Upload a png or svg and Omarchy converts it to ASCII. See [branding](#chapter-41-branding).
+The logo it draws is yours to change, under _Appearance > Branding > Screensaver_. Upload a png or svg and Omarchy converts it to ASCII. See [branding](#chapter-41-branding).
 
 ### The lock screen
 
@@ -1183,7 +1182,7 @@ Every command takes `--help` too, whether you ask a whole group (`omarchy captur
 
 ### Opening the menu from the terminal
 
-The Omarchy menu is scriptable as well, which is handy for your own keybindings. `omarchy menu` opens it at the root, and you can jump straight to any point in the tree by naming it: `omarchy menu summon style.theme` goes right to the theme picker, `omarchy menu toggle system` opens the system menu and closes it again if it's already up, and `omarchy menu close` puts it away.
+The Omarchy menu is scriptable as well, which is handy for your own keybindings. `omarchy menu` opens it at the root, and you can jump straight to any point in the tree by naming it: `omarchy menu summon appearance.theme` goes right to the theme picker, `omarchy menu toggle system` opens the system menu and closes it again if it's already up, and `omarchy menu close` puts it away.
 
 # Chapter 15: Terminal
 
@@ -1550,7 +1549,7 @@ You hop between the different panes using `Tab`. In the Files pane, you select f
 
 [Btop](https://github.com/aristocratos/btop) is a beautiful resource manager that shows memory, CPU, disk, and network usage. It also lists all active processes, and allows you to manage them.
 
-Omarchy calls it Activity, and you start it by hitting `Super + Ctrl + T`. It opens as a floating window, which you can tile with `Super + T`.
+Omarchy calls it Activity, and you start it by hitting `Super + Shift + T`. It opens as a floating window, which you can tile with `Super + T`.
 
 ## Herdr
 
@@ -1570,7 +1569,7 @@ Omarchy has packaged this as _About_ in the Omarchy menu (`Super + Space`).
 
 ## What about Wi-Fi and Bluetooth?
 
-You won't find TUIs for Wi-Fi and Bluetooth — those jobs belong to the Omarchy shell. Click the Wi-Fi icon in the top bar (or hit `Super + Ctrl + W`) to see networks and connect, and click the Bluetooth icon (or hit `Super + Ctrl + B`) to pair and connect devices. See [networking](#chapter-35-networking) for the full story.
+You won't find TUIs for Wi-Fi and Bluetooth — those jobs belong to the Omarchy shell. Click the Wi-Fi icon in the top bar (or hit `Super + Ctrl + N`) to see networks and connect, and click the Bluetooth icon (or hit `Super + Ctrl + B`) to pair and connect devices. See [networking](#chapter-35-networking) for the full story.
 
 ## Adding your own
 
@@ -1657,7 +1656,7 @@ You start Signed via the application launcher (`Super + Space`), or open a PDF w
 
 [Omacalc](https://github.com/omacom-io/omacalc) is Omarchy's own dead-simple calculator, which opens in a floating window.
 
-You start Omacalc with `Super + Ctrl + Q` (or the calculator key, if your keyboard has one).
+You start Omacalc with `Super + Shift + Q` (or the calculator key, if your keyboard has one).
 
 ## Signal
 
@@ -2399,7 +2398,7 @@ hl.config({
 
 # Chapter 35: Networking
 
-Networking in Omarchy is handled by NetworkManager, and you drive it from the network icon in the [top bar](#chapter-5-the-top-bar) or with `Super + Ctrl + W`.
+Networking in Omarchy is handled by NetworkManager, and you drive it from the network icon in the [top bar](#chapter-5-the-top-bar) or with `Super + Ctrl + N`.
 
 That panel scans for Wi-Fi networks, shows signal strength, and connects. Ethernet needs nothing at all — plug it in and it works. If you'd rather stay in the terminal, `nmtui` gives you the same controls, and there's an `omarchy network` command group too.
 
@@ -2491,25 +2490,25 @@ Omarchy uses JetBrainsMono Nerd Font as both the terminal and system font by def
 
 
 
-You can change this through the _Style > Font_ menu in the Omarchy menu (`Super + Space`). That sets the monospace font everywhere: the terminal, the bar, and anything else that asks for it.
+You can change this through the _Appearance > Font_ menu in the Omarchy menu (`Super + Space`). That sets the monospace font everywhere: the terminal, the bar, and anything else that asks for it.
 
-You can install other popular programming fonts via _Install > Style > Font_ in the Omarchy menu: Cascadia Mono, Meslo LG Mono, Fira Code, Victor Code, Bitstream Vera Mono, and Iosevka are all one click away, in their Nerd Font versions so the glyphs in the bar and terminal keep working. After installing one, pick it under _Style > Font_.
+You can install other popular programming fonts via _Install > Style > Font_ in the Omarchy menu: Cascadia Mono, Meslo LG Mono, Fira Code, Victor Code, Bitstream Vera Mono, and Iosevka are all one click away, in their Nerd Font versions so the glyphs in the bar and terminal keep working. After installing one, pick it under _Appearance > Font_.
 
 ## Chinese, Japanese, and Korean
 
-Chinese, Japanese, and Korean share many characters but draw some of them differently, so the same character looks right to one reader and foreign to another. Picking one of these languages under _Setup > Language_, or its input method, sets the matching forms. To choose them yourself, use _Style > Font > Chinese, Japanese, Korean_, or `omarchy font cjk jp`, `kr`, `sc`, `tc` (Taiwan), or `hk` (Hong Kong) from a terminal; `omarchy font cjk default` goes back to the system's choice, which is Japanese forms. Text a web page or document marks with its own language, and the whole desktop while it is in one of these languages, keeps that language's forms.
+Chinese, Japanese, and Korean share many characters but draw some of them differently, so the same character looks right to one reader and foreign to another. Picking one of these languages under _Setup > Language_, or its input method, sets the matching forms. To choose them yourself, run `omarchy font cjk jp`, `kr`, `sc`, `tc` (Taiwan), or `hk` (Hong Kong) in a terminal; `omarchy font cjk default` goes back to the system's choice, which is Japanese forms. Text a web page or document marks with its own language, and the whole desktop while it is in one of these languages, keeps that language's forms.
 
 # Chapter 39: Backgrounds
 
 Every theme ships with its own set of backgrounds, and you can add extras of your own in `~/.config/omarchy/backgrounds/[theme]`. If you want to add an extra background image to, say, the nord theme, you just put the file in `~/.config/omarchy/backgrounds/nord`.
 
-You can do this most easily by going to _Install > Style > Background_ in the Omarchy Menu. That'll bring up the folder where the backgrounds for that theme is stored. Hit `Super + Shift + F` to start another file manager, find your background, copy it over.  Now it'll be included in the choices of backgrounds you can select between using `Super + Ctrl + Space`.
+You can do this most easily by going to _Install > Style > Background_ in the Omarchy Menu. That'll bring up the folder where the backgrounds for that theme is stored. Hit `Super + Shift + F` to start another file manager, find your background, copy it over.  Now it'll be included in the choices of backgrounds you can select between using `Super + Ctrl + W`.
 
 Backgrounds can be videos as well as stills. Drop an `mp4`, `m4v`, `mov`, `webm`, `mkv`, or `avi` file in the same folder and it appears alongside the images. Videos are played by the OWE wallpaper engine. It decodes the video once for all monitors and plays its sound through the default audio output, and it stops playback whenever nothing can see it. The lock screen draws the same decode, muted, through OWE. A video wallpaper still costs far more power than a still one.
 
 Themes can include a short intro for a still background. For `backgrounds/road.webp`, the matching video lives at `backgrounds/intros/road.mp4`. It plays automatically at boot and when switching to a theme with that background selected, then returns to the still. Intro videos stay out of the background picker and never loop.
 
-Turning off _Trigger > Appearance > Animations_ also turns off background intros. Omarchy does this by default in a virtual machine. The `omarchy theme bg intro toggle` command can toggle intros separately. Refreshing a theme or choosing another background within the same theme does not play an intro.
+Turning off _Appearance > Animations_ also turns off background intros. Omarchy does this by default in a virtual machine. The `omarchy theme bg intro toggle` command can toggle intros separately. Refreshing a theme or choosing another background within the same theme does not play an intro.
 
 You can find a huge collection of cool curated backgrounds on https://github.com/dharmx/walls.
 
@@ -2541,7 +2540,7 @@ Then apply the setup with `omarchy plymouth set '#1d2021' '#ebdbb2' logo.png`, w
 
 ### Screensaver
 
-You can change the logo used for the screensaver under _Style > Screensaver_. It's an ASCII logo, so you can edit the text directly, but you can also hand it a png or svg image, and we'll convert that to ASCII. It looks pretty cool.
+You can change the logo used for the screensaver under _Appearance > Branding > Screensaver_. It's an ASCII logo, so you can edit the text directly, but you can also hand it a png or svg image, and we'll convert that to ASCII. It looks pretty cool.
 
 
 
@@ -2553,7 +2552,7 @@ There are three entries in that menu:
 
 ### About screen
 
-The same three options are under _Style > About_ for the _About_ screen you get from the Omarchy menu, and they work identically — the file is `~/.config/omarchy/branding/about.txt`, and the About window pops up after each change. The About art is converted to a smaller size than the screensaver's, since it has to fit in a window rather than fill your display.
+The same three options are under _Appearance > Branding > About_ for the _About_ screen you get from the Omarchy menu, and they work identically — the file is `~/.config/omarchy/branding/about.txt`, and the About window pops up after each change. The About art is converted to a smaller size than the screensaver's, since it has to fit in a window rather than fill your display.
 
 While the window is open a glint of green leans across the art every few seconds and then leaves it still again. Your own art gets it too, as long as every character in it is one column wide — anything _Set From Image_ produces is. Art built from emoji or double-width characters stays still instead, and so does the screen if you keep a fastfetch config of your own: a still logo in those cases is the animation keeping out of the way rather than failing, since sliding a glint across them would land the rest of the line in the wrong place.
 
@@ -2645,7 +2644,7 @@ If you'd like to color-match the file manager icons to your theme, add a file ca
 
 ### Unlock image
 
-Themes supplied with `unlock.png` and `preview-unlock.png` images will be listed under _Style > Unlock_. Your `unlock.png` should preferably be a transparent png. And you can create the preview image using `omarchy plymouth preview`.
+Themes supplied with `unlock.png` and `preview-unlock.png` images will be listed under _Appearance > Unlock_. Your `unlock.png` should preferably be a transparent png. And you can create the preview image using `omarchy plymouth preview`.
 
 ### Theming apps Omarchy doesn't cover
 
