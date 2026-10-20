@@ -88,7 +88,7 @@ Windows folks: your Win + V clipboard history lives on `Super + Ctrl + V`, and i
 | ------------- | ---------- |
 | Spotlight / Raycast / Start menu | `Super + Space` — the Omarchy menu |
 | AirDrop | LocalSend, via `Super + Ctrl + S` — see [GUIs](#chapter-22-guis) |
-| Cmd + Shift + 4 / Win + Shift + S | `Super + Shift + S` or `Print Screen` — see [screenshots & recording](#chapter-12-screenshots--recording) |
+| Cmd + Shift + 4 / Win + Shift + S | `Super + Ctrl + Alt + C` or `Print Screen` — see [screenshots & recording](#chapter-12-screenshots--recording) |
 | Notification Center | Notification history on `Super + Shift + Alt + ,` |
 | Time Machine (for the system) | Automatic [system snapshots](#chapter-47-system-snapshots) on every update |
 | App Store / downloading an installer | _Install_ in the menu, or `omarchy pkg add` — see [other packages](#chapter-29-other-packages) |
@@ -589,7 +589,7 @@ You can see all the main keyboard bindings with `Super + K` (Tmux bindings with 
 | `Super + Shift + Alt + A`           | AI (Grok)  |
 | `Super + Shift + G`           | Messenger (Signal)  |
 | `Super + Shift + P`           | Google Photos  |
-| `Super + Shift + Alt + S`           | Google Maps  |
+| `Super + Shift + S`           | Google Maps  |
 | `Super + Shift + Alt + G`           | Messenger (WhatsApp)  |
 | `Super + Shift + Ctrl + G`           | Messenger (Google)  |
 | `Super + Shift + O`           | Obsidian  |
@@ -616,7 +616,7 @@ Usually on Linux, you need `Ctrl + Shift + C/V` to copy'n'paste in the terminal 
 | Hotkey              | Function                       |
 | ------------------- | ------------------------------ |
 | `Print Screen`            | Screenshot                      |
-| `Super + Shift + S`            | Screenshot (the same shot, for keyboards with no Print Screen key) |
+| `Super + Ctrl + Alt + C`            | Screenshot (the same shot, for keyboards with no Print Screen key) |
 | `Super + Ctrl + C` | Capture menu |
 | `Alt + Print Screen`            | Screenrecord                     |
 | `Super + Print Screen` | Color picker |
@@ -877,7 +877,21 @@ Omarchy has a built-in way to set simple reminders based on a countdown timer an
 
 # Chapter 10: Notices
 
-You can quickly access the date and time, battery status, and current weather using the hotkey notices.
+Notifications land in the top-right corner of the focused display. You can also quickly access the date and time, battery status, and current weather using the hotkey notices.
+
+## Notifications
+
+Notifications from the same app or site stack into a deck, so a chatty Slack channel doesn't push your build failure off the screen. Hover a deck to fan it out; nothing new slides in under your pointer while you're reading. Click a card to jump to where it came from, middle-click or hit the ✕ to dismiss it.
+
+Cards offer what they carry: _Copy code_ for verification codes (kept out of [clipboard history](#chapter-8-unified-clipboard--history) and cleared after a minute), _Open link_, _Join_ for meetings, _Copy number_ for phone numbers, plus any buttons the app provides.
+
+Right-click a card to snooze its source or turn on Do Not Disturb. Snoozed notifications are held back, not thrown away.
+
+Right-click the bell in the bar (hover the middle of the bar to reveal it) to open the notification panel: what's been held back, recent notifications, and the past day's history. From there you can snooze everything, wake a snoozed source, or choose whether verification codes get through while you're quiet (they do by default). The cog opens preferences for which display to use, stepping aside for fullscreen games, stacking by source, and a countdown bar. When you share your screen, the bell offers a timed snooze; nothing is muted until you pick one.
+
+More preferences live in the `notifications` section of `~/.config/omarchy/shell.json`, for example `"notifications": { "fontScale": 120, "historyHours": 168 }`. Set `historyHours` to `0` to keep no history on disk.
+
+## Hotkey notices
 
 ### Date & Time
 
@@ -923,12 +937,12 @@ Additional backends can integrate without changing Omarchy. Provide an executabl
 
 # Chapter 12: Screenshots & Recording
 
-Everything you can grab off the screen hangs off the Print Screen key. One key on its own takes a picture, and the modifiers take a recording, a colour, or the text inside a region. If your keyboard doesn't have a Print Screen key at all, `Super + Shift + S` takes the same screenshot, and `Super + Ctrl + C` opens the whole set as a menu.
+Everything you can grab off the screen hangs off the Print Screen key. One key on its own takes a picture, and the modifiers take a recording, a colour, or the text inside a region. If your keyboard doesn't have a Print Screen key at all, `Super + Ctrl + Alt + C` takes the same screenshot, and `Super + Ctrl + C` opens the whole set as a menu.
 
 | Hotkey | Function |
 | ------ | -------- |
 | `Print Screen` | Screenshot |
-| `Super + Shift + S` | Screenshot |
+| `Super + Ctrl + Alt + C` | Screenshot |
 | `Alt + Print Screen` | Screenrecord (or stop the one that's running) |
 | `Super + Print Screen` | Colour picker |
 | `Super + Ctrl + Print Screen` | Extract text from a region |
@@ -937,7 +951,7 @@ Everything you can grab off the screen hangs off the Print Screen key. One key o
 
 ## Screenshots
 
-Hit `Print Screen` (or `Super + Shift + S`) and Omasnap captures the focused monitor before its overlay appears, so nothing shifts under you while you aim. Drag a freeform region, click a window to capture it, or click open space to capture the whole monitor. Press `S` before drawing to capture a scrolling region. Changed your mind? Hit the same key again to dismiss Omasnap.
+Hit `Print Screen` (or `Super + Ctrl + Alt + C`) and Omasnap captures the focused monitor before its overlay appears, so nothing shifts under you while you aim. Drag a freeform region, click a window to capture it, or click open space to capture the whole monitor. Press `S` before drawing to capture a scrolling region. Changed your mind? Hit the same key again to dismiss Omasnap.
 
 After you select an area, Omasnap saves the capture, copies it to the clipboard, and shows a preview for 10 seconds. Use the preview's pin button or `Ctrl + P` to keep it on screen, or choose Edit to annotate it.
 
@@ -1066,7 +1080,7 @@ Then start hyprsunset at login by adding `o.launch_on_start("hyprsunset")` to `~
 
 `Super + Ctrl + ,` silences notifications. No toasts pop up while it's on, and the crossed-out bell indicator sits in the bar to remind you why the desktop has gone quiet.
 
-Nothing is lost, though. A silenced notification is written straight into your notification history, which is exactly the record you want when you come back and wonder what you missed. Open it with `Super + Shift + Alt + ,`. See [notices](#chapter-10-notices) for the rest of the notification story.
+Nothing is lost, though. Silenced notifications are held back: right-click the bell to read what came in, or put the last few back on screen with `Super + Shift + Alt + ,`. See [notices](#chapter-10-notices) for the rest, including snoozing just one app.
 
 Two kinds of message still get through: Omarchy's own confirmation toasts for something you just did ("Theme changed", "Screenshot saved"), and critical alerts sent from the command line. Chat apps that mark everything critical to force their way in front of you don't qualify.
 
@@ -1803,7 +1817,7 @@ You can start WhatsApp using `Super + Shift + Alt + G`.
 
 Google Messages, Google Photos, Google Maps, and Google Contacts are all included as web apps too.
 
-You can start Google Messages using `Super + Shift + Ctrl + G`, Google Photos using `Super + Shift + P`, and Google Maps using `Super + Shift + Alt + S`. Google Contacts is available through the app launcher (`Super + Space`).
+You can start Google Messages using `Super + Shift + Ctrl + G`, Google Photos using `Super + Shift + P`, and Google Maps using `Super + Shift + S`. Google Contacts is available through the app launcher (`Super + Space`).
 
 ## X
 
