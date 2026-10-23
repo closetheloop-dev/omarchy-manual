@@ -880,15 +880,11 @@ Notifications land in the top-right corner of the focused display. You can also 
 
 ## Notifications
 
-Notifications from the same app or site stack into a deck, so a chatty Slack channel doesn't push your build failure off the screen. Hover a deck to fan it out; nothing new slides in under your pointer while you're reading. Click a card to jump to where it came from, middle-click or hit the ✕ to dismiss it.
+Notifications from the same app or site stack into a deck, so a chatty Slack channel doesn't push your build failure off the screen. Hover a deck to fan it out; nothing new slides in under your pointer while you're reading. Click a card to jump to where it came from, right-click, middle-click, or hit the ✕ to dismiss it.
 
 Cards offer what they carry: _Copy code_ for verification codes (kept out of [clipboard history](#chapter-8-unified-clipboard--history) and cleared after a minute), plus any buttons the app provides. Links in a notification's text open when clicked.
 
-Hover a card and click the zzz next to its close mark, or right-click the card, to snooze its source for 15 minutes, an hour, or until tomorrow morning. Snoozed notifications are held back, not thrown away.
-
-Right-click the bell in the bar (hover the middle of the bar to reveal it) to open the notification panel: what's been held back, recent notifications, and the past day's history. From there you can snooze everything, wake a snoozed source, or choose whether verification codes get through while you're quiet (they do by default). The cog opens preferences for which display to use, stepping aside for fullscreen games, and the screen-sharing snooze. When you share your screen, the bell offers a timed snooze; nothing is muted until you pick one.
-
-History is kept for a day. To change that, set `historyHours` in the `notifications` section of `~/.config/omarchy/shell.json` to `1`, `168` for a week, or `0` to keep no history on disk, for example `"notifications": { "historyHours": 168 }`.
+Silencing notifications holds them back, except Omarchy's own confirmations, emergency alerts, and verification codes, which you asked for a moment ago. Put the last few back on screen, held back or not, with `Super + Shift + Alt + ,`. History is kept for a day.
 
 ## Hotkey notices
 
@@ -1079,7 +1075,7 @@ Then start hyprsunset at login by adding `o.launch_on_start("hyprsunset")` to `~
 
 `Super + Ctrl + ,` silences notifications. No toasts pop up while it's on, and the crossed-out bell indicator sits in the bar to remind you why the desktop has gone quiet.
 
-Nothing is lost, though. Silenced notifications are held back: right-click the bell to read what came in, or put the last few back on screen with `Super + Shift + Alt + ,`. See [notices](#chapter-10-notices) for the rest, including snoozing just one app.
+Nothing is lost, though. Silenced notifications are held back: put the last few back on screen with `Super + Shift + Alt + ,`. See [notices](#chapter-10-notices) for the rest.
 
 Two kinds of message still get through: Omarchy's own confirmation toasts for something you just did ("Theme changed", "Screenshot saved"), and critical alerts sent from the command line. Chat apps that mark everything critical to force their way in front of you don't qualify.
 
