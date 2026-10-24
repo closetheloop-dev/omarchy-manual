@@ -638,9 +638,10 @@ All capture options are also accessible under _Trigger > Capture_ in the Omarchy
 | ----------------------- | --------------------- |
 | `Super + ,` | Dismiss latest notification  |
 | `Super + Shift + ,` | Dismiss all notifications |
-| `Super + Ctrl + ,` | Toggle silencing notifications  |
+| `Super + Ctrl + ,` | Control notifications with the keyboard  |
 | `Super + Alt + ,` | Invoke most recent notification  |
 | `Super + Shift + Alt + ,` | Open notification history  |
+| `Super + Ctrl + Alt + ,` | Toggle silencing notifications  |
 
 ## Style
 
@@ -884,6 +885,8 @@ Notifications from the same app or site stack into a deck, so a chatty Slack cha
 
 Cards offer what they carry: _Copy code_ for verification codes (kept out of [clipboard history](#chapter-8-unified-clipboard--history) and cleared after a minute), plus any buttons the app provides. Links in a notification's text open when clicked.
 
+To use them without the mouse, press `Super + Ctrl + ,`. The newest notification is selected and its buttons numbered: press a number to use one, `Enter` to click the notification, `↑` and `↓` to move between notifications, `Delete` to dismiss one, and `Esc` to give the keyboard back. It also lets go on its own after a few idle seconds.
+
 Silencing notifications holds them back, except Omarchy's own confirmations, emergency alerts, and verification codes, which you asked for a moment ago. Put the last few back on screen, held back or not, with `Super + Shift + Alt + ,`. History is kept for a day.
 
 ## Hotkey notices
@@ -1027,7 +1030,7 @@ From the terminal, the same switches are `omarchy toggle <thing>`. Run `omarchy 
 | Toggle | Hotkey | Command |
 | ------ | ------ | ------- |
 | Night light | — | `omarchy toggle nightlight` |
-| Silence notifications | `Super + Ctrl + ,` | `omarchy toggle notification silencing` |
+| Silence notifications | `Super + Ctrl + Alt + ,` | `omarchy toggle notification silencing` |
 | Stay awake (no idle lock) | `Super + Ctrl + I` | `omarchy toggle idle` |
 | Crash capture | — | `omarchy toggle crash-capture` |
 | Screensaver | — | `omarchy toggle screensaver` |
@@ -1073,7 +1076,7 @@ Then start hyprsunset at login by adding `o.launch_on_start("hyprsunset")` to `~
 
 ### Do not disturb
 
-`Super + Ctrl + ,` silences notifications. No toasts pop up while it's on, and the crossed-out bell indicator sits in the bar to remind you why the desktop has gone quiet.
+`Super + Ctrl + Alt + ,` silences notifications. No toasts pop up while it's on, and the crossed-out bell indicator sits in the bar to remind you why the desktop has gone quiet.
 
 Nothing is lost, though. Silenced notifications are held back: put the last few back on screen with `Super + Shift + Alt + ,`. See [notices](#chapter-10-notices) for the rest.
 
@@ -2504,7 +2507,7 @@ Every theme ships with its own set of backgrounds, and you can add extras of you
 
 You can do this most easily by going to _Install > Style > Background_ in the Omarchy Menu. That'll bring up the folder where the backgrounds for that theme is stored. Hit `Super + Shift + F` to start another file manager, find your background, copy it over.  Now it'll be included in the choices of backgrounds you can select between using `Super + Ctrl + W`.
 
-Backgrounds can be videos as well as stills. Drop an `mp4`, `m4v`, `mov`, `webm`, `mkv`, or `avi` file in the same folder and it appears alongside the images. Videos are played by the OWE wallpaper engine. It decodes the video once for all monitors and plays its sound through the default audio output, and it stops playback whenever nothing can see it. The lock screen draws the same decode, muted, through OWE. A video wallpaper still costs far more power than a still one.
+Backgrounds can be videos as well as stills. Drop an `mp4`, `m4v`, `mov`, `webm`, `mkv`, or `avi` file in the same folder and it appears alongside the images. Videos are played by the OWE wallpaper engine. It decodes the video once for all monitors and plays its sound through the default audio output, and it stops playback whenever nothing can see it. A video wallpaper still costs far more power than a still one.
 
 Themes can include a short intro for a still background. For `backgrounds/road.webp`, the matching video lives at `backgrounds/intros/road.mp4`. It plays automatically at boot and when switching to a theme with that background selected, then returns to the still. Intro videos stay out of the background picker and never loop.
 
@@ -2512,7 +2515,7 @@ Turning off _Appearance > Animations_ also turns off background intros. Omarchy 
 
 You can find a huge collection of cool curated backgrounds on https://github.com/dharmx/walls.
 
-Video backgrounds keep a cached still on the lock screen while playback is paused or unavailable. Animated GIFs play on the desktop and show a still frame on the lock screen.
+The lock screen shows a still frame of a video background, the same way it shows a still frame of an animated GIF.
 
 # Chapter 40: Prompt
 
@@ -3008,13 +3011,13 @@ The files are exactly what the installer's own wizard writes, so the easiest way
 |------|----------|---------|
 | `user_configuration.json` | Yes | Disk, hostname, timezone, keyboard |
 | `user_credentials.json` | Yes | Username and password hash |
-| `user_full_name.txt` | No | Git full name |
-| `user_email_address.txt` | No | Git email |
 | `user_encrypt_installation.txt` | No | `true` when the configuration carries a `disk_encryption` block |
 | `authorized_keys` | No | SSH public keys, one per line |
 | `tailscale_authkey` | No | Tailscale auth key for joining your tailnet on first boot |
 
 Generate the password hash for `user_credentials.json` with `openssl passwd -6 "yourpassword"`.
+
+The name and email for git commits aren't part of the install. Set them once the machine is up, over SSH for example, with `omarchy setup git --name "Jane Doe" --email jane@example.com`.
 
 You can also drop in an empty file named `defer-provisioning` in place of `user_credentials.json`. That runs the same [prepare-for-another-owner install](#chapter-2-getting-started) you can trigger interactively: the machine installs with no personal details, and whoever boots it first picks their keyboard and creates their user. That's the mode for imaging rigs, where the drive shouldn't carry anyone's credentials at all.
 
