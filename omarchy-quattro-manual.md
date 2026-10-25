@@ -382,7 +382,7 @@ _Miasma_
 _Hackerman_
 
 
-_Osaka Jade_
+_Jade Horse_
 
 
 _Kanagawa_
@@ -440,6 +440,9 @@ _Gruvbox_
 _Hackerman_
 
 
+_Jade Horse_
+
+
 _Kanagawa_
 
 
@@ -453,9 +456,6 @@ _Miasma_
 
 
 _Nord_
-
-
-_Osaka Jade_
 
 
 _Retro 82_
@@ -959,13 +959,13 @@ Everything you can grab off the screen hangs off the Print Screen key. One key o
 
 Hit `Print Screen` (or `Super + Ctrl + Alt + C`) and Omasnap captures the focused monitor before its overlay appears, so nothing shifts under you while you aim. Drag a freeform region, click a window to capture it, or click open space to capture the whole monitor. Press `S` before drawing to capture a scrolling region. Changed your mind? Hit the same key again to dismiss Omasnap.
 
-After you select an area, Omasnap saves the capture, copies it to the clipboard, and shows a preview for 10 seconds. Use the preview's pin button or `Ctrl + P` to keep it on screen, or choose Edit to annotate it.
+After you select an area, Omasnap saves the capture, copies it to the clipboard, and shows a notification with its thumbnail, like a saved screen recording does. Choose Open to view the saved shot in your image viewer, or Edit to annotate it.
 
 The annotation editor can draw arrows, lines, shapes, highlights, numbered markers, text, and secure redactions; crop or cut out part of the image; OCR its text; and add a backdrop. In the editor, press `Enter` to copy and save the finished PNG, `Ctrl + C` to copy it without saving, or `Ctrl + S` to save it without copying.
 
-Saved screenshots land in `~/Pictures/Screenshots` by default, with a name such as `screenshot-2026-08-13_14-22-05-firefox.png`. Set `OMASNAP_SCREENSHOT_DIR` to use another directory — see [the FAQ](#chapter-46-faq) for where to put session environment variables. Omasnap creates the directory when it saves the first shot. Set `[output] autosave = false` in `~/.config/omasnap/omasnap.conf` to disable automatic saving.
+Saved screenshots land in `~/Pictures/Screenshots` by default, with a name such as `screenshot-2026-08-13_14-22-05-firefox.png`. Set `OMASNAP_SCREENSHOT_DIR` to use another directory — see [the FAQ](#chapter-46-faq) for where to put session environment variables. Omasnap creates the directory when it saves the first shot. Set `[output] autosave = false` in `~/.config/omasnap/omasnap.conf` to disable automatic saving; captures are then only copied, and shown in a preview for 10 seconds that you can keep on screen with its pin button or `Ctrl + P`.
 
-From the terminal, `omarchy screenshot` opens the same overlay, and you can choose its starting mode: `omarchy capture screenshot region`, `windows`, `fullscreen`, or `scroll`. A second argument of `copy` or `save` skips the preview and sends the shot straight to that destination. To edit before output, use `omarchy screenshot --editor=overlay` for a fullscreen editor or `omarchy screenshot --editor=window` for a separate window.
+From the terminal, `omarchy screenshot` opens the same overlay, and you can choose its starting mode: `omarchy capture screenshot region`, `windows`, `fullscreen`, or `scroll`. A second argument of `copy` or `save` sends the shot straight to that destination. To edit before output, use `omarchy screenshot --editor=overlay` for a fullscreen editor or `omarchy screenshot --editor=window` for a separate window.
 
 ### Driving the picker from the keyboard
 
@@ -2532,7 +2532,7 @@ Themes can include a short intro for a still background. For `backgrounds/road.w
 
 Turning off _Appearance > Animations_ also turns off background intros. Omarchy does this by default in a virtual machine. The `omarchy theme bg intro toggle` command can toggle intros separately. Refreshing a theme or choosing another background within the same theme does not play an intro.
 
-You can find a huge collection of cool curated backgrounds on https://github.com/dharmx/walls.
+You can find a huge collection of cool curated backgrounds in [dharmx/walls](https://github.com/dharmx/walls).
 
 The lock screen shows a still frame of a video background, the same way it shows a still frame of an animated GIF.
 
@@ -2941,7 +2941,7 @@ Be clear-eyed about this one: while it's on, anything running as your user can d
 
 The public key for all ISO signatures and Omarchy repo package is `40DFB630FF42BCFFB047046CF0134EE680CAC571` ([verify at openpgp.org](https://keys.openpgp.org/search?q=pkgs%40omarchy.org)). The `omarchy/omarchy-keyring` package contains this as well and will be used to rollout any potential updates seamlessly.
 
-You can find the signature for any ISO release by adding .sig to the URL. Like https://iso.omarchy.org/omarchy-x.x.x.iso.sig.
+You can find the signature for any ISO release by adding `.sig` to its URL, like `https://iso.omarchy.org/omarchy-x.x.x.iso.sig`.
 
 # Chapter 49: Omarchy on...
 
