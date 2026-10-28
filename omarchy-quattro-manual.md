@@ -1118,7 +1118,7 @@ Omarchy's screensaver is ASCII art running through random text effects, one inst
 
 You can start it on demand from _System > Screensaver_ (`Super + Esc`), which forces it up even if you've turned the idle screensaver off. There's no hotkey bound to it by default.
 
-`omarchy toggle screensaver` is what turns the idle one off, if you'd rather go straight from working to locked. It needs a terminal it knows how to configure — Alacritty, Foot, Ghostty, or Kitty — and will tell you so if your default terminal is something else.
+`omarchy toggle screensaver` is what turns the idle one off, if you'd rather go straight from working to locked. Any key, click, scroll or mouse movement closes it.
 
 The logo it draws is yours to change, under _Appearance > Branding > Screensaver_. Upload a png or svg and Omarchy converts it to ASCII. See [branding](#chapter-41-branding).
 
@@ -2384,11 +2384,24 @@ hl.config({
 
 ### Trackpad gestures
 
-You can also turn on [touchpad gestures](https://wiki.hypr.land/Configuring/Advanced-and-Cool/Gestures/), like swiping with three fingers to change workspaces:
+Swipe on the trackpad to move around the desktop:
+
+| Gesture | Action |
+| --- | --- |
+| Three fingers left / right | Previous / next workspace, including empty ones |
+| Three fingers up | Toggle the AI console |
+| Three fingers down | Open the Omarchy menu |
+| Four fingers left / right | Move the active window to the previous / next workspace |
+| Four fingers down | Toggle fullscreen |
+
+To change one, unset it in `~/.config/hypr/input.lua` before adding your own [touchpad gesture](https://wiki.hypr.land/Configuring/Advanced-and-Cool/Gestures/), since Hyprland won't take two gestures on the same fingers and direction:
 
 ```lua
-hl.gesture({ fingers = 3, direction = "horizontal", action = "workspace" })
+hl.gesture({ fingers = 3, direction = "up", action = "unset" })
+hl.gesture({ fingers = 3, direction = "up", action = "fullscreen" })
 ```
+
+To turn all of Omarchy's gestures off, set `omarchy_default_gestures = false` near the top of `~/.config/hypr/hyprland.lua`, before Omarchy's defaults load.
 
 On Dell XPS laptops with a haptic touchpad, you can also set the click strength to low, mid, or high under _Trigger > Hardware > Touchpad Haptics_.
 
@@ -2528,9 +2541,9 @@ You can do this most easily by going to _Install > Style > Background_ in the Om
 
 Backgrounds can be videos as well as stills. Drop an `mp4`, `m4v`, `mov`, `webm`, `mkv`, or `avi` file in the same folder and it appears alongside the images. Videos are played by the OWE wallpaper engine. It decodes the video once for all monitors and plays its sound through the default audio output, and it stops playback whenever nothing can see it. A video wallpaper still costs far more power than a still one.
 
-Themes can include a short intro for a still background. For `backgrounds/road.webp`, the matching video lives at `backgrounds/intros/road.mp4`. It plays automatically at boot and when switching to a theme with that background selected, then returns to the still. Intro videos stay out of the background picker and never loop.
+Themes can include a short intro for a still background. For `backgrounds/road.webp`, the matching video lives at `backgrounds/intros/road.mp4`. It plays automatically at boot, when switching to a theme with that background selected, and when choosing that background, then returns to the still. Intro videos stay out of the background picker and never loop.
 
-Turning off _Appearance > Animations_ also turns off background intros. Omarchy does this by default in a virtual machine. The `omarchy theme bg intro toggle` command can toggle intros separately. Refreshing a theme or choosing another background within the same theme does not play an intro.
+Turning off _Appearance > Animations_ also turns off background intros. Omarchy does this by default in a virtual machine. The `omarchy theme bg intro toggle` command can toggle intros separately. Refreshing a theme does not play an intro.
 
 You can find a huge collection of cool curated backgrounds in [dharmx/walls](https://github.com/dharmx/walls).
 
