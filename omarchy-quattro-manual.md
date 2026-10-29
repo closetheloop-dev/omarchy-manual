@@ -540,6 +540,8 @@ You can see all the main keyboard bindings with `Super + K` (Tmux bindings with 
 | `Ctrl + Alt + Tab`| Cycle focus forward through monitors |
 | `Ctrl + Alt + Shift + Tab`| Cycle focus backwards through monitors |
 
+Resize shortcuts use physical keys `code:20` and `code:21` (XKB `<AE11>` and `<AE12>`), regardless of the characters printed on the keyboard. On US keyboards these keys are `-` and `=`; on Japanese (JIS) keyboards they are `-` and `^`; on Spanish keyboards they are `'` and `¡`. On JIS, `Super + ^` is `Super + Equal`, while `Super + Shift + -` (which types `=`) is `Super + Shift + Minus`.
+
 ## System controls
 
 | Hotkey                  | Function              |
@@ -612,6 +614,7 @@ Change/add bindings in `~/.config/hypr/bindings.lua`.
 
 | Hotkey                  | Function              |
 | ----------------------- | --------------------- |
+| `Super + A`           | Select all in apps that support `Ctrl + A`    |
 | `Super + C`           | Copy    |
 | `Super + X`           | Cut (not in terminal)    |
 | `Super + V`           | Paste    |
@@ -784,7 +787,7 @@ Ghostty terminal is installed using _Install > Terminal_ via the Omarchy menu.
 | ------------------- | ------------------------------ |
 | `Ctrl + L`            | Go to path                     |
 | `Space`               | Preview file (arrows navigate) |
-| `Backspace`      | Go back one folder             |
+| `Alt + Up`       | Go up to parent folder        |
 
 ## Neovim (w/ lazyvim)
 
@@ -864,12 +867,15 @@ Omarchy tackles both problems with unified clipboard hotkeys that work (almost) 
 
 | Hotkey | Command |
 | ------- | ----------- |
+| Super + A | Select all |
 | Super + C | Copy |
 | Super + X | Cut |
 | Super + V | Paste |
 | Super + Ctrl + V | Clipboard history |
 
 _Note that most agent harnesses will use `Ctrl + V` for pasting images, but `Super + V` for pasting text._
+
+Use `Super + A`, then `Super + C` to copy everything in a focused text field or other app that supports `Ctrl + A`. In a terminal, `Ctrl + A` moves to the start of the command line instead of selecting its text.
 
 ### Clipboard history
 
@@ -2782,6 +2788,12 @@ Omarchy assumes a 2x high-resolution display, which requires setting `GDK_SCALE`
 
 For Spotify, you can use `Ctrl + Minus` to shrink the UI (and `Ctrl + Plus` to make it bigger).
 
+### Why did all my Super key binds stop working?
+
+On some ASUS ROG and TUF laptops, `Fn + Super` is an easy-to-miss chord that toggles a firmware Windows-key lock (meant for gaming so you don't leave a game by accident). Nothing on screen tells you it happened. While the lock is on, Super emits nothing at all — so every Omarchy bind that uses Super just stops, and it looks like Hyprland broke.
+
+Press `Fn + Super` once before you dig into `~/.config/hypr/`, and if that doesn't bring Super back, press it again so you don't leave the lock on. This is not Fn-lock, which only changes what the F-key row does.
+
 ### My Wi-Fi, Bluetooth, audio, or trackpad just stopped working
 
 Before you reboot, try restarting the offending subsystem on its own. _Update > Hardware_ in the Omarchy menu has Wi-Fi, Bluetooth, Audio, and Trackpad, and reloading one of those clears up the majority of "it worked five minutes ago" situations — a Bluetooth headset that won't reconnect, a trackpad that went dead after a suspend, sound that vanished when you unplugged a monitor.
@@ -2911,6 +2923,8 @@ When you arrive inside, a notification will popup notifying you that you're in a
 This will restore your root filesystem, but not your `/home`. So it works for reverting a broken system update, but not for recovering lost personal files.
 
 This also means that your `~/.config` directory is kept as-is. So if you're rolling back to an earlier version of a library or application that stores configuration files in a new format, you'll have to sort that out manually.
+
+The same goes for Omarchy's own record of which migrations have already run: it lives in your home directory, so it survives the restore. Migrations that ran after the snapshot was taken stay marked as done, even though the changes they made to the root filesystem have been rolled back, and the next `omarchy update` won't run them again. So if you update again after a restore and something an earlier update had set up is still missing, that's the likely reason.
 
 _Note: This feature is only available on installations using the Limine boot loader, which has been the default since Omarchy 2.0. It's not available if you're on GRUB or systemd-boot._
 
