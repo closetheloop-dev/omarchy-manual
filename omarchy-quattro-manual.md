@@ -636,8 +636,8 @@ Usually on Linux, you need `Ctrl + Shift + C/V` to copy'n'paste in the terminal 
 | `Super + Alt + ]` | Make webcam overlay larger while recording |
 | `Alt + Shift + L` | Copy current URL from webapp or Chromium |
 | `Alt + Shift + D` | Download the video on the current page to `~/Videos` |
-| `Super + Ctrl + X` | Start/stop dictation (requires _Setup > Defaults > Dictation_) |
-| `Right Alt` / `F9` | Push-to-talk dictation (requires Voxtype or Superwhisper) |
+| `Alt + Space` | Start/stop dictation (requires _Setup > Defaults > Dictation_) |
+| `Right Alt` | Hold to dictate (requires _Setup > Defaults > Dictation_) |
 
 With screenrecordings, the hotkey first asks which audio you want, then starts recording. Hit it again to stop. See [screenshots and recording](#chapter-12-screenshots--recording) for the details.
 
@@ -935,15 +935,15 @@ This is very helpful for grabbing addresses out of image footers or phone number
 
 ### Dictation
 
-On fresh installs, [Superwhisper](https://superwhisper.com/) is the default dictation backend, using cloud processing without offline model downloads. Choose Superwhisper or [Voxtype](https://voxtype.io/) through _Setup > Defaults > Dictation_ in the Omarchy menu. Selecting a backend installs it if needed and makes it the default for dictation. Voxtype loads a base English model that takes up 150MB; change the model with `voxtype setup model` and other settings through `~/.config/voxtype/config.toml`. Superwhisper opens its settings to choose cloud or local processing, and OPR keeps the application updated.
+On fresh installs, [Superwhisper](https://superwhisper.com/) is the default dictation backend, using cloud processing without offline model downloads. Choose Superwhisper, [Voxtype](https://voxtype.io/), or [Hex](https://anoma.ly/hex/) through _Setup > Defaults > Dictation_ in the Omarchy menu. Selecting a backend installs it if needed and makes it the default for dictation. Voxtype loads a base English model that takes up 150MB; change the model with `voxtype setup model` and other settings through `~/.config/voxtype/config.toml`. Superwhisper opens its settings to choose cloud or local processing, and OPR keeps the application updated. Hex downloads its on-device speech model during setup and runs as the `hex.service` user service; open its window from the bar's tray icon or by running `hex` to change the model and other settings.
 
-You dictate by holding down `Right Alt` or `F9`, or by toggling with `Super + Ctrl + X`, and the dictated text will appear in the focused input area. These shortcuts use the selected backend. Right Alt also starts dictation when used in a modifier chord; use Left Alt for those chords. On keyboard layouts where Right Alt is AltGr, use `F9` to keep AltGr available for typing.
+You dictate by holding down `Right Alt`, or by toggling with `Alt + Space`, and the dictated text will appear in the focused input area. These shortcuts use the selected backend. Right Alt also starts dictation when used in a modifier chord; use Left Alt for those chords. On keyboard layouts where Right Alt is AltGr, use `Alt + Space` to keep AltGr available for typing. Installs from before Alt + Space became the default keep `F9` for push-to-talk and `Super + Ctrl + X` to toggle, added to `~/.config/hypr/bindings.lua`; remove them there to give those keys back to applications.
 
-The same shortcuts work with either backend. Select your backend through Setup > Defaults > Dictation. The backend installer configures it and saves the selection. Run `omarchy default dictation` to see which one is selected. The selection is saved in `~/.config/omarchy/defaults/dictation`. Fresh installs select Superwhisper automatically.
+The same shortcuts work with every backend. Select your backend through Setup > Defaults > Dictation. The backend installer configures it and saves the selection. Run `omarchy default dictation` to see which one is selected. The selection is saved in `~/.config/omarchy/defaults/dictation`. Fresh installs select Superwhisper automatically.
 
 Omarchy loads the selected backend's desktop integration automatically. No Superwhisper configuration is needed in `~/.config/hypr/`.
 
-Custom bindings and scripts can use `omarchy dictation start`, `omarchy dictation stop`, and `omarchy dictation toggle`. The selected backend handles the recording and transcription. Selecting Superwhisper disables its native hold shortcut and sets its native toggle to `Alt + Space`, keeping it separate from Omarchy's recording keys. Superwhisper requires at least one native recording shortcut, and its cancellation shortcut stays available.
+Custom bindings and scripts can use `omarchy dictation start`, `omarchy dictation stop`, and `omarchy dictation toggle`. The selected backend handles the recording and transcription. Selecting Superwhisper disables its native hold shortcut and sets its native toggle to `Ctrl + Alt + Space`, keeping it separate from Omarchy's recording keys. Superwhisper requires at least one native recording shortcut, and its cancellation shortcut stays available.
 
 Additional backends can integrate without changing Omarchy. Provide an executable named `omarchy-dictation-<backend>` on PATH that accepts `start`, `stop`, and `toggle` and returns promptly, with a nonzero status on failure. Its installer configures the provider and calls `omarchy-dictation-use <backend>` after successful setup. This stops the previous backend and saves the selection atomically; `stop` must succeed when the provider is idle or unavailable. Backend names use lowercase letters, digits, and hyphens. Provide `omarchy-install-dictation-<backend>` for setup; `omarchy default dictation <backend>` launches it. Add a Defaults menu entry through an Omarchy menu extension to call that selector. Optional desktop integration can live in `${XDG_CONFIG_HOME:-$HOME/.config}/<backend>/shortcuts.lua`.
 
@@ -2086,7 +2086,7 @@ If somehow your configuration files have been corrupted, you can also perform an
 
 Omarchy is primarily configured through the so-called dotfiles that live in `~/.config`. Those are considered your files for your changes. The files that live in `/usr/share/omarchy` belong to Omarchy itself, and you shouldn't be messing with those. If you need to change anything in `/usr/share/omarchy`, you should be overwriting the value in `~/.config` instead.
 
-The key configs can be edited straight from the Omarchy menu (`Super + Space`), like _Setup > Monitors_, _Setup > Keybindings_, _Setup > Input_, and _Setup > Config > [file]_. When you do it this way, any process that needs restarting after config edits automatically will be after you quit the editor (Neovim by default — `:wq`, remember! — but you can change that via _Setup > Defaults > Editor_).
+The key configs can be edited straight from the Omarchy menu (`Super + Space`), like _Setup > Keybindings_, _Setup > Input_, and _Setup > Config > [file]_. When you do it this way, any process that needs restarting after config edits automatically will be after you quit the editor (Neovim by default — `:wq`, remember! — but you can change that via _Setup > Defaults > Editor_).
 
 Here's a list of the key files in `~/.config` and what they control:
 
@@ -2094,7 +2094,7 @@ Here's a list of the key files in `~/.config` and what they control:
 | ----------------------- | --------------------- |
 | `~/.config/hypr/hyprland.lua` | The main Hyprland config. Loads the Omarchy defaults plus your override files below. [Learn more about Hyprland configs](https://wiki.hypr.land/Configuring/).  |
 | `~/.config/hypr/bindings.lua` | Your own keybindings and overrides of the defaults. |
-| `~/.config/hypr/monitors.lua` | Controls your monitors, resolution, and position. |
+| `~/.config/hypr/monitors.lua` | Monitor settings the monitor panel doesn't cover, like rotation, extra modes, or keeping a monitor off. |
 | `~/.config/hypr/input.lua` | Controls your keyboard layout, mouse, and trackpad settings. |
 | `~/.config/hypr/looknfeel.lua` | Controls gaps, borders, animations, and the rest of the look. |
 | `~/.config/hypr/autostart.lua` | Controls extra processes started with the session. |
@@ -2145,6 +2145,10 @@ Reuse an existing id and you override that row instead of adding a new one. The 
 ### Adding your own shell exports, functions, and aliases
 
 Omarchy ships with a bunch of ergonomic aliases and helpful functions, but it's very common to want to add your own. You should add both aliases, functions, and exports in `~/.bashrc`. This file will not be overwritten on updates. If you want to change any of the Omarchy defaults, you can also safely add them here.
+
+### Setting environment variables for the desktop
+
+Desktop session exports belong in `~/.config/uwsm/env.d/`. These files run before your desktop starts, so a shell error can send you back to the login screen. Keep a working terminal open while editing them. To disable an override, move it out of `env.d`. See [login recovery](#my-password-is-accepted-but-i-return-to-the-login-screen) if a change prevents login.
 
 ### Changing internal Omarchy files
 
@@ -2273,23 +2277,22 @@ To help people actually find it, list it at [plugins.omarchy.org](https://plugin
 
 Omarchy assumes you're running on a 2x-capable retina-class display by default. This is what you need to get those nice, crisp programmer fonts. It's what almost all new premium laptops with high-resolution screens are optimized for. It's what you'd want to run on a 27" 5K [Apple Studio Display](https://www.apple.com/studio-display/)/[ProArt PA27JCV](https://www.asus.com/us/displays-desktops/monitors/proart/proart-display-5k-pa27jcv/)/[Samsung S9](https://www.samsung.com/us/computing/monitors/5k/27-viewfinity-s9-5k-monitor-with-thunderbolt-4-matte-display-and-smart-features-ls27c900panxza/)/[Kuycon G27P](https://kuycon.us/monitors/G27P/) or 32" 6K [Apple XDR](https://www.apple.com/pro-display-xdr/)/[ProArt PA32QCV](https://www.asus.com/displays-desktops/monitors/proart/proart-display-6k-pa32qcv/)/[Kuycon G32P](https://kuycon.us/monitors/G32P/).
 
-But if you're not running a display with a PPI of 218 or above, you'll want to change the monitor settings. For example, if you have a 27" or 32" 4K, you can use fractional scaling by opening `~/.config/hypr/monitors.lua` (via _Setup > Monitors_ in the Omarchy menu) and switching to the recommendation for that combo:
+But if you're not running a display with a PPI of 218 or above, you'll want to change the monitor settings. For example, if you have a 27" or 32" 4K, you can pick a fractional scale for it from the monitor panel in the top bar, or set the default for every monitor by opening `~/.config/hypr/monitors.lua` and switching to the recommendation for that combo:
 
 ```lua
-local omarchy_gdk_scale = 2
-local omarchy_monitor_scale = 1.6
+hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1.6 })
 ```
 
-If you're using a 1080p or 1440p display, you'll probably just want to use 1x scaling, so you can use:
+If you're using a 1080p or 1440p display, you'll probably just want to use 1x scaling, and the same for GTK and X11 apps, so you can use:
 
 ```lua
-local omarchy_gdk_scale = 1
-local omarchy_monitor_scale = 1
+hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
+hl.env("GDK_SCALE", "1")
 ```
 
 Changes to `GDK_SCALE` apply to applications started after the change (and GTK only honors whole numbers, so keep it at the nearest integer of your monitor scale). So make sure you quit the windows that you have that are oversized after the change (or close all windows with `Ctrl + Alt + Del`!).
 
-You can also quickly step through the major monitor scaling ratios (1x, 1.25x, 1.6x, 2x, 3x, 4x) using `Super + /` to go higher and `Super + Alt + /` to go lower, or pick one from the monitor panel in the top bar. These change only the monitor you're focused on, so a laptop screen and an external display can each have their own scale. The choice is saved to `~/.config/hypr/monitors.lua` as an `hl.monitor` rule for that monitor, so it persists past reboot and takes precedence over `omarchy_monitor_scale`, which remains the scale for every monitor without a rule of its own. Since `GDK_SCALE` is one value for all screens, these changes set it from the monitor with the lowest scale, so X11 apps come out a little small on the denser screen rather than oversized on the other.
+You can also quickly step through the major monitor scaling ratios (1x, 1.25x, 1.6x, 2x, 3x, 4x) using `Super + /` to go higher and `Super + Alt + /` to go lower, or pick one from the monitor panel in the top bar. These change only the monitor you're focused on, so a laptop screen and an external display can each have their own scale. The panel also sets each monitor's resolution, refresh rate and rotation. Your choices are saved for that physical monitor in `~/.local/state/omarchy/monitors/settings`, so they persist past reboot and follow the monitor to whichever port or dock it's plugged into next. They take precedence over any rule for the same monitor in `~/.config/hypr/monitors.lua`, which Omarchy never edits. If you'd rather set your monitors entirely in that file, add `omarchy_monitor_panel_settings = false` to it, and the panel's changes will last only until Hyprland reloads. Since `GDK_SCALE` is one value for all screens, a chosen scale sets it from the monitor with the lowest scale, so X11 apps come out a little small on the denser screen rather than oversized on the other.
 
 ### Making text bigger or smaller
 
@@ -2309,9 +2312,9 @@ When you're extending, closing the lid on the laptop will automatically turn off
 
 ### Arranging multiple screens
 
-Hyprland works great with multiple screens. Read more about how to lay them out in [the Hyprland monitor documentation](https://wiki.hypr.land/Configuring/Basics/Monitors/). In Omarchy, these go in `~/.config/hypr/monitors.lua` as `hl.monitor` entries — the file ships with commented examples for pinning a specific monitor to a resolution, position, and rotation.
+Hyprland works great with multiple screens. The monitor panel in the top bar draws them where they sit: drag one against the side of another to move it there, and the arrangement is saved with each monitor's other settings. For anything the panel doesn't cover, read more about how to lay them out in [the Hyprland monitor documentation](https://wiki.hypr.land/Configuring/Basics/Monitors/). In Omarchy, these go in `~/.config/hypr/monitors.lua` as `hl.monitor` entries — the file ships with commented examples for keeping a monitor off, modes the panel doesn't offer, 10-bit color, and variable refresh rate.
 
-Every monitor has workspaces 1 through 10 of its own, so `Super + 1` always means the first workspace of the monitor you're on. Behind the scenes, Hyprland still numbers workspaces across all monitors: your laptop screen (or first monitor) gets 1–10, the next monitor 11–20, and so on, and each monitor keeps its block every time you plug it in. Use those numbers if you write [workspace rules](https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/) or window rules for a specific monitor, so workspace 12 is the second workspace of your second monitor. `~/.local/state/omarchy/monitor-workspaces` lists which block each monitor has.
+Every monitor has workspaces 1 through 10 of its own, so `Super + 1` always means the first workspace of the monitor you're on. Behind the scenes, Hyprland still numbers workspaces across all monitors: your laptop screen (or first monitor) gets 1–10, the next monitor 11–20, and so on, and each monitor keeps its block every time you plug it in. Use those numbers if you write [workspace rules](https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/) or window rules for a specific monitor, so workspace 12 is the second workspace of your second monitor. `~/.local/state/omarchy/monitors/workspaces` lists which block each monitor has.
 
 The arrow keys work across monitors that share an edge in your layout. Screens that only touch at a corner, or that have a gap between them, aren't neighbors, so use `Ctrl + Alt + Tab` to get between them.
 
@@ -2335,7 +2338,7 @@ Monitor brightness is controlled by the dedicated function keys for brightness u
 
 If you're using an Apple display, the regular keyboard brightness keys will also automatically work, if you're focused on the Apple display. This is done through the `asdcontrol` command.
 
-Note that if you're using an Apple 6K XDR display, you may see a phantom screen in your `hyprctl monitors` listing. You can turn this off with something like `hl.monitor({ output = "DP-2", disabled = true })` via _Setup > Monitors_.
+Note that if you're using an Apple 6K XDR display, you may see a phantom screen in your `hyprctl monitors` listing. You can turn this off with something like `hl.monitor({ output = "DP-2", disabled = true })` in `~/.config/hypr/monitors.lua`.
 
 On Intel machines, you should be connecting to Apple displays using a regular Thunderbolt cable. On other machines without Thunderbolt, you'll typically have to use a [DP + USB-A -> USB-C cable](https://www.amazon.com/dp/B0BNX7MS6N) to make it work.
 
@@ -2415,7 +2418,7 @@ On Dell XPS laptops with a haptic touchpad, you can also set the click strength 
 
 Select Japanese, Korean, Chinese (Simplified, Pinyin), Taiwan (Zhuyin), or Hong Kong (Cangjie) when the installer asks for your keyboard. Omarchy configures the keyboard and matching input engine automatically, including during offline first-boot setup. Japanese uses Mozc, Korean uses standard two-set Hangul, Simplified Chinese uses Pinyin, Taiwan uses Chewing's standard Zhuyin arrangement, and Hong Kong uses Cangjie with Hong Kong character forms. Japanese (US keyboard) provides Mozc with a US keyboard layout. Hangul, Zhuyin, and Cangjie keys stay in their standard positions even when you type Latin letters with Dvorak, Colemak, or AZERTY. If you added Hangul or Chewing before this, deselect and reselect it under _Setup > Typing > Input Methods_ to move its keys there; Omarchy leaves an engine you already type with alone.
 
-Typing starts in Latin mode. Press `Super + I` to cycle through configured input methods, and `Super + Shift + I` to cycle back. Tap `Shift` on its own to step out of an input method like Pinyin into Latin letters, and tap it again to go back, the way Sogou, Microsoft Pinyin, and macOS work; `Shift` plus a letter still types a capital. On Japanese keyboards, 全角/半角 toggles input, 変換 turns it on, and 無変換 turns it off. With Korean, 한/영 switches Hangul and 한자 converts to Hanja, whether your keyboard has dedicated keys or sends Right Alt and Right Ctrl for them, as many laptops do, so Right Alt and Right Ctrl are not plain modifiers there; dictation push-to-talk stays on F9. `Ctrl + Space` stays available for Tmux and Herdr; `Shift + CapsLock` stays the compose key.
+Typing starts in Latin mode. Press `Super + I` to cycle through configured input methods, and `Super + Shift + I` to cycle back. Tap `Shift` on its own to step out of an input method like Pinyin into Latin letters, and tap it again to go back, the way Sogou, Microsoft Pinyin, and macOS work; `Shift` plus a letter still types a capital. On Japanese keyboards, 全角/半角 toggles input, 変換 turns it on, and 無変換 turns it off. With Korean, 한/영 switches Hangul and 한자 converts to Hanja, whether your keyboard has dedicated keys or sends Right Alt and Right Ctrl for them, as many laptops do, so Right Alt and Right Ctrl are not plain modifiers there; dictation toggles with Alt + Space instead. `Ctrl + Space` stays available for Tmux and Herdr; `Shift + CapsLock` stays the compose key.
 
 The keyboard indicator appears on the right of the bar when you have multiple keyboard layouts or input methods. Click it to switch input languages; Japanese displays あ for hiragana. For Japanese character choices, switch to Japanese, type a word such as `nihongo`, then press Space twice. Press Enter to accept your choice. If you also have multiple keyboard layouts, right-click the indicator to cycle those.
 
@@ -2784,7 +2787,7 @@ First try to [rollback your system](#chapter-47-system-snapshots) the version be
 
 ### Why are some apps so large on my display?
 
-Omarchy assumes a 2x high-resolution display, which requires setting `GDK_SCALE` to 2 in `~/.config/hypr/monitors.lua`. But if you're on a 1x display, you can change `local omarchy_gdk_scale = 2` to 1 (and then restart any app that's oversized). See [the manual on monitors](#chapter-33-monitors).
+Omarchy assumes a 2x high-resolution display, so it sets `GDK_SCALE` to 2 until you choose a scale in the monitor panel. If you're on a 1x display and GTK or X11 apps come out oversized, pick 1x for it in the monitor panel, or add `hl.env("GDK_SCALE", "1")` to `~/.config/hypr/monitors.lua` (and then restart any app that's oversized). See [the manual on monitors](#chapter-33-monitors).
 
 For Spotify, you can use `Ctrl + Minus` to shrink the UI (and `Ctrl + Plus` to make it bigger).
 
@@ -2809,6 +2812,27 @@ On some laptops, Omarchy automatically applies a speaker tuning that corrects th
 ### Why can't I login or sudo with my password?
 
 You probably typed it wrong too many times and got locked out. If this is happening on the lock screen, you can hit `CTRL + ALT + F2` to start a new TTY where you can login as root, then run `faillock --reset --user [your-username]`. That'll reset the lockout, and you're good to go.
+
+### My password is accepted, but I return to the login screen
+
+A broken session environment file can prevent the desktop from starting even when your password is correct. This is especially worth checking after editing `~/.config/uwsm/env.d/`.
+
+Press `Ctrl + Alt + F2`, log in with your normal username and password, and inspect the current boot's user journal:
+
+```bash
+journalctl --user -b -t uwsm_env-preloader --no-pager
+```
+
+Look for an error naming one of your environment files, such as `bad substitution`, just before a message that the env output mark was not found. Move that file out of `env.d` before trying to log in again. For example, if the error names `99-custom`:
+
+```bash
+mkdir -p ~/.config/uwsm/disabled
+mv -i ~/.config/uwsm/env.d/99-custom ~/.config/uwsm/disabled/
+```
+
+UWSM skips a file with a syntax error, but a fatal error that only shows up while the file runs, like `bad substitution`, can still prevent the desktop from starting. A system snapshot rollback does not repair these files, because `/home` is not rolled back.
+
+Once you can log in, fix the saved copy before moving it back. `sh -n` catches syntax errors without running the file, but cannot catch every error that occurs when it is sourced. Keep a working terminal open while testing changes.
 
 ### Why isn't my 1Password authorization prompts for 1Password SSH Agent / CLI appearing?
 
