@@ -1372,6 +1372,26 @@ OpenClaw's desktop experience is its Control UI, which opens as a web app backed
 
 T3 Code runs from its official AppImage release in `~/.local/share/t3code` rather than from a package, so it updates itself. Installing it asks whether to start on the Stable or Nightly channel; switch later in T3 Code's settings. Your threads and settings live in `~/.t3`, and removing T3 Code under _Remove > AI_ takes them with it.
 
+### Local models
+
+Run an open model on your own machine for your coding agents. Your prompts and code stay on the machine; nothing sent to the model leaves it. Start with:
+
+```bash
+omarchy agent local use best
+```
+
+Or, in the agents panel in the top bar, choose + and then Local AI, which shows up when a model fits this machine. The first time, this installs Podman, which runs the models. Omarchy then picks the recommended model for this machine, downloads it, and starts it. Expect a download of tens of GB and most of the machine's memory to be in use while the model runs: Flash Next uses about 100 GiB with its full 256K context. If other models hold the memory it needs, it's set up stopped, ready to start once you stop one. The model stops at logout; stop it yourself when you need the memory for something else.
+
+`omarchy agent local list` shows the options and explains why some don't fit. To set up another one, run `omarchy agent local use <recipe>`. Today, `qwen3.8-flash-next-halogen` and `qwen3.8-27b-gufo` are available for 128 GB Strix Halo machines. New recipes and recommendations arrive with `omarchy update`, through the package.
+
+Every model you set up gets its own line in the agents panel, next to your subscriptions: play to start it, pause to stop it and free its memory, and the terminal button to open your agent on it. Several can run at once when they fit in memory together; if one doesn't fit, Omarchy says which running model to stop. Drag lines to reorder them, and press Delete on a selected line to remove a model and its download.
+
+From the command line, `omarchy agent local start <recipe>` and `omarchy agent local stop <recipe>` do the same, `omarchy agent local status` shows every model, and `omarchy agent --local` opens your default agent on the last model you started (pi if your default agent can't use a local model). Any OpenAI-compatible client can connect too: `status` shows each model's address (the first is `http://127.0.0.1:11435/v1`), the recipe name is the model, and the key is in `~/.config/omarchy/agent-local/key`.
+
+`omarchy agent local remove <recipe>` deletes a model and the downloads no other model uses.
+
+Third-party runtimes are labeled with their publisher. Omarchy runs every model with no network access.
+
 ### Local LLMs
 
 Omarchy recommends two ways of running local LLM models: LM Studio and Ollama. LM Studio provides a GUI interface for finding open-weight models, installing them, and running them. It's a great way to get going easily. Ollama offers a CLI for doing so similarly. But if you're new to local models, I'd start with LM Studio. You can install either under _Install > AI_ in the Omarchy Menu.
@@ -2086,7 +2106,7 @@ If somehow your configuration files have been corrupted, you can also perform an
 
 Omarchy is primarily configured through the so-called dotfiles that live in `~/.config`. Those are considered your files for your changes. The files that live in `/usr/share/omarchy` belong to Omarchy itself, and you shouldn't be messing with those. If you need to change anything in `/usr/share/omarchy`, you should be overwriting the value in `~/.config` instead.
 
-The key configs can be edited straight from the Omarchy menu (`Super + Space`), like _Setup > Keybindings_, _Setup > Input_, and _Setup > Config > [file]_. When you do it this way, any process that needs restarting after config edits automatically will be after you quit the editor (Neovim by default — `:wq`, remember! — but you can change that via _Setup > Defaults > Editor_).
+The key configs can be edited straight from the Omarchy menu (`Super + Space`), like _Setup > Keyboard > Keybindings_, _Setup > Input_, and _Setup > Config > [file]_. When you do it this way, any process that needs restarting after config edits automatically will be after you quit the editor (Neovim by default — `:wq`, remember! — but you can change that via _Setup > Defaults > Editor_).
 
 Here's a list of the key files in `~/.config` and what they control:
 
@@ -2391,6 +2411,10 @@ hl.config({
 })
 ```
 
+### Function keys
+
+The top row of a laptop keyboard sends the media keys (volume, brightness and so on) by default, and holding `Fn` gives F1-F12; `Fn + Esc` locks it the other way round until you press it again. Most keyboards remember that lock themselves. ASUS laptops and Apple-style keyboards leave it to Linux, which starts them on the media keys at every boot. To have them start on F1-F12 instead, run `omarchy keyboard toprow fnkeys` (and `omarchy keyboard toprow mediakeys` to go back); on some laptops it takes effect after a reboot. Apple Silicon Macs keep their own setting.
+
 ### Trackpad gestures
 
 Swipe on the trackpad to move around the desktop:
@@ -2416,13 +2440,13 @@ On Dell XPS laptops with a haptic touchpad, you can also set the click strength 
 
 ### Typing in Chinese, Japanese, and other languages
 
-Select Japanese, Korean, Chinese (Simplified, Pinyin), Taiwan (Zhuyin), or Hong Kong (Cangjie) when the installer asks for your keyboard. Omarchy configures the keyboard and matching input engine automatically, including during offline first-boot setup. Japanese uses Mozc, Korean uses standard two-set Hangul, Simplified Chinese uses Pinyin, Taiwan uses Chewing's standard Zhuyin arrangement, and Hong Kong uses Cangjie with Hong Kong character forms. Japanese (US keyboard) provides Mozc with a US keyboard layout. Hangul, Zhuyin, and Cangjie keys stay in their standard positions even when you type Latin letters with Dvorak, Colemak, or AZERTY. If you added Hangul or Chewing before this, deselect and reselect it under _Setup > Typing > Input Methods_ to move its keys there; Omarchy leaves an engine you already type with alone.
+Select Japanese, Korean, Chinese (Simplified, Pinyin), Taiwan (Zhuyin), or Hong Kong (Cangjie) when the installer asks for your keyboard. Omarchy configures the keyboard and matching input engine automatically, including during offline first-boot setup. Japanese uses Mozc, Korean uses standard two-set Hangul, Simplified Chinese uses Pinyin, Taiwan uses Chewing's standard Zhuyin arrangement, and Hong Kong uses Cangjie with Hong Kong character forms. Japanese (US keyboard) provides Mozc with a US keyboard layout. Hangul, Zhuyin, and Cangjie keys stay in their standard positions even when you type Latin letters with Dvorak, Colemak, or AZERTY. If you added Hangul or Chewing before this, deselect and reselect it under _Setup > Keyboard > Input Methods_ to move its keys there; Omarchy leaves an engine you already type with alone.
 
 Typing starts in Latin mode. Press `Super + I` to cycle through configured input methods, and `Super + Shift + I` to cycle back. Tap `Shift` on its own to step out of an input method like Pinyin into Latin letters, and tap it again to go back, the way Sogou, Microsoft Pinyin, and macOS work; `Shift` plus a letter still types a capital. On Japanese keyboards, 全角/半角 toggles input, 変換 turns it on, and 無変換 turns it off. With Korean, 한/영 switches Hangul and 한자 converts to Hanja, whether your keyboard has dedicated keys or sends Right Alt and Right Ctrl for them, as many laptops do, so Right Alt and Right Ctrl are not plain modifiers there; dictation toggles with Alt + Space instead. `Ctrl + Space` stays available for Tmux and Herdr; `Shift + CapsLock` stays the compose key.
 
 The keyboard indicator appears on the right of the bar when you have multiple keyboard layouts or input methods. Click it to switch input languages; Japanese displays あ for hiragana. For Japanese character choices, switch to Japanese, type a word such as `nihongo`, then press Space twice. Press Enter to accept your choice. If you also have multiple keyboard layouts, right-click the indicator to cycle those.
 
-Use _Setup > Typing > Keyboard Layouts_ to select layouts such as English and French, from the same choices offered during installation. Use _Setup > Typing > Input Methods_ to select which composition engines are active. Both pickers open inside the Omarchy menu with your current selections checked. Click or press Enter to toggle a choice; each change applies immediately. Deselecting an input method removes it from the cycle without uninstalling it; the keyboard remains available.
+Use _Setup > Keyboard > Keyboard Inputs_ to select layouts such as English and French, from the same choices offered during installation. Use _Setup > Keyboard > Input Methods_ to select which composition engines are active. Both pickers open inside the Omarchy menu with your current selections checked. Click or press Enter to toggle a choice; each change applies immediately. Deselecting an input method removes it from the cycle without uninstalling it; the keyboard remains available.
 
 Run `omarchy setup keyboard` or `omarchy setup input` to open the same pickers. To append one language from the command line, use `omarchy setup input mozc`, `hangul`, `pinyin`, `chewing`, or `cangjie5`. Quick, Boshiamy, and Array come in the same package as Cangjie and appear in the Input Methods picker. Your custom switching keys are preserved. For alternative engine layouts or keys, install `fcitx5-configtool` with `omarchy pkg add fcitx5-configtool` and launch it from a terminal. Selecting an input language does not change the desktop language. Choosing Japanese, Korean, or Chinese under _Setup > Language_ adds its input method when you have none yet.
 
