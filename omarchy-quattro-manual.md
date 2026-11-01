@@ -14,7 +14,7 @@ Let's get started with the basics.
 
 Omarchy is installed using an ISO. You can choose between a full-disk install, which takes over the entire drive, or a free-space install, which puts Omarchy in the unallocated space on a drive — that's how you dual boot alongside Windows or another OS (see [dual-boot install](#chapter-50-dual-boot-install) — note that you'll need to turn off BitLocker in Windows first). Either way, the installation defaults to full encryption, and the full-disk option will wipe the selected drive, so be sure to take a backup before using an existing one!
 
-[Download the Omarchy ISO](https://omarchy.org/) first, put it on a USB stick (use [balenaEtcher](https://etcher.balena.io/) on Mac/Windows or [caligula](https://github.com/ifd3f/caligula) on Linux), and boot off the stick.
+[Download the Omarchy ISO](https://omarchy.org/) first, put it on a USB stick (use [Rufus](https://rufus.ie/) on Windows, [balenaEtcher](https://etcher.balena.io/) on Mac, or [caligula](https://github.com/ifd3f/caligula) on Linux), and boot off the stick.
 
 _You must turn off Secure Boot and/or TPM in the BIOS. You have to turn these off to be able to install Omarchy. They're Microsoft security schemes meant for Windows and Microsoft-affiliated Linux distributions._
 
@@ -124,9 +124,9 @@ You can then hit `Super + J` to stack them on top of each other instead of side 
 
 
 
-Hit `Super + J` again to return them to their side-by-side positions. Then try `Super + Shift + Arrow Right` while on the browser to swap the windows.
+Hit `Super + J` again to return them to their side-by-side positions. Then try `Super + Shift + Arrow Right` while in the browser to swap the windows.
 
-Now try `Super + Shift + T` to start the Activity monitor. That'll appear as a floating window. You can tile it using `Super + T` (and hit that again to make it floating again). Now press `Super + Shift + F` to open the files manager. You'll have a neat four-way setup:
+Now try `Super + Shift + T` to start the Activity monitor. That will appear as a floating window. You can tile it using `Super + T` (and hit that again to make it floating again). Now press `Super + Shift + F` to open the file manager. You'll have a neat four-way setup:
 
 
 
@@ -138,13 +138,13 @@ With more than one monitor, every monitor has workspaces 1 through 10 of its own
 
 If you hold down `Super` and use the mouse to click on a window, you'll be able to rearrange where it sits. If you hold `Super` and use the right button on the mouse, you can freely resize the window.
 
-You close a window on `Super + W` or `Super + Q` (and close all windows on `Ctrl + Alt + Delete`).
+You close a window with `Super + W` or `Super + Q` (and close all windows with `Ctrl + Alt + Delete`).
 
 You can also go full screen with `Super + F` or even just full-width (keeping the top bar) with `Super + Alt + F` or full-screen within a window with `Super + Ctrl + F` (good for YouTube!).
 
 ### Dwindle vs scrolling layout
 
-Omarchy's default layout is called dwindle. It keeps all the windows you open on a single workspace visible at all time, even if it has to shrink them down.
+Omarchy's default layout is called dwindle. It keeps all the windows you open on a single workspace visible at all times, even if it has to shrink them down.
 
 
 
@@ -176,7 +176,7 @@ New workspaces, and any you haven't given a layout of their own with `Super + L`
 
 ### Grouping windows
 
-Windows can be grouped using `Super + G`. Once you're in a group, every window you start while that's active will belong to the group. You can move between these grouped windows using `Super + Ctrl + Arrow Left/Right` or `Super + Alt + 1/2/3/4` to go directly to grouped window in order.
+Windows can be grouped using `Super + G`. Once you're in a group, every window you start while that's active will belong to the group. You can move between these grouped windows using `Super + Ctrl + Arrow Left/Right` or `Super + Alt + 1/2/3/4` to go directly to grouped windows in order.
 
 You can move a window out of the grouping with `Super + Alt + G` or disassemble the entire group by hitting `Super + G` again. Finally, you can move windows outside the group into it with `Super + Alt + Arrows`.
 
@@ -2962,8 +2962,8 @@ The trade-off is the one mentioned at the top: with direct boot on, getting to a
 
 Omarchy takes security extremely seriously. This is meant to be an operating system that you can use to do _Real Work_ in the _Real World_. Where losing a laptop can't lead to a security emergency. So here's what we do:
 
-1. *Full-disk encryption is mandatory*: This is the most important step to securing the physical protection of your data. If your computer is lost or stolen, the data is fully encrypted using standard LUKS (Linux Unified Key Setup).
-2. *Firewall is enabled by default*: All incoming traffic is blocked by default except for port 53317 for [LocalSend](https://localsend.org/). Even ssh is off until you turn it on via _Setup > Security > SSHD_, which opens port 22 (rate limited against brute force) as part of the setup. We even lock down Docker access using the [ufw-docker](https://github.com/chaifeng/ufw-docker) setup to prevent your containers from accidentally being exposed to the world.
+1. *Full-disk encryption is on by default*: This is the most important step to securing the physical protection of your data. If your computer is lost or stolen, the data is fully encrypted using standard LUKS (Linux Unified Key Setup). The installer lets you opt out for throw-away machines (see [Getting started](#chapter-2-getting-started)); an install without encryption has none of this protection, and anyone holding the drive can read it.
+2. *Firewall is enabled by default*: All incoming traffic is blocked by default, with a few exceptions: port 53317 for [LocalSend](https://localsend.org/); DNS queries to the computer's own resolver at the Docker bridge address (172.17.0.1), accepted from the private address ranges Docker gives its containers; and multicast DNS (port 5353), which lets printers and other devices on your network find each other and also announces your computer's name there. On top of those, the firewall keeps UFW's standard allowances for ping, getting an address from your router (DHCP), and UPnP discovery. Even ssh is off until you turn it on via _Setup > Security > SSHD_, which opens port 22 (rate limited against brute force) as part of the setup. We even lock down Docker access using the [ufw-docker](https://github.com/chaifeng/ufw-docker) setup to prevent your containers from accidentally being exposed to the world.
 3. *Arch always has the latest updates*: Arch, the underlying distro that Omarchy is built on, is a rolling distribution. This means that any security vulnerability that's discovered and patched in any package is quickly available for install using `omarchy-update`. You're always running the latest, most secure versions of everything that way.
 4. *Omarchy maintains its own packages and mirror*: Omarchy only relies on packages from Arch's own core/extra/multilib repositories and its own Omarchy Package Repository by default. You can install software directly from AUR, but the base install doesn't — only a few optional installs, like the third-party browsers, pull from the AUR.
 5. *Cloudflare protects us from DDoS*: Omarchy distribution infrastructure — the ISOs, the Omarchy packages, the Arch mirror — is protected behind Cloudflare's formidable DDoS shield and hosted on their CDN. This provides superb availability.
@@ -3061,7 +3061,7 @@ Confirm that everything looks good and wait for the install to finish like norma
 
 When you finish your Omarchy install, you'll notice that the Limine bootloader is the default now. With this, you can also add options to Limine for your other installs such as Windows.
 
-In order to do that, run `limine-scan` and follow the prompts to add whichever items you'd like to your limine config. Then when you boot, you'll see your normal options for Omarchy, as well as Windows Boot Manager or others.
+To add other operating systems, run `limine-scan` and follow the prompts to add the entries you want to your Limine config. The boot menu stays hidden by default and starts Omarchy after one second. To choose Windows or another entry, press any key as soon as Limine starts; when the menu appears, use the arrow keys to select an entry and press Enter. If Omarchy starts before you press a key, restart and try again. If you turned on _Setup > Direct Boot_, the firmware skips Limine entirely, so pick Limine from your BIOS boot menu or run _Setup > Direct Boot_ again to remove the entry.
 
 ## Bitlocker
 
