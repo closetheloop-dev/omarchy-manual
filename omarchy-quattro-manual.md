@@ -579,6 +579,7 @@ Resize shortcuts use physical keys `code:20` and `code:21` (XKB `<AE11>` and `<A
 | `Super + Ctrl + N`           | Wifi/network panel    |
 | `Super + Ctrl + D`           | Display panel    |
 | `Super + Ctrl + P`           | Power panel    |
+| `Super + Ctrl + X`           | Agents panel    |
 | `Super + Ctrl + Alt + D`           | Calendar panel    |
 | `Super + Ctrl + Alt + E`           | World clock panel    |
 | `Super + Ctrl + 1-9`           | Toggle bar panel by position    |
@@ -662,7 +663,7 @@ Usually on Linux, you need `Ctrl + Shift + C/V` to copy'n'paste in the terminal 
 | `Super + Ctrl + Print Screen` | Text extraction to clipboard |
 | `Super + Alt + [` | Make webcam overlay smaller while recording |
 | `Super + Alt + ]` | Make webcam overlay larger while recording |
-| `Alt + Shift + L` | Copy current URL from webapp or Chromium |
+| `Alt + Shift + L` | Copy current URL from webapp or browser |
 | `Alt + Shift + D` | Download the video on the current page to `~/Videos` |
 | `Alt + Space` | Start/stop dictation (requires _Setup > Defaults > Dictation_) |
 | `Right Alt` | Hold to dictate (requires _Setup > Defaults > Dictation_) |
@@ -965,7 +966,7 @@ This is very helpful for grabbing addresses out of image footers or phone number
 
 On fresh installs, [Superwhisper](https://superwhisper.com/) is the default dictation backend, using cloud processing without offline model downloads. Choose Superwhisper, [Voxtype](https://voxtype.io/), or [Hex](https://anoma.ly/hex/) through _Setup > Defaults > Dictation_ in the Omarchy menu. Selecting a backend installs it if needed and makes it the default for dictation. Voxtype loads a base English model that takes up 150MB; change the model with `voxtype setup model` and other settings through `~/.config/voxtype/config.toml`. Superwhisper opens its settings to choose cloud or local processing, and OPR keeps the application updated. Hex downloads its on-device speech model during setup and runs as the `hex.service` user service; open its window from the bar's tray icon or by running `hex` to change the model and other settings.
 
-You dictate by holding down `Right Alt`, or by toggling with `Alt + Space`, and the dictated text will appear in the focused input area. These shortcuts use the selected backend. Right Alt also starts dictation when used in a modifier chord; use Left Alt for those chords. On keyboard layouts where Right Alt is AltGr, use `Alt + Space` to keep AltGr available for typing. Installs from before Alt + Space became the default keep `F9` for push-to-talk and `Super + Ctrl + X` to toggle, added to `~/.config/hypr/bindings.lua`; remove them there to give those keys back to applications.
+You dictate by holding down `Right Alt`, or by toggling with `Alt + Space`, and the dictated text will appear in the focused input area. These shortcuts use the selected backend. Right Alt also starts dictation when used in a modifier chord; use Left Alt for those chords. On keyboard layouts where Right Alt is AltGr, use `Alt + Space` to keep AltGr available for typing. Installs from before Alt + Space became the default keep `F9` for push-to-talk and `Super + Ctrl + X` to toggle, added to `~/.config/hypr/bindings.lua`, where that `Super + Ctrl + X` takes the place of the agents panel; remove them there to give those keys back to applications and the panel.
 
 The same shortcuts work with every backend. Select your backend through Setup > Defaults > Dictation. The backend installer configures it and saves the selection. Run `omarchy default dictation` to see which one is selected. The selection is saved in `~/.config/omarchy/defaults/dictation`. Fresh installs select Superwhisper automatically.
 
@@ -1348,19 +1349,23 @@ An agent's own updater, such as `claude update`, `codex update`, or an update bu
 
 To install all configured lazy tools before you need them, run `mise install --include-lazy`. This includes Omarchy's other default CLI tools as well as the agents. See [Preinstalled CLI tools](#preinstalled-cli-tools) for installing a single tool or using your own installation.
 
-`grok` is installed through mise's first-party `grok` package, the same way as `claude` and `codex`. Run `grok`, or pick it under _Setup > Defaults > Agent_. Skip the `curl | bash` installer on x.ai. That path puts a second copy in `~/.grok/bin`, prepends it on `PATH`, and overwrites Omarchy's wrapper.
+`grok` is installed through mise's first-party `grok` package, the same way as `claude` and `codex`. Run `grok`, or pick it under _Agent > Harness_. Skip the `curl | bash` installer on x.ai. That path puts a second copy in `~/.grok/bin`, prepends it on `PATH`, and overwrites Omarchy's wrapper.
 
 `dsh` opens its browser UI on `127.0.0.1:3080`, with the launch directory as its default workspace. Its browser UI takes no starting prompt, so `omarchy agent prompt` opens it with the prompt on your clipboard to paste. Omarchy starts it with DeepSeek's no-approval permission preset. DeepSeek Harness uploads session logs to DeepSeek when you use its official model API; turn that off under _Settings > General > Upload Session Log_ in its browser UI. Feedback you send it is uploaded with the session too, unless you start it with `DSH_TELEMETRY_MODE=DISABLED`.
 
 ### The default agent
 
-Pick your default agent with `omarchy default agent <name>` or under _Setup > Defaults > Agent_ in the Omarchy Menu (`Super + Space`). If the agent isn't installed yet, picking it installs it first. A fresh Omarchy will invite you to make this choice with a one-time notification.
+Pick your default agent with `omarchy default agent <name>` or under _Agent > Harness_ in the Omarchy Menu (`Super + Space`). If the agent isn't installed yet, picking it installs it first. A fresh Omarchy will invite you to make this choice with a one-time notification.
 
 Choosing Claude also attempts to set up its browser extension for Chromium, Chrome, Brave, Brave Origin, and Edge. The extension setup applies to all users and may ask for your system password; cancelling or a failed extension install still selects and launches Claude. Restart your browser, enable the extension if prompted, and sign in to Claude to finish connecting it. Run `/chrome` in Claude to check the connection. Firefox and Zen do not support this extension. If Claude was already your default before this setup was added, select it again to install the extension.
 
 Once you've chosen, `Super + Shift + Ctrl + A` launches the default agent in a dedicated terminal window (or brings up the picker if you haven't chosen yet). You can also launch it straight into a task with `omarchy agent prompt "Review this project"`. Freebuff and DeepSeek Harness take no starting prompt, so they open with the prompt on your clipboard to paste instead. Agents launched this way run unattended in their respective don't-stop-to-ask modes, so be ready for them to actually do things! MiniMax Code has no such mode for its interactive sessions, so it asks for permissions as usual. And since agents refuse to remember trust for your home directory, launches from `$HOME` start in `~/Work` instead.
 
 There are terminal shortcuts too: `a` runs the default agent inline in the current terminal, while `c`, `cx`, and `cy` start OpenCode, Claude Code, and Codex directly (again in their auto-approving modes). Theme changes sync to the agents as well: Claude Code, Pi, OpenCode, and Hermes (once Omarchy has installed it) all follow along when you switch the Omarchy theme.
+
+### Your agent instructions
+
+Personal rules for every agent go in `~/.agents/AGENTS.md`, next to the shared skills in `~/.agents/skills`. Open it under _Agent > Instructions_, which also links it into each harness that keeps its own global file: `~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`, `~/.pi/agent/AGENTS.md`, `~/.config/opencode/AGENTS.md`, Copilot's `~/.copilot/copilot-instructions.md`, and so on. Crush and Amp read the `~/.config/AGENTS.md` link, while omp, Kimi, and DeepSeek Harness read `~/.agents/AGENTS.md` directly. Picking a default agent links it too. An instructions file you already had becomes the shared one if there was none yet; otherwise it's kept beside the link as `.bak`. Run `omarchy agent instructions` to relink after installing another agent.
 
 ### The agents panel
 
@@ -1418,7 +1423,7 @@ Or, in the agents panel in the top bar, choose + and then Local AI, which shows 
 
 Every model you set up gets its own line in the agents panel, next to your subscriptions: play to start it, pause to stop it and free its memory, and the terminal button to open your agent on it. Several can run at once when they fit in memory together; if one doesn't fit, Omarchy says which running model to stop. Drag lines to reorder them, and press Delete on a selected line to remove a model and its download.
 
-From the command line, `omarchy agent local start <recipe>` and `omarchy agent local stop <recipe>` do the same, `omarchy agent local status` shows every model, and `omarchy agent --local` opens your default agent on the last model you started (pi if your default agent can't use a local model). Any OpenAI-compatible client can connect too: `status` shows each model's address (the first is `http://127.0.0.1:11435/v1`), the recipe name is the model, and the key is in `~/.config/omarchy/agent-local/key`.
+From the command line, `omarchy agent local start <recipe>` and `omarchy agent local stop <recipe>` do the same, `omarchy agent local status` shows every model, and `omarchy agent --local` opens your default agent on the last model you started. pi, OpenCode and Qwen Code can use one; with any other default it opens in pi. pi also lists every model you've set up, and those on machines you've paired with, in its own model picker, so plain `pi` reaches them too. Any OpenAI-compatible client can connect too: `status` shows each model's address (the first is `http://127.0.0.1:11435/v1`), the recipe name is the model, and the key is in `~/.config/omarchy/agent-local/key`.
 
 `omarchy agent local remove <recipe>` deletes a model and the downloads no other model uses.
 
@@ -1762,9 +1767,9 @@ You start Monologue via the application launcher (`Super + Space`).
 
 # Chapter 23: Browsers
 
-Omarchy ships with [Chromium](https://www.chromium.org/) as the default browser. It's the plain open-source build, themed to match the rest of your system, and it's what `Super + Shift + Return` opens and what every [web app](#chapter-25-web-apps) runs inside.
+Omarchy ships with [Google Chrome](https://www.google.com/chrome/) as the default browser. It's themed to match the rest of your system, and it's what `Super + Shift + Return` opens and what every [web app](#chapter-25-web-apps) runs inside. It opens straight to a browser window: there's no welcome screen or sign-in prompt, usage statistics and crash reports aren't sent to Google, and the ad privacy prompts are switched off. You can still sign in to your Google account from the profile button whenever you want sync.
 
-If Chromium isn't your taste, you're not stuck with it. Under _Install > Browser_ in the Omarchy menu you'll find Chrome, Edge, Brave, Brave Origin, Firefox, and [Zen](https://zen-browser.app/). Pick one and Omarchy installs it, sets up its policy directory, and applies your current theme to it.
+If Chrome isn't your taste, you're not stuck with it. Under _Install > Browser_ in the Omarchy menu you'll find [Chromium](https://www.chromium.org/) (the plain open-source build Chrome is made from), Edge, Brave, Brave Origin, Firefox, and [Zen](https://zen-browser.app/). Pick one and Omarchy installs it, sets up its policy directory, and applies your current theme to it.
 
 ## Making one the default
 
@@ -1798,7 +1803,7 @@ They don't get the Chromium extensions above, and they're not themed by Omarchy,
 
 ## Removing one again
 
-Anything you installed here can be taken back off under _Remove > Browser_. Chromium isn't in that list — it's part of the base system.
+Any of these browsers, Chrome included, can be taken back off under _Remove > Browser_. Links then go to Chrome or Chromium if the other one is still installed.
 
 # Chapter 24: Commercial apps/services
 
@@ -1816,9 +1821,7 @@ You start 1Password with `Super + Shift + /`. If it isn't installed yet, that ho
 
 ## Spotify
 
-[Spotify](https://spotify.com/) is the world's most popular streaming music service. And the Linux application provides everything you'd expect, including offline playing.
-
-You start Spotify using `Super + Shift + M`. Like 1Password, the hotkey kicks off the installation first if Spotify isn't installed yet (or use _Install > Service > Spotify_ from the Omarchy menu).
+[Spotify](https://spotify.com/) is the world's most popular streaming music service. Omarchy ships it as a web app, which gives you the full player, media keys, and Spotify Connect, but not offline downloads. Start it with `Super + Shift + M`.
 
 ## Slack
 
@@ -1932,7 +1935,7 @@ To keep work sign-ins separate, append a browser data directory to each launcher
 Exec=omarchy-launch-webapp "https://teams.cloud.microsoft/" --user-data-dir=/absolute/path/to/work-browser-profile
 ```
 
-Replace the example directory with an absolute path of your choice and use the same path for all six launchers to share work sign-ins between them. The web apps use Omarchy's selected supported browser, falling back to Chromium when the default browser is unsupported.
+Replace the example directory with an absolute path of your choice and use the same path for all six launchers to share work sign-ins between them. The web apps use Omarchy's selected supported browser, falling back to Chrome when the default browser is unsupported.
 
 # Chapter 26: Gaming
 
@@ -2730,17 +2733,13 @@ A theme you write yourself in `~/.config/omarchy/themes` can contain whatever yo
 
 A theme you install from someone else's repo with `omarchy theme install` keeps everything that's colour, and loses the handful of files that would run code on your machine: any `.lua` file, the terminal configs (`alacritty.toml`, `foot.ini`, `ghostty.conf`, `kitty.conf`), and `vscode.json`. A theme's `hyprland.lua` is Lua your compositor runs at login, a terminal config names the program your terminal starts, and `vscode.json` names a VSCode extension to install. Installing someone's theme should change what your desktop looks like, never what it runs.
 
-Everything else still works exactly as the theme author wrote it — `btop.theme`, `chromium.theme`, `helix.toml`, `icons.theme`, `shell.toml`, the backgrounds and the previews are all kept. Only what was dropped gets regenerated from `colors.toml` on your machine.
+Everything else still works exactly as the theme author wrote it — `btop.theme`, `chromium.theme`, `helix.toml`, `shell.toml`, the backgrounds and the previews are all kept. Only what was dropped gets regenerated from `colors.toml` on your machine.
 
 Omarchy tells the two apart by whether the theme has its own git repo inside it, which is what `omarchy theme install` leaves behind when it clones. So a theme you wrote stays yours, and one you pulled off the internet stays colours.
 
 ### Light mode
 
 If you're making a light mode theme, set `mode = "light"` at the top of your `colors.toml`. Then it'll automatically be paired with light mode for all the apps. (The old way of dropping an empty file called `light.mode` in the root of your theme still works too.)
-
-### Icon colors
-
-If you'd like to color-match the file manager icons to your theme, add a file called `icons.theme` with the name of the icon set you want to use. By default, the options are: `Yaru Yaru-blue Yaru-dark Yaru-magenta Yaru-olive Yaru-prussiangreen Yaru-purple Yaru-red Yaru-sage Yaru-wartybrown Yaru-yellow`.
 
 ### Unlock image
 
@@ -2954,10 +2953,6 @@ Those all live in [networking](#chapter-35-networking).
 ### How do I check how fast my disk is?
 
 _Trigger > Speed Test > Disk Speed Test_ measures live read and write speed on your drive, or `omarchy disk speedtest` from the terminal.
-
-### Why can't I sign into my Google account in Chromium?
-
-The plain open source Chromium build doesn't ship with the OAuth credentials that Google requires for account sign-in. Run _Install > Service > Chromium Account_ in the Omarchy menu to add them, restart the browser, and the sign-in will go through.
 
 ### How do I add a printer?
 
