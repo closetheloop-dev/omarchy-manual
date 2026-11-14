@@ -170,7 +170,7 @@ hl.config({
 
 A floating workspace works like a traditional desktop: windows overlap, and you move and size them yourself. Each window gets a titlebar in your theme's colors, with buttons to minimize, maximize, and close. `Super + M` minimizes the focused window too. A minimized window waits in the dock; click its app to bring it back. Click a window to bring it forward. Resize it from any edge or corner. Double-click a titlebar to maximize the window while keeping the top bar in view, and again to get its old size back. Chrome and other Chromium-based browsers, Disks and Document Viewer skip the titlebar and use their own header instead; `Super + Alt + F` maximizes them, and `Super + M` minimizes them.
 
-A floating workspace also shows a dock, with your pinned apps, everything that's running, and a grid of every app behind the apps button, which `Super + Alt + Space` and _Apps_ in the Omarchy menu open too. Right-click an app on the grid, or press `Delete`, to uninstall it. Click an app to open it, or to bring its window forward; click again to cycle through its windows. Middle-click opens a new window. Drag an icon along the dock to move it; dragging a running app in among the others keeps it there. Right-click to keep an app in the dock, take it out, or quit it. The dock gets out of the way of a fullscreen window. Right-click the apps button to move the dock to another edge or have it hide until the pointer reaches its edge. The position is also under _Appearance > Dock > Dock Position_, and `omarchy dock position left` and `omarchy dock autohide on` set both from a terminal. Apps you keep in the dock are faded while they aren't running.
+A floating workspace also shows a dock, with your pinned apps, everything that's running, and a grid of every app behind the apps button, which `Super + Alt + Space` and _Apps_ in the Omarchy menu open too. Right-click an app on the grid, or press `Delete`, to uninstall it. Click an app to open it, or to bring its window forward; click again to cycle through its windows. Files only brings back a window from the workspace you're on and otherwise opens a new one, and Terminal and Agent always start another, though a minimized window comes back first. Middle-click opens a new window. Drag an icon along the dock to move it; dragging a running app in among the others keeps it there. Right-click to keep an app in the dock, take it out, or quit it. The dock gets out of the way of a fullscreen window. Right-click the apps button to move the dock to another edge or have it hide until the pointer reaches its edge. The position is also under _Appearance > Dock > Dock Position_, and `omarchy dock position left` and `omarchy dock autohide on` set both from a terminal. Apps you keep in the dock are faded while they aren't running.
 
 New workspaces, and any you haven't given a layout of their own with `Super + L`, use the default layout. Changing the default resets every workspace without windows to it, while one with windows on it keeps the layout it has. A window minimized to the dock still counts as a window on the workspace it left. Pick it under _Appearance > Workspace Layout_: Tiling, Scrolling, or Floating. `omarchy-hyprland-workspace-layout-default scrolling` sets it from a terminal.
 
@@ -1630,13 +1630,13 @@ You hop between the different panes using `Tab`. In the Files pane, you select f
 
 [Btop](https://github.com/aristocratos/btop) is a beautiful resource manager that shows memory, CPU, disk, and network usage. It also lists all active processes, and allows you to manage them.
 
-Omarchy calls it Activity, and you start it by hitting `Super + Shift + T`. It opens as a floating window, which you can tile with `Super + T`.
+Omarchy calls it Activity Monitor, and you start it from the app launcher or by hitting `Super + Shift + T`. It opens as a floating window, which you can tile with `Super + T`.
 
 ## Herdr
 
 [Herdr](https://github.com/omacom-io/herdr) is a terminal workspace manager that gives you workspaces, tabs, and panes, and keeps them all running in a persistent session you can detach from and come back to later.
 
-You start it (or reattach to your existing session) with `Super + Ctrl + Return`. Omarchy ships a Herdr configuration that mirrors its Tmux config, so the prefix key is `Ctrl + Space` here too. You can browse all the keybindings with `Super + Ctrl + K`.
+You start it (or reattach to your existing session) from the app launcher or with `Super + Ctrl + Return`. Omarchy ships a Herdr configuration that mirrors its Tmux config, so the prefix key is `Ctrl + Space` here too. You can browse all the keybindings with `Super + Ctrl + K`.
 
 ## Fastfetch
 
