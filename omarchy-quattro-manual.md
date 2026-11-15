@@ -414,6 +414,18 @@ _Catppuccin Latte_
 
 _White_
 
+### App icons
+
+The icons in the app launcher and dock are drawn in the colors of your theme, so they change along with it. They come from an icon set, which you pick separately from the theme under _Appearance > Icons_, from previews of each set, the same way you pick a theme:
+
+- _Papercraft_ is the default: everything that comes installed, drawn in one style. Apps known by their logo, like Chrome, HEY, or YouTube, keep its shape and take on the theme's colors.
+- _Arcade_ draws the same apps as 8-bit pixel art, like an old game console would.
+- _Original_ shows every app with the icon its maker gave it.
+
+You can install an icon set someone else has made with _Install > Style > Icons_ (or `omarchy icons install <git url>`), and remove it again under _Remove > Icons_. _Update > Extra Icons_ fetches the latest version of the sets you have installed.
+
+To make your own, put your icons in `~/.config/omarchy/icons/<name>/`, one file per app, named after the `Icon=` line of the app's `.desktop` file. A file ending in `.svg` is shown as it is. A file ending in `.svg.tpl` is drawn in the theme's colors: write `{{ icon_main }}`, `{{ icon_mark }}`, `{{ icon_paper }}`, `{{ icon_body }}`, `{{ icon_edge }}`, `{{ icon_ink }}` or `{{ icon_shadow }}` where a color goes. The default set in `/usr/share/omarchy/icons/papercraft/` is a good place to start from. Add a `preview.png` to show your set in the picker; without one, Omarchy draws a preview from your icons. To change a single icon of the default set, put your version in `~/.config/omarchy/icons/papercraft/`.
+
 ### Unlocks
 
 Themes can also have a custom unlock design, which is used for the boot decryption process. You can select one of these under _Appearance > Unlock_. They look like this:
@@ -2124,6 +2136,8 @@ Omarchy boots its own `linux-omarchy` kernel, but you can keep others installed 
 ### Firmware updates
 
 Your packages aren't the only thing that goes stale. Many laptops and peripherals ship BIOS, SSD, and dock firmware through the Linux Vendor Firmware Service, and _Update > Firmware_ in the Omarchy menu will fetch and install whatever your hardware has waiting. It installs `fwupd` the first time you run it. Plenty of firmware can only be written during a reboot, so don't be surprised to be asked for one.
+
+When you need to change a setting in the BIOS itself, hold `Alt` in the system menu (`Super + Escape`) and _Reboot_ turns into _Reboot to BIOS_, which restarts straight into the firmware setup without having to catch the right key at boot. From the terminal, it's `omarchy system firmware`.
 
 ### Warning about direct pacman/yay updates
 
