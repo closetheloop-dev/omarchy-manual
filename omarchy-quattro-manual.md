@@ -1092,8 +1092,8 @@ From the terminal, the same switches are `omarchy toggle <thing>`. Run `omarchy 
 | Screensaver | — | `omarchy toggle screensaver` |
 | [Herdr](https://herdr.dev) theme sync | — | `omarchy toggle theme sync` |
 | Menu bar | `Super + Shift + Space` | `omarchy toggle bar` |
-| Touchpad | `XF86TouchpadToggle` | `omarchy toggle touchpad` |
-| Touchscreen | — | `omarchy toggle touchscreen` |
+| Touchpad | `XF86TouchpadToggle` | `omarchy device touchpad` |
+| Touchscreen | — | `omarchy device touchscreen` |
 | Suspend | — | `omarchy toggle suspend` |
 | Hybrid GPU | — | `omarchy toggle hybrid gpu` |
 
@@ -1437,6 +1437,8 @@ Or, in the agents panel in the top bar, choose + and then Local AI, which shows 
 
 Every model you set up gets its own line in the agents panel, next to your subscriptions: play to start it, pause to stop it and free its memory, and the terminal button to open your agent on it. Several can run at once when they fit in memory together; if one doesn't fit, Omarchy says which running model to stop. Drag lines to reorder them, and press Delete on a selected line to remove a model and its download.
 
+Every model you set up also gets its own entry in the app launcher, under the model's name and with its maker's logo, the way signing in to Claude, Codex or Grok adds one. It opens your agent on that model, and starts the model first if it isn't running: the terminal shows it loading and hands over to the agent once it's up. Removing a model removes its entry.
+
 From the command line, `omarchy agent local start <recipe>` and `omarchy agent local stop <recipe>` do the same, `omarchy agent local status` shows every model, and `omarchy agent --local` opens your default agent on the last model you started. pi, OpenCode and Qwen Code can use one; with any other default it opens in pi. pi also lists every model you've set up, and those on machines you've paired with, in its own model picker, so plain `pi` reaches them too. Any OpenAI-compatible client can connect too: `status` shows each model's address (the first is `http://127.0.0.1:11435/v1`), the recipe name is the model, and the key is in `~/.config/omarchy/agent-local/key`.
 
 `omarchy agent local remove <recipe>` deletes a model and the downloads no other model uses.
@@ -1656,7 +1658,7 @@ You start it (or reattach to your existing session) from the app launcher or wit
 
 [Fastfetch](https://github.com/fastfetch-cli/fastfetch) shows system information, like kernel version, uptime, theme, CPU, memory, and more. It's a successor to the popular neofetch tool.
 
-Omarchy has packaged this as _About_ in the Omarchy menu (`Super + Space`).
+Omarchy has packaged this as _System > About_ in the Omarchy menu (`Super + Space`).
 
 ## Cliamp
 
@@ -2478,7 +2480,7 @@ hl.config({
 
 ### Function keys
 
-The top row of a laptop keyboard sends the media keys (volume, brightness and so on) by default, and holding `Fn` gives F1-F12; `Fn + Esc` locks it the other way round until you press it again. Most keyboards remember that lock themselves. ASUS laptops and Apple-style keyboards leave it to Linux, which starts them on the media keys at every boot. To have them start on F1-F12 instead, run `omarchy keyboard toprow fnkeys` (and `omarchy keyboard toprow mediakeys` to go back); on some laptops it takes effect after a reboot. Apple Silicon Macs keep their own setting.
+The top row of a laptop keyboard sends the media keys (volume, brightness and so on) by default, and holding `Fn` gives F1-F12; `Fn + Esc` locks it the other way round until you press it again. Most keyboards remember that lock themselves. ASUS laptops and Apple-style keyboards leave it to Linux, which starts them on the media keys at every boot. To have them start on F1-F12 instead, run `omarchy device keyboard toprow fnkeys` (and `omarchy device keyboard toprow mediakeys` to go back); on some laptops it takes effect after a reboot. Apple Silicon Macs keep their own setting.
 
 ### Trackpad gestures
 
