@@ -48,7 +48,9 @@ But in special circumstances, like remote Omarchy installs on protected computer
 
 ### Language
 
-Omarchy speaks 50 languages — the same set as omarchy.org — and English is the default. To switch, open the Omarchy menu and go to _Setup > Language_, or run `omarchy language <code>` in a terminal (`omarchy language list` shows the codes). The menu, desktop, and Omarchy's own notifications change language immediately, and every application you open afterwards follows too. Apps that were already open switch once you restart them.
+Omarchy speaks 50 languages — the same set as omarchy.org — and English is the default. To switch, open the Omarchy menu and go to _Setup > Region > Language_, or run `omarchy language <code>` in a terminal (`omarchy language list` shows the codes). The menu, desktop, and Omarchy's own notifications change language immediately, and every application you open afterwards follows too. Apps that were already open switch once you restart them.
+
+To keep the language but write dates, times, numbers, money, units and paper sizes the way another region does (English with European dates and a 24-hour clock, say), pick a region under _Setup > Region > Formats_, where each choice shows a sample, or run `omarchy region <code>` (`omarchy region list` shows the codes). _Same as language_ goes back to the language's own formats. Like a language switch, it reaches the apps you open afterwards.
 
 ### Help if you're stuck
 
@@ -1383,7 +1385,7 @@ Personal rules for every agent go in `~/.agents/AGENTS.md`, next to the shared s
 
 ### The agents panel
 
-The top bar has an agents icon. Before you've set up an agent, its panel walks you through signing in to Claude, Codex, or Grok, and the first one becomes your default agent. After that, the panel puts every subscription on one page: each agent and account with its plan, a meter for each of its 5-hour session and weekly limits with the time until it resets (hover for the exact percentage), or the remaining prepaid balance, under a line that rotates through what you've used across all of them, like tokens this week and your most used model. Under _Make something_ it offers starter prompts for a new theme, plugin, app, or game that hand the task to your default agent. Apps are built the way Omarchy's own Hype, Monologue, and Omacut are, in C++ and Qt Quick, following the omarchy-app agent skill, and the compiler and Qt pieces they need come installed. Games are a single three.js page in `~/Games/vibes`, following the web-game agent skill, and all open from one Game Vibes launcher in the current theme; they load three.js from the web, so they need a connection to start. Claude Code, Codex, Grok, Kimi, Cursor and its Grok Bot allowance, GitHub Copilot, Muse, Antigravity, Kimchi, and Devin are covered out of the box with their limits, and Hermes, Mistral Vibe, and Qwen Code show their sessions and tokens once you've used them. Provider plans and keys you use through pi, omp, or opencode show up as well: OpenCode Zen and Go, the Z.ai GLM Coding Plan, Ollama Cloud, the MiniMax Token Plan, and Synthetic with their limits; Fireworks, OpenRouter, and DeepSeek with their prepaid balances; and the models you run on your own hardware under Local models. Every agent is counted once, under whoever bills it, however many harnesses you drive it through.
+The top bar has an agents icon. Before you've set up an agent, its panel walks you through signing in to Claude, Codex, or Grok, and the first one becomes your default agent. After that, the panel puts every subscription on one page: each agent and account with its plan, a meter for each of its 5-hour session and weekly limits with the time until it resets (hover for the exact percentage), or the remaining prepaid balance, under a line that rotates through what you've used across all of them, like tokens this week and your most used model. Under _Make something_ it offers starter prompts for a new theme, plugin, app, or game that hand the task to your default agent. Apps are built the way Omarchy's own Hype, Monologue, and Omacut are, in C++ and Qt Quick, following the omarchy-make-app agent skill, and the compiler and Qt pieces they need come installed. Games are a single three.js page in `~/Games/vibes`, following the omarchy-make-game agent skill, and all open from one Game Vibes launcher in the current theme; they load three.js from the web, so they need a connection to start. Claude Code, Codex, Grok, Kimi, Cursor and its Grok Bot allowance, GitHub Copilot, Muse, Antigravity, Kimchi, and Devin are covered out of the box with their limits, and Hermes, Mistral Vibe, and Qwen Code show their sessions and tokens once you've used them. Provider plans and keys you use through pi, omp, or opencode show up as well: OpenCode Zen and Go, the Z.ai GLM Coding Plan, Ollama Cloud, the MiniMax Token Plan, and Synthetic with their limits; Fireworks, OpenRouter, and DeepSeek with their prepaid balances; and the models you run on your own hardware under Local models. Every agent is counted once, under whoever bills it, however many harnesses you drive it through.
 
 Left-click the bar icon for the panel, right-click to launch your default agent. The usage records behind it are regenerated every 15 minutes by `omarchy agent usage-update`, and the panel can even merge usage from your other machines via a synced folder. See the README under `$OMARCHY_PATH/shell/plugins/agents/` for the full settings.
 
@@ -1433,11 +1435,13 @@ omarchy agent local use best
 
 Or, in the agents panel in the top bar, choose + and then Local AI, which shows up when a model fits this machine. The first time, this installs Podman, which runs the models, and on an NVIDIA machine NVIDIA's container toolkit, which gives them the GPU. Omarchy then picks the recommended model for this machine, downloads it, and starts it. Expect a download of tens of GB and most of the machine's memory to be in use while the model runs: Flash Next uses about 100 GiB with its full 256K context. If other models hold the memory it needs, it's set up stopped, ready to start once you stop one. The model stops at logout; stop it yourself when you need the memory for something else.
 
-`omarchy agent local list` shows the options and explains why some don't fit. To set up another one, run `omarchy agent local use <recipe>`. Today, `qwen3.8-flash-next-gufo` and `qwen3.8-27b-gufo` are available for 128 GB Strix Halo machines; the 27B takes about 40 GiB, so it leaves room for other work. New recipes and recommendations arrive with `omarchy update`, through the package.
+`omarchy agent local list` shows the options and explains why some don't fit. To set up another one, run `omarchy agent local use <recipe>`. Today, `qwen3.8-flash-next-gufo` and `qwen3.8-27b-gufo` are available for 128 GB Strix Halo machines; the 27B takes about 40 GiB, so it leaves room for other work. On a 64 GB laptop with Intel's Arc B390, `qwen3.6-35b-a3b-llamacpp` runs in about 30 GiB. New recipes and recommendations arrive with `omarchy update`, through the package.
 
 Every model you set up gets its own line in the agents panel, next to your subscriptions: play to start it, pause to stop it and free its memory, and the terminal button to open your agent on it. Several can run at once when they fit in memory together; if one doesn't fit, Omarchy says which running model to stop. Drag lines to reorder them, and press Delete on a selected line to remove a model and its download.
 
 Every model you set up also gets its own entry in the app launcher, under the model's name and with its maker's logo, the way signing in to Claude, Codex or Grok adds one. It opens your agent on that model, and starts the model first if it isn't running: the terminal shows it loading and hands over to the agent once it's up. Removing a model removes its entry.
+
+A model keeps running exactly as it was set up, so an Omarchy update never restarts one under your agents. When Omarchy has a newer runtime or newer weights for a model you have set up, its line shows an update button: press it and the model is set up again in the background, downloading only what changed, and restarts on the new version. A model that was stopped stays stopped. `omarchy agent local update` does the same for every model from a terminal.
 
 From the command line, `omarchy agent local start <recipe>` and `omarchy agent local stop <recipe>` do the same, `omarchy agent local status` shows every model, and `omarchy agent --local` opens your default agent on the last model you started. pi, OpenCode and Qwen Code can use one; with any other default it opens in pi. pi also lists every model you've set up, and those on machines you've paired with, in its own model picker, so plain `pi` reaches them too. Any OpenAI-compatible client can connect too: `status` shows each model's address (the first is `http://127.0.0.1:11435/v1`), the recipe name is the model, and the key is in `~/.config/omarchy/agent-local/key`.
 
@@ -1676,7 +1680,7 @@ Any terminal program can get the full app treatment. Go to _Install > TUI_ in th
 
 ## Files
 
-Files (Nautilus) is the graphical file manager. `Super + Shift + F` opens it, and `Super + Shift + Alt + F` opens it in the directory your terminal is sitting in, which saves a lot of clicking. `Ctrl + L` lets you type a path, and hitting `Space` on any file gives you a quick preview without opening anything.
+Files (Folio) is the graphical file manager. `Super + Shift + F` opens it, and `Super + Shift + Alt + F` opens it in the directory your terminal is sitting in, which saves a lot of clicking. `Ctrl + L` lets you type a path, and hitting `Space` on any file previews it at full size without opening it.
 
 Plug in a USB stick or an SD card and it's mounted automatically, so it just shows up in the sidebar. For anything more involved — formatting a drive, checking SMART health, creating partitions — launch _Disks_ from the app launcher (`Super + Space`).
 
@@ -1727,7 +1731,7 @@ You can open the Share menu on `Super + Ctrl + S` or under _Trigger > Share_ in 
 
 The same thing works from the terminal with `omarchy share clipboard`, `omarchy share file [path]`, and `omarchy share folder [path]`. Leave the path off and you get the picker.
 
-You can also send straight from the file manager: right-click any selection in Nautilus and pick _Send via LocalSend_.
+You can also send straight from the file manager: right-click any selection in Files and share it with LocalSend.
 
 Omarchy's firewall is closed by default except for LocalSend's port, so this works out of the box on a fresh install. See [security](#chapter-48-security).
 
@@ -1751,9 +1755,9 @@ You start Signed via the application launcher (`Super + Space`), or open a PDF w
 
 ## Game Vibes
 
-Game Vibes, in the application launcher (`Super + Space`), is where Omarchy's little games live: Checkmate, a 3D chess game against a friend or the built-in opponent; Cards, Klondike solitaire; and Neon Swarm, an arcade shooter. Each is a single web page that follows your theme. Pick one with the arrows and `Enter`, and come back to the list with `Esc` from a game's title screen or `Q` while it's paused.
+Game Vibes, in the application launcher (`Super + Space`), is where Omarchy's little games live: Checkmate, a 3D chess game against a friend or the built-in opponent; Cards, Klondike solitaire; and Neon Swarm, an arcade shooter. Each is a single web page that follows your theme. Pick one with the arrows and `Enter`, and come back to the list with `Esc` from a game's title screen or `Q` while it's paused. It opens full screen: `Super + F` makes it a window, and `Super + W` closes it.
 
-The games you make with an agent show up here too: choose _Make something cool → Game_ in the agents panel and describe one, or name a game already in Game Vibes to keep working on it. The agent copies it into `~/Games/vibes`, where it's yours to change, and opens it when it's done. You can make that copy yourself with `omarchy games vibes copy <game>`. Games load three.js from the web, so they need a connection to start.
+The games you make with an agent show up here too: choose _Make something cool → Game_ in the agents panel and describe one, or name a game already in Game Vibes to keep working on it. The agent copies it into `~/Games/vibes`, where it's yours to change, and opens it when it's done. You can make that copy yourself with `omarchy games vibes copy <game>`. A game someone else shares installs like a theme: choose _Install > Gaming > Game Vibes_ and paste its git address, or run `omarchy games vibes install <git-repo-url>`. _Remove > Gaming_ takes one out again, and _Update > Game Vibes Games_ fetches new versions. Games load three.js from the web, so they need a connection to start.
 
 ## Omacalc
 
@@ -2625,7 +2629,7 @@ You can install other popular programming fonts via _Install > Style > Font_ in 
 
 ## Chinese, Japanese, and Korean
 
-Chinese, Japanese, and Korean share many characters but draw some of them differently, so the same character looks right to one reader and foreign to another. Picking one of these languages under _Setup > Language_, or its input method, sets the matching forms. To choose them yourself, run `omarchy font cjk jp`, `kr`, `sc`, `tc` (Taiwan), or `hk` (Hong Kong) in a terminal; `omarchy font cjk default` goes back to the system's choice, which is Japanese forms. Text a web page or document marks with its own language, and the whole desktop while it is in one of these languages, keeps that language's forms.
+Chinese, Japanese, and Korean share many characters but draw some of them differently, so the same character looks right to one reader and foreign to another. Picking one of these languages under _Setup > Region > Language_, or its input method, sets the matching forms. To choose them yourself, run `omarchy font cjk jp`, `kr`, `sc`, `tc` (Taiwan), or `hk` (Hong Kong) in a terminal; `omarchy font cjk default` goes back to the system's choice, which is Japanese forms. Text a web page or document marks with its own language, and the whole desktop while it is in one of these languages, keeps that language's forms.
 
 # Chapter 39: Backgrounds
 
@@ -2638,6 +2642,8 @@ Backgrounds can be videos as well as stills. Drop an `mp4`, `m4v`, `mov`, `webm`
 Themes can include a short intro for a still background. For `backgrounds/road.webp`, the matching video lives at `backgrounds/intros/road.mp4`. It plays automatically at boot, when switching to a theme with that background selected, and when choosing that background, then returns to the still. Intro videos stay out of the background picker and never loop.
 
 Turning off _Appearance > Animations_ also turns off background intros. Omarchy does this by default in a virtual machine. The `omarchy theme bg intro toggle` command can toggle intros separately. Refreshing a theme does not play an intro.
+
+A still can also have a loop, a quiet version of the same picture that keeps moving, at `backgrounds/loops/road.mp4`. It plays in the still's place, after its intro if it has one, and stops when animations are turned off. Loops stay out of the background picker and, like any video background, cost more power than a still.
 
 You can find a huge collection of cool curated backgrounds in [dharmx/walls](https://github.com/dharmx/walls).
 
@@ -2970,7 +2976,7 @@ This will display Sunday 10:55 AM.
 
 ### How do I change my timezone?
 
-Run _Update > Timezone_ in the Omarchy menu and pick from the list. If the timezone is right but the clock itself has drifted, _Update > Time_ restarts the time synchronization for you.
+Run _Setup > Region > Timezone_ in the Omarchy menu and pick from the list. If the timezone is right but the clock itself has drifted, _Update > Time_ restarts the time synchronization for you.
 
 ### How do I change my DNS, share my Wi-Fi, or check my connection speed?
 
@@ -3026,7 +3032,7 @@ For errors and broken bits, see [the Troubleshooting section](#chapter-45-troubl
 
 We create snapshots automatically on every Omarchy update, but should you want to create your own, you can use `omarchy-snapshot create`.
 
-To boot and restore a snapshot, you select it from the Limine boot loader. (If you're currently booting straight into the Omarchy decryption screen, you'll need to select Limine as a boot option via the BIOS first).
+To boot and restore a snapshot, you select it from the Limine boot loader. The boot menu stays hidden by default, so press any key as soon as Limine starts to bring it up.
 
 From that screen, choose the snapshot you'd like to boot into based on the date and version. The version of Omarchy at the time of the snapshot can be seen at the bottom left corner.
 
@@ -3044,12 +3050,6 @@ The same goes for Omarchy's own record of which migrations have already run: it 
 
 _Note: This feature is only available on installations using the Limine boot loader, which has been the default since Omarchy 2.0. It's not available if you're on GRUB or systemd-boot._
 
-### Skipping the boot menu
-
-If you never touch the boot menu and just want the machine to go straight to the decryption screen, run _Setup > Direct Boot_ in the Omarchy menu. That adds an EFI entry pointing directly at Omarchy, so the firmware boots it without stopping at Limine.
-
-The trade-off is the one mentioned at the top: with direct boot on, getting to a snapshot means picking Limine from your BIOS boot menu first. Run _Setup > Direct Boot_ again to remove the entry and go back to booting through Limine. Some firmware doesn't take kindly to custom EFI entries, so the setup refuses to run on American Megatrends and Apple firmware.
-
 # Chapter 48: Security
 
 Omarchy takes security extremely seriously. This is meant to be an operating system that you can use to do _Real Work_ in the _Real World_. Where losing a laptop can't lead to a security emergency. So here's what we do:
@@ -3066,7 +3066,7 @@ You have two passwords on an encrypted install: the one that unlocks the drive a
 
 ## Passing on a machine you've already used
 
-If you're handing your machine over to someone else, you don't have to reinstall it. Run _Setup > Reset Computer_ in the Omarchy menu, type `reset` to confirm, and reboot. That wipes every user account and everything in `/home`, throws away all the packages and system changes you made since installation, and clears the machine's identity — network connections, host keys, and all. What comes back up is the setup wizard from the first boot, ready for its new owner to enter their own name, password, and encryption password.
+If you're handing your machine over to someone else, you don't have to reinstall it. Run _Remove > Factory Reset_ in the Omarchy menu, type `reset` to confirm, and reboot. That wipes every user account and everything in `/home`, throws away all the packages and system changes you made since installation, and clears the machine's identity — network connections, host keys, and all. What comes back up is the setup wizard from the first boot, ready for its new owner to enter their own name, password, and encryption password.
 
 It works by restoring the baseline snapshot the installer takes, so it's only available on machines installed from the Omarchy ISO. And on a drive without encryption, a reset is deletion rather than a secure erase, so if the data was sensitive, do a fresh install instead.
 
@@ -3153,7 +3153,7 @@ Confirm that everything looks good and wait for the install to finish like norma
 
 When you finish your Omarchy install, you'll notice that the Limine bootloader is the default now. With this, you can also add options to Limine for your other installs such as Windows.
 
-To add other operating systems, run `limine-scan` and follow the prompts to add the entries you want to your Limine config. The boot menu stays hidden by default and starts Omarchy after one second. To choose Windows or another entry, press any key as soon as Limine starts; when the menu appears, use the arrow keys to select an entry and press Enter. If Omarchy starts before you press a key, restart and try again. If you turned on _Setup > Direct Boot_, the firmware skips Limine entirely, so pick Limine from your BIOS boot menu or run _Setup > Direct Boot_ again to remove the entry.
+To add other operating systems, run `limine-scan` and follow the prompts to add the entries you want to your Limine config. The boot menu stays hidden by default and starts Omarchy after one second. To choose Windows or another entry, press any key as soon as Limine starts; when the menu appears, use the arrow keys to select an entry and press Enter. If Omarchy starts before you press a key, restart and try again.
 
 ## Bitlocker
 
