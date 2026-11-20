@@ -1,6 +1,6 @@
 # Chapter 1: Welcome to Omarchy!
 
-Omarchy is an [omakase](https://manuals.omamix.org/3/omacom/76/omakase-computing) Linux distribution based on [Arch](https://archlinux.org/), the tiling window manager [Hyprland](https://hypr.land/), and the desktop construction-kit [Quickshell](https://quickshell.org/). It ships with everything a modern, savvy computer user needs to be productive immediately. From [Neovim](https://neovim.io/) (btw) to Chromium, [Obsidian](https://obsidian.md/) to LibreOffice, and [Hype](https://github.com/omacom/hype) to [Monologue](https://github.com/omacom/monologue). Hell, even a retro Winamp-style music player is there!
+Omarchy is an [omakase](https://manuals.omamix.org/3/omacom/76/omakase-computing) Linux distribution based on [Arch](https://archlinux.org/), the tiling window manager [Hyprland](https://hypr.land/), and the desktop construction-kit [Quickshell](https://quickshell.org/). It ships with everything a modern, savvy computer user needs to be productive immediately. From [Neovim](https://neovim.io/) (btw) to Google Chrome, [Obsidian](https://obsidian.md/) to LibreOffice, and [Hype](https://github.com/omacom/hype) to [Monologue](https://github.com/omacom/monologue). Hell, even a retro Winamp-style music player is there!
 
 This isn't just a grab bag of preinstalled packages, though. It's a complete system designed with both aesthetics and productivity in mind. Because a _beautiful_ system is a _motivating_ system, and productivity has always been [downstream from motivation](https://world.hey.com/dhh/beautiful-motivations-6fef7c73). There's zero bloat here: Just everything I use.
 
@@ -66,9 +66,9 @@ All the muscle memory you've built around Cmd or the Windows key transfers to on
 
 Your Spotlight or Raycast or Start-menu reflex becomes `Super + Space`. That opens the Omarchy menu, which launches apps, changes settings, installs software, captures the screen — just about everything. Start typing to filter. `Super + Alt + Space` shows every app on one grid, the way Launchpad does. See [navigation](#chapter-4-navigation).
 
-### There's no dock and no desktop icons
+### No desktop icons, and the dock only shows up when you float
 
-Nothing to click to launch things, no icons to arrange on the desktop. Apps start from a hotkey (`Super + Return` for the terminal, `Super + Shift + Return` for the browser, and `Super + K` for a list of everything that's mapped) or from the menu. The one persistent piece of UI is [the top bar](#chapter-5-the-top-bar), which covers what the menu bar, system tray, and Notification Center did for you before — and nearly every widget on it does something on left, right, and middle click.
+No icons to arrange on the desktop, and no dock on a tiling workspace — the dock only appears on a floating workspace (see [navigation](#chapter-4-navigation)). Apps start from a hotkey (`Super + Return` for the terminal, `Super + Shift + Return` for the browser, and `Super + K` for a list of everything that's mapped) or from the menu. The one persistent piece of UI is [the top bar](#chapter-5-the-top-bar), which covers what the menu bar, system tray, and Notification Center did for you before — and nearly every widget on it does something on left, right, and middle click.
 
 ### Windows place themselves
 
@@ -95,6 +95,10 @@ Windows folks: your Win + V clipboard history lives on `Super + Ctrl + V`, and i
 | Time Machine (for the system) | Automatic [system snapshots](#chapter-47-system-snapshots) on every update |
 | App Store / downloading an installer | _Install_ in the menu, or `omarchy pkg add` — see [other packages](#chapter-29-other-packages) |
 | System Settings / Control Panel | _Setup_ in the menu, which edits plain config files — see [dotfiles](#chapter-31-dotfiles) |
+| Finder / File Explorer | Files, on `Super + Shift + F` — see [GUIs](#chapter-22-guis) |
+| Safari / Edge | Google Chrome on `Super + Shift + Return`; pick another under _Setup > Defaults > Browser_ — see [browsers](#chapter-23-browsers) |
+| Preview / Photos | Omaview for pictures, video and music, Document Viewer for PDFs — see [GUIs](#chapter-22-guis) |
+| TextEdit / Notepad | Plain, on `Super + Shift + N`; pick another under _Setup > Defaults > Editor_ |
 
 ### Some things really are different
 
@@ -152,7 +156,7 @@ Omarchy's default layout is called dwindle. It keeps all the windows you open on
 
 But you can also choose to turn a workspace into the scrolling layout where windows are lined up side-by-side, beyond the visible edge of the display. You turn a single workspace into this layout via `Super + L`.
 
-Pressing `Super + L` again turns the workspace floating, where windows overlap freely and you place them yourself, and a third press returns it to dwindle. `Super + Alt + L` goes through them the other way. A window that floats anyway — one you popped out with `Super + T`, or an app that always opens floating — keeps floating when the workspace goes back to tiling. The top bar marks the workspace you're on with its layout: a square for dwindle, a circle for scrolling, and a triangle for floating. Clicking that mark cycles the layout too.
+Pressing `Super + L` again turns the workspace floating, where windows overlap freely and you place them yourself, and a third press returns it to dwindle. `Super + Alt + L` goes through them the other way. A window that floats anyway — one you popped out with `Super + T`, or an app that always opens floating — keeps floating when the workspace goes back to tiling. The top bar marks the workspace you're on with its layout: a square for dwindle, a circle for scrolling, and a triangle for floating. Clicking that mark cycles the layout too, and so does the display key on laptops that have one.
 
 
 
@@ -174,7 +178,7 @@ A floating workspace works like a traditional desktop: windows overlap, and you 
 
 A floating workspace also shows a dock, with your pinned apps, everything that's running, and a grid of every app behind the apps button, which `Super + Alt + Space` and _Apps_ in the Omarchy menu open too. Right-click an app on the grid, or press `Delete`, to uninstall it. Click an app to open it, or to bring its window forward; click again to cycle through its windows. Files only brings back a window from the workspace you're on and otherwise opens a new one, and Terminal and Agent always start another, though a minimized window comes back first. Middle-click opens a new window. Drag an icon along the dock to move it; dragging a running app in among the others keeps it there. Right-click to keep an app in the dock, take it out, or quit it. The dock gets out of the way of a fullscreen window. Right-click the apps button to move the dock to another edge or have it hide until the pointer reaches its edge. The position is also under _Appearance > Dock > Dock Position_, and `omarchy dock position left` and `omarchy dock autohide on` set both from a terminal. Apps you keep in the dock are faded while they aren't running.
 
-New workspaces, and any you haven't given a layout of their own with `Super + L`, use the default layout. Changing the default resets every workspace without windows to it, while one with windows on it keeps the layout it has. A window minimized to the dock still counts as a window on the workspace it left. Pick it under _Appearance > Workspace Layout_: Tiling, Scrolling, or Floating. `omarchy-hyprland-workspace-layout-default scrolling` sets it from a terminal.
+New workspaces, and any you haven't given a layout of their own with `Super + L`, use the default layout. Changing the default resets every workspace without windows to it, while one with windows on it keeps the layout it has. A window minimized to the dock still counts as a window on the workspace it left. Pick it under _Appearance > Workspace Layout_: Tiling, Scrolling, or Floating. `omarchy hyprland workspace layout default scrolling` sets it from a terminal.
 
 ### Grouping windows
 
@@ -198,7 +202,7 @@ It works well for controls or a terminal you want to interact with quickly witho
 
 Finally, there's a half-height Quake console that drops down over whatever workspace you're currently on. Toggle it with `Super + Grave`, and place a window there using `Super + Shift + Grave`.
 
-It opens with your default agent ready to go. While the console holds a single window, it drops down as a centered panel rather than spanning the screen. Put a second app on it and it goes back to the full width, so the two have room to sit side by side.
+The first time it opens, it starts your default agent, or asks you to pick one if you haven't chosen one yet. While the console holds a single window, it drops down as a centered panel rather than spanning the screen. Put a second app on it and it goes back to the full width, so the two have room to sit side by side.
 
 To move a window off either the scratchpad or the console, send it directly to another workspace with something like `Super + Shift + 1`.
 
@@ -214,9 +218,9 @@ It's also the one piece of the desktop that's always on screen, so it's worth kn
 
 ## What's on it by default
 
-The bar has three sections. On the left sits the Omarchy logo (the menu launcher) and the workspace indicators. In the center you get the status indicators, the clock, Elsewhen (a world clock), the weather, and an Omarchy update badge. On the right: the system tray, the keyboard layout (when more than one is configured), agents, bluetooth, network, audio, display, and power.
+The bar has three sections. On the left sits the Omarchy logo (the menu launcher) and the workspace indicators. In the center you get the status indicators, the clock, Elsewhen (a world clock), the weather, and an Omarchy update badge. On the right: the system tray, the keyboard layout (when more than one layout or input method is configured), agents, bluetooth, network, audio, display, and power.
 
-A few of those only show up when they have something to say. The keyboard layout appears only if you've configured more than one layout. The update badge appears only when there's an Omarchy update waiting. And the agents icon appears the first time Omarchy finds AI coding usage on the machine (see [AI](#chapter-17-ai)).
+A few of those only show up when they have something to say. The keyboard layout appears only if you've configured more than one layout or input method. The update badge appears only when there's an Omarchy update waiting.
 
 ## Clicking around
 
@@ -227,6 +231,7 @@ Nearly every widget does something on left, right, and middle click, and several
 | Menu | Omarchy menu | New terminal | — |
 | Workspaces | Focus that workspace on this monitor | — | Scroll: next/previous workspace |
 | Clock | Calendar popup | Cycle the label format | Middle: timezone picker |
+| World clock | World clock panel | Refresh | Middle: refresh |
 | Weather | Forecast popup | Full weather as a notification | Middle: refresh |
 | Audio | Audio panel | Mute | Middle: panel · scroll: volume |
 | Microphone | Mute the mic | — | Middle: audio panel · scroll: input volume |
@@ -235,7 +240,7 @@ Nearly every widget does something on left, right, and middle click, and several
 | Display | Display panel | — | Scroll: brightness |
 | Power | Power panel | Toggle the battery percentage | — |
 | Media | Play/pause | Cover-art popup | Middle: next · scroll: prev/next |
-| Agents | Agents panel | Launch your agent | Middle: next subscription |
+| Agents | Agents panel | Launch your agent | Middle: refresh usage |
 | Tray | Hover to reveal the drawer | Right on the chevron to manage | — |
 | Omarchy update | Run the update | — | — |
 
@@ -254,6 +259,7 @@ Clicking a bar icon opens a panel, which is a proper popup with sliders, lists, 
 | `Super + Ctrl + P` | Power |
 | `Super + Ctrl + Alt + D` | Calendar |
 | `Super + Ctrl + Alt + E` | World clock |
+| `Super + Ctrl + X` | Agents |
 | `Super + Ctrl + 1-9` | Toggle the nth panel in the right section |
 
 The panels aren't read-outs. They're where you actually do the thing:
@@ -282,7 +288,7 @@ Removing either service takes its widget back off the bar.
 
 ## Indicators
 
-The little cluster in the center is the indicators widget. These are status glyphs for modes you've turned on: do not disturb, night light, a queued [reminder](#chapter-9-reminders), an active screen recording, stay awake, and [dictation](#chapter-11-text-extraction--dictation). They light up when the mode is active and otherwise stay out of the way — hover just beside them, where the inactive ones would sit, to peek at those. Clicking an indicator toggles that mode. One more is status only: a remote session lights up red while someone is connected to this machine through gliff.
+The little cluster in the center is the indicators widget. These are status glyphs for modes you've turned on: do not disturb, night light, a queued [reminder](#chapter-9-reminders), an active screen recording, and stay awake, plus warnings while passwordless sudo is on or someone is connected to a remote session. They light up when the mode is active and otherwise stay out of the way — hover just beside them, where the inactive ones would sit, to peek at those. Clicking an indicator toggles that mode. One more is status only: a remote session lights up red while someone is connected to this machine through gliff.
 
 If you'd rather they were always visible, set `alwaysShow` to `true` on the widget. And if you only care about some of them, list the ones you want in `items`: `["Dnd", "Reminder", "NightLight"]`. You can have more than one indicators widget, so different sections can show different subsets.
 
@@ -351,9 +357,9 @@ The same file also holds your idle timings at the top level, outside the `bar` k
 
 # Chapter 6: Themes
 
-Omarchy comes with twenty-two beautiful themes. You can select between them via _Appearance > Theme_ in the Omarchy Menu (`Super + Space`) or hop directly to the theme selector using `Super + Ctrl + T`.
+Omarchy comes with twenty-three beautiful themes. You can select between them via _Appearance > Theme_ in the Omarchy Menu (`Super + Space`) or hop directly to the theme selector using `Super + Ctrl + T`.
 
-Each theme styles the desktop, terminal, neovim, activity screen (btop), Chromium, and the entire Omarchy shell: top bar, menu, notifications, OSD, and the lock screen. (For Obsidian, you must manually select the Omarchy theme via _Appearance > Themes_ inside the app).
+Each theme styles the desktop, terminal, neovim, activity screen (btop), your browser (Chrome, Chromium, Edge or Brave), and the entire Omarchy shell: top bar, menu, notifications, OSD, and the lock screen. (For Obsidian, you must manually select the Omarchy theme via _Appearance > Themes_ inside the app).
 
 Themes have a set of background images that you can pick between using `Super + Ctrl + W`.
 
@@ -416,6 +422,18 @@ _Catppuccin Latte_
 
 _White_
 
+
+_Last Horizon_
+
+
+_Lupine_
+
+
+_Solitude_
+
+
+_Starship_
+
 ### App icons
 
 The icons in the app launcher and dock are drawn in the colors of your theme, so they change along with it. They come from an icon set, which you pick separately from the theme under _Appearance > Icons_, from previews of each set, the same way you pick a theme:
@@ -460,7 +478,13 @@ _Jade Horse_
 _Kanagawa_
 
 
+_Last Horizon_
+
+
 _Lumon_
+
+
+_Lupine_
 
 
 _Matte Black_
@@ -479,6 +503,9 @@ _Ristretto_
 
 
 _Rose Pine_
+
+
+_Solitude_
 
 
 _Tokyo Night_
@@ -531,6 +558,10 @@ If a default doesn't suit you (say you want `Super + Shift + S` for screenshots 
 | `Super + Ctrl + L` | Lock computer |
 | `Super + W` or `Super + Q` | Close window             |
 | `Ctrl + Alt + Del` | Close all windows |
+| `Super + K` | Show all hotkeys |
+| `Super + Alt + K` | Show tmux hotkeys |
+| `Super + Ctrl + K` | Show herdr hotkeys |
+| `Super + M` | Minimize window to the dock |
 | `Super + T`               | Toggle window between tiling/floating             |
 | `Super + J` | Toggle window position (horizontal/vertical) |
 | `Super + O`               | Toggle popping window into sticky'n'floating |
@@ -540,12 +571,12 @@ If a default doesn't suit you (say you want `Super + Shift + S` for screenshots 
 | `Super + F`                 | Go full screen              |
 | `Super + Alt + F`                 | Go full width              |
 | `Super + Ctrl + F`                 | Go full screen inside window              |
-| `Super + 1/2/3/4`         | Jump to specific workspace on the focused monitor |
+| `Super + 1…9/0`         | Jump to specific workspace (0 is 10) on the focused monitor |
 | `Super + Tab` | Jump to next workspace on the focused monitor |
 | `Super + Shift + Tab` | Jump to previous workspace on the focused monitor |
 | `Super + Ctrl + Tab` | Jump to former workspace on the focused monitor |
-| `Super + Shift + 1/2/3/4` | Move window to workspace on the focused monitor |
-| `Super + Shift + Alt + 1/2/3/4` | Move window to workspace on the focused monitor without following |
+| `Super + Shift + 1…9/0` | Move window to workspace on the focused monitor |
+| `Super + Shift + Alt + 1…9/0` | Move window to workspace on the focused monitor without following |
 | `Super + S` | Toggle full scratchpad |
 | `Super + Alt + S` | Move window to full scratchpad |
 | `Super + Grave` | Toggle Quake console |
@@ -581,6 +612,10 @@ If a default doesn't suit you (say you want `Super + Shift + S` for screenshots 
 | `Alt + Shift + Tab` | Cycle backward through windows on the active workspace |
 | `Ctrl + Alt + Tab`| Cycle focus forward through monitors |
 | `Ctrl + Alt + Shift + Tab`| Cycle focus backwards through monitors |
+| `Super + I` | Switch input language (with more than one layout or input method) |
+| `Super + Shift + I` | Switch input language back |
+
+On a touchpad, three- and four-finger swipes switch workspaces, move windows, and open the menu and the Quake console; see [keyboard, mouse, and trackpad](#chapter-34-keyboard-mouse-trackpad) for the gestures.
 
 Resize shortcuts use physical keys `code:20` and `code:21` (XKB `<AE11>` and `<AE12>`), regardless of the characters printed on the keyboard. On US keyboards these keys are `-` and `=`; on Japanese (JIS) keyboards they are `-` and `^`; on Spanish keyboards they are `'` and `¡`. On JIS, `Super + ^` is `Super + Equal`, while `Super + Shift + -` (which types `=`) is `Super + Shift + Minus`.
 
@@ -604,6 +639,8 @@ Resize shortcuts use physical keys `code:20` and `code:21` (XKB `<AE11>` and `<A
 | `Super + Ctrl + E` | Emoji picker |
 | `Super + Ctrl + .` | Transcode media |
 | `Super + Shift + Ctrl + A` | Pick an AI agent |
+| `Power` key | System menu |
+| `Super + Shift + Copilot` key | Omarchy menu |
 
 ## Adjustments
 
@@ -615,6 +652,11 @@ Resize shortcuts use physical keys `code:20` and `code:21` (XKB `<AE11>` and `<A
 | `Alt + Volume Up/Down` | Precise 1% volume changes |
 | `Keyboard Brightness Up/Down` | Keyboard backlight brighter/dimmer |
 | `Keyboard Backlight` | Cycle the keyboard backlight levels |
+| `Ctrl + Brightness Up/Down` | Keyboard backlight brighter/dimmer, on keyboards without their own keys |
+| `Mic Mute` | Mute the microphone |
+| `Shift + Mute` | Switch audio output |
+| `Touchpad Toggle` | Turn the touchpad on or off |
+| `Display` key | Cycle the workspace layout |
 | `Alt + Play` | Next track |
 | `Alt + Shift + Play` | Previous track |
 
@@ -625,16 +667,17 @@ Resize shortcuts use physical keys `code:20` and `code:21` (XKB `<AE11>` and `<A
 | `Super + Return`           | Terminal    |
 | `Super + Alt + Return` | Tmux terminal |
 | `Super + Ctrl + Return` | Herdr (agent manager) |
-| `Super + Shift + Return`           | Browser    |
+| `Super + Shift + Return` or `Super + Shift + B`  | Browser    |
 | `Super + Shift + Alt + B`           | Browser (private/incognito)    |
 | `Super + Shift + F`           | File manager    |
 | `Super + Shift + Alt + F`           | File manager in cwd of terminal    |
 | `Super + Shift + M`           | Music (Spotify)    |
 | `Super + Shift + Alt + M`           | Music (cliamp)    |
 | `Super + Shift + /`           | Password manager (1password)    |
-| `Super + Shift + Q`           | Calculator (Omacalc)    |
+| `Super + Shift + Q` or `Calculator` key  | Calculator (Omacalc)    |
+| `Super + Shift + D`           | Docker (lazydocker, once installed)    |
 | `Super + Shift + T`           | Activity (btop)    |
-| `Super + Shift + N`           | Editor (Neovim)  |
+| `Super + Shift + N`           | Editor (Plain, or your chosen default)  |
 | `Super + Shift + C`           | Calendar ([HEY](https://hey.com/))  |
 | `Super + Shift + E`           | Email ([HEY](https://hey.com/))  |
 | `Super + Shift + Alt + E`           | New email ([HEY](https://hey.com/))  |
@@ -648,7 +691,7 @@ Resize shortcuts use physical keys `code:20` and `code:21` (XKB `<AE11>` and `<A
 | `Super + Shift + O`           | Obsidian  |
 | `Super + Shift + W`           | Writing (Omawrite)  |
 | `Super + Shift + X`           | X |
-| `Super + Shift + Alt + X`           | X Compose |
+| `Super + Shift + Alt + X`           | X (new post) |
 | `Super + Shift + Y`           | YouTube |
 
 Change/add bindings in `~/.config/hypr/bindings.lua`.
@@ -709,7 +752,7 @@ All capture options are also accessible under _Trigger > Capture_ in the Omarchy
 
 Extra background images live in `~/.config/omarchy/backgrounds/<theme name>`. Also available via _Install > Style > Background_ in the Omarchy menu.
 
-All style options are also accessible under _Style_ in the Omarchy menu (`Super + Space`).
+All style options are also accessible under _Appearance_ in the Omarchy menu (`Super + Space`).
 
 ## Toggles
 
@@ -901,7 +944,7 @@ You can use `Super + Ctrl + E` to show a complete emoji picker that'll put the s
 | `Shift + CapsLock Space N` | Your name (as entered on setup)  |
 | `Shift + CapsLock Space E` | Your email (as entered on setup)  |
 
-You can add more of your own by editing `~/.XCompose`, then running `omarchy-restart-xcompose` in the terminal to get the changes picked up.
+You can add more of your own by editing `~/.XCompose`, then running `omarchy restart xcompose` in the terminal to get the changes picked up.
 
 # Chapter 8: Unified Clipboard & History
 
@@ -923,7 +966,7 @@ Use `Super + A`, then `Super + C` to copy everything in a focused text field or 
 
 ### Clipboard history
 
-The clipboard history is provided by the Omarchy shell and works for both text and images. You trigger it by `Super + Ctrl + V`, select your entry with return, and then that'll be placed on the clipboard ready to paste on `Super + V`.
+The clipboard history is provided by the Omarchy shell and works for both text and images. You trigger it by `Super + Ctrl + V` and select your entry with return, which pastes it straight into the app you were in. Use `Shift + Return` to only copy it to the clipboard, `Alt + Return` to open it, `Delete` to remove it from the history, and `Shift + Delete` to clear the whole history.
 
 
 
@@ -943,7 +986,7 @@ Notifications from the same app or site stack into a deck, so a chatty Slack cha
 
 Cards offer what they carry: _Copy code_ for verification codes (kept out of [clipboard history](#chapter-8-unified-clipboard--history) and cleared after a minute), plus any buttons the app provides. Links in a notification's text open when clicked.
 
-To use them without the mouse, press `Super + Ctrl + ,`. The newest notification is selected and its buttons numbered: press a number to use one, `Enter` to click the notification, `↑` and `↓` to move between notifications, `Delete` to dismiss one, and `Esc` to give the keyboard back. It also lets go on its own after a few idle seconds.
+`Super + ,` dismisses the newest notification, or opens what it points to when it offers that, `Super + Alt + ,` dismisses only the last one, `Super + Shift + ,` dismisses them all, and `Super + Shift + Alt + ,` opens the history. To use them without the mouse, press `Super + Ctrl + ,`. The newest notification is selected and its buttons numbered: press a number to use one, `Enter` to click the notification, `↑` and `↓` to move between notifications, `Delete` to dismiss one, and `Esc` to give the keyboard back. It also lets go on its own after a few idle seconds.
 
 Silencing notifications holds them back, except Omarchy's own confirmations, emergency alerts, and verification codes, which you asked for a moment ago. Put the last few back on screen, held back or not, with `Super + Shift + Alt + ,`. History is kept for a day.
 
@@ -1013,7 +1056,7 @@ After you select an area, Omasnap saves the capture, copies it to the clipboard,
 
 The annotation editor can draw arrows, lines, shapes, highlights, numbered markers, text, and secure redactions; crop or cut out part of the image; OCR its text; and add a backdrop. In the editor, press `Enter` to copy and save the finished PNG, `Ctrl + C` to copy it without saving, or `Ctrl + S` to save it without copying.
 
-Saved screenshots land in `~/Pictures/Screenshots` by default, with a name such as `screenshot-2026-08-13_14-22-05-firefox.png`. Set `OMASNAP_SCREENSHOT_DIR` to use another directory — see [the FAQ](#chapter-46-faq) for where to put session environment variables. Omasnap creates the directory when it saves the first shot. Set `[output] autosave = false` in `~/.config/omasnap/omasnap.conf` to disable automatic saving; captures are then only copied, and shown in a preview for 10 seconds that you can keep on screen with its pin button or `Ctrl + P`.
+Saved screenshots land in `~/Pictures/Screenshots` by default, with a name such as `screenshot-2026-08-13_14-22-05-firefox.png`. Set `OMASNAP_SCREENSHOT_DIR` to use another directory — see [the FAQ](#chapter-46-faq) for where to put session environment variables. Omasnap creates the directory when it saves the first shot. Set `[output] autosave = false` in `~/.config/omasnap/omasnap.conf` to disable automatic saving; captures are then only copied, and shown in a preview for 7 seconds that you can keep on screen with its pin button or `Ctrl + P`.
 
 From the terminal, `omarchy screenshot` opens the same overlay, and you can choose its starting mode: `omarchy capture screenshot region`, `windows`, `fullscreen`, or `scroll`. A second argument of `copy` or `save` sends the shot straight to that destination. To edit before output, use `omarchy screenshot --editor=overlay` for a fullscreen editor or `omarchy screenshot --editor=window` for a separate window.
 
@@ -1036,11 +1079,11 @@ These bindings only exist while Omasnap is open, so they can't collide with anyt
 
 `Alt + Print Screen` opens _Trigger > Capture > Screenrecord_, which asks what you want on the soundtrack: no audio, desktop audio, desktop plus microphone, or desktop plus microphone plus webcam. That last one only shows up if you actually have a camera plugged in. Pick one and Omarchy's recording picker lets you drag a region or click a window or monitor.
 
-Recording runs on gpu-screen-recorder, which encodes on the GPU at 60fps and falls back to the CPU if it has to. The result is an MP4 in `~/Videos`, named `screenrecording-2026-08-13_14-22-05.mp4`. Set `OMARCHY_SCREENRECORD_DIR` to change that — but note that unlike the screenshot directory, this one has to exist already, or the recording refuses to start.
+Recording runs on gpu-screen-recorder, which encodes on the GPU at 60fps and falls back to the CPU if it has to; on GPUs it doesn't support, such as Apple Silicon's, Omarchy records with wf-recorder instead. The result is an MP4 in `~/Videos`, named `screenrecording-2026-08-13_14-22-05.mp4`. Set `OMARCHY_SCREENRECORD_DIR` to change that — but note that unlike the screenshot directory, this one has to exist already, or the recording refuses to start.
 
 While you're recording, a little indicator shows up in the bar. Click it to stop. You can also stop with `Alt + Print Screen` again, or with the _Stop Screenrecording_ entry under _Trigger > Capture > Screenrecord_, which only appears while something is actually recording.
 
-Stopping does a bit of tidying before it hands you the file: the first frame gets trimmed, and if there's audio it's normalized to -14 LUFS with the PipeWire capture pop at the very start muted out. Then a notification appears with a thumbnail from the recording. Click it to play the file in Omaview.
+Stopping does a bit of tidying before it hands you the file: the first frame gets trimmed, and if there's audio it's normalized to -14 LUFS with the PipeWire capture pop at the very start muted out. Then a notification appears with a thumbnail from the recording. Choose _Open_ to play the file in Omaview, or _Cut_ to trim it in Omacut.
 
 ### The webcam overlay
 
@@ -1094,10 +1137,12 @@ From the terminal, the same switches are `omarchy toggle <thing>`. Run `omarchy 
 | Screensaver | — | `omarchy toggle screensaver` |
 | [Herdr](https://herdr.dev) theme sync | — | `omarchy toggle theme sync` |
 | Menu bar | `Super + Shift + Space` | `omarchy toggle bar` |
+| Full screen desktop (no bar, no gaps) | `Super + Ctrl + Alt + F` | `omarchy toggle fullscreen desktop` |
+| Animations, blur and shadows | — | `omarchy toggle animations` |
 | Touchpad | `XF86TouchpadToggle` | `omarchy device touchpad` |
 | Touchscreen | — | `omarchy device touchscreen` |
 | Suspend | — | `omarchy toggle suspend` |
-| Hybrid GPU | — | `omarchy toggle hybrid gpu` |
+| Hybrid GPU | — | `omarchy device gpu hybrid` |
 
 The touchpad, touchscreen, and hybrid GPU switches live under _Trigger > Hardware_ (`Super + Ctrl + H`) rather than under Toggle, since they only show up when you actually have that hardware. The touchpad and touchscreen ones survive a Hyprland reload — the disabled device's name is saved to a small state file that Hyprland reads on startup to disable it again.
 
@@ -1115,7 +1160,7 @@ The flags are named for the off state — `screensaver-off`, `suspend-off`, `bar
 
 ### Indicators in the bar
 
-When a mode is on, you get a small glyph in the middle of the top bar next to the clock. That's the indicators widget, and it carries dictation, screen recording, pending reminders, night light, do not disturb, and stay awake.
+When a mode is on, you get a small glyph in the middle of the top bar next to the clock. That's the indicators widget, and it carries screen recording, pending reminders, night light, do not disturb, and stay awake, plus warnings while passwordless sudo is on or someone is connected to a remote session.
 
 Inactive indicators are hidden. Hover anywhere on the bar and they fade in dimmed, so you can click one to turn it on without knowing its hotkey. Clicking an active one turns it back off. If you'd rather see all of them all the time, set `alwaysShow` to `true` on the `omarchy.indicators` entry in `~/.config/omarchy/shell.json` — see [the top bar](#chapter-5-the-top-bar) for how bar widgets are configured.
 
@@ -1140,7 +1185,7 @@ Then start hyprsunset at login by adding `o.launch_on_start("hyprsunset")` to `~
 
 Nothing is lost, though. Silenced notifications are held back: put the last few back on screen with `Super + Shift + Alt + ,`. See [notices](#chapter-10-notices) for the rest.
 
-Two kinds of message still get through: Omarchy's own confirmation toasts for something you just did ("Theme changed", "Screenshot saved"), and critical alerts sent from the command line. Chat apps that mark everything critical to force their way in front of you don't qualify.
+Three kinds of message still get through: Omarchy's own confirmation toasts for something you just did ("Theme changed", "Screenshot saved"), critical alerts sent from the command line, and verification codes. Chat apps that mark everything critical to force their way in front of you don't qualify.
 
 ### Idle
 
@@ -1208,6 +1253,7 @@ Common commands:
 
 Groups:
   agent          AI coding agents, their usage, and subscription accounts
+  ascii          Text drawn as ASCII art
   audio          Audio input and output controls
   bar            Omarchy shell bar layout and settings
   battery        Battery status helpers
@@ -1231,7 +1277,7 @@ And you can dive deeper on every group:
 ~ ❯ omarchy capture
 Capture commands — Screenshots and screen recording:
   omarchy capture qr                                                                                                                                                                                                       Decode a QR code from a screenshot region
-  omarchy capture screenrecording [--fullscreen] [--with-desktop-audio] [--with-microphone-audio] [--with-webcam] [--webcam-device=<device>] [--webcam-size=<small|medium|large>] [--resolution=<size>] [--stop-recording]  Start or stop screen recording
+  omarchy capture screenrecording [--fullscreen] [--with-desktop-audio] [--with-microphone-audio] [--with-webcam] [--webcam-device=<device>] [--webcam-size=<small|medium|large>] [--resolution=<size>] [--stop-recording] [--status]  Start or stop screen recording
   omarchy capture screenrecording with webcam                                                                                                                                                                              Pick a webcam and start a screen recording with it
   omarchy capture screenshot [smart|region|windows|fullscreen|scroll] [copy|save]                                                                                                                                          Take a screenshot
   omarchy capture text                                                                                                                                                                                                     Extract text from a screenshot region with OCR
@@ -1319,15 +1365,15 @@ You can see all the possible commands on [the LazyVim Keymaps page](https://www.
 
 ## Starting Neovim
 
-You can start Neovim using `Super + Shift + N` (the binding launches your default editor, which is Neovim out of the box), but it's usually easier to drive it from the terminal by navigating to the directory you wish to work in and typing `n`. The `n` is the alias for `nvim`, which will use the the present directory to open by default. You can open a single file with `n myfile.txt`.
+`Super + Shift + N` launches your default editor, which is Plain on new installs; pick Neovim under _Setup > Defaults > Editor_ to have it launch Neovim instead. But it's usually easier to drive it from the terminal by navigating to the directory you wish to work in and typing `n`. The `n` is the alias for `nvim`, which will use the the present directory to open by default. You can open a single file with `n myfile.txt`.
 
 ## Using Neovim for sudo edits
 
-If you need to edit files that you can only change as a super user, you can use neovim with all your plugins setup by running `sudoedit /etc/sudoers.d/00-sudo-only-file`.
+If you need to edit files that you can only change as a super user, run `sudoedit /etc/sudoers.d/00-sudo-only-file`. It opens your default editor, so set Neovim under _Setup > Defaults > Editor_ if you want it there with all your plugins.
 
 # Chapter 17: AI
 
-Omarchy includes launchers for the coding agents below without choosing a default for you. Run a command to install its CLI on first use, then authenticate when prompted. Hermes is the exception: nothing is installed for it on first use, and choosing it installs Hermes Desktop, as _Desktop apps_ below explains.
+Omarchy includes launchers for the coding agents below without choosing a default for you. Run a command to install its CLI on first use, then authenticate when prompted. Hermes and OpenClaw are the exceptions: nothing is installed for them through mise, and choosing either sets up its own self-updating copy, as _Desktop apps_ below explains.
 
 | Command | Agent |
 |---|---|
@@ -1351,6 +1397,7 @@ Omarchy includes launchers for the coding agents below without choosing a defaul
 | `mcode` | [MiniMax Code](https://github.com/MiniMax-AI/minimax-code), MiniMax's coding agent |
 | `muse` | [Muse Code](https://dev.meta.ai), Meta's coding agent |
 | `omp` | [Oh My Pi](https://github.com/can1357/oh-my-pi) |
+| `openclaw` | OpenClaw, its terminal UI attached to its own local gateway |
 | `ori` | [Ori](https://openrouter.ai/docs/guides/ori/harness), OpenRouter's harness |
 | `pi` | [Mario Zechner's Pi](https://github.com/badlogic/pi-mono) |
 | `qwen` | [Qwen Code](https://github.com/QwenLM/qwen-code), Alibaba's coding agent |
@@ -1359,7 +1406,7 @@ Omarchy includes launchers for the coding agents below without choosing a defaul
 
 ### Installing and updating agents
 
-Except for Hermes, these agents use mise's lazy installation: the first launch installs the CLI, and later launches reuse it. mise also checks an installed agent for a new release at most once every four hours, just before it starts or in the background at a shell prompt. If that update fails or you're offline, the installed version runs. `omarchy update` updates installed agents with the rest of Omarchy, and `mup` updates mise-managed tools only.
+Except for Hermes and OpenClaw, these agents use mise's lazy installation: the first launch installs the CLI, and later launches reuse it. mise also checks an installed agent for a new release at most once every four hours, just before it starts or in the background at a shell prompt. If that update fails or you're offline, the installed version runs. `omarchy update` updates installed agents with the rest of Omarchy, and `mup` updates mise-managed tools only.
 
 An agent's own updater, such as `claude update`, `codex update`, or an update button in an app, does not update the mise-managed install. `codex update` fails, and `claude update` can report success while installing a separate copy that mise does not track. If you would rather use an agent's native installer and updater, add it to `disable_tools`; see [Preinstalled CLI tools](#preinstalled-cli-tools).
 
@@ -1371,7 +1418,7 @@ To install all configured lazy tools before you need them, run `mise install --i
 
 ### The default agent
 
-Pick your default agent with `omarchy default agent <name>` or under _Agent > Harness_ in the Omarchy Menu (`Super + Space`). If the agent isn't installed yet, picking it installs it first. A fresh Omarchy will invite you to make this choice with a one-time notification.
+Pick your default agent with `omarchy default agent <name>` or under _Agent > Harness_ in the Omarchy Menu (`Super + Space`). If the agent isn't installed yet, picking it installs it first, and it also gets a launcher of its own in the app launcher, next to Agent. A fresh Omarchy will invite you to make this choice with a one-time notification.
 
 Choosing Claude also attempts to set up its browser extension for Chromium, Chrome, Brave, Brave Origin, and Edge. The extension setup applies to all users and may ask for your system password; cancelling or a failed extension install still selects and launches Claude. Restart your browser, enable the extension if prompted, and sign in to Claude to finish connecting it. Run `/chrome` in Claude to check the connection. Firefox and Zen do not support this extension. If Claude was already your default before this setup was added, select it again to install the extension.
 
@@ -1385,9 +1432,9 @@ Personal rules for every agent go in `~/.agents/AGENTS.md`, next to the shared s
 
 ### The agents panel
 
-The top bar has an agents icon. Before you've set up an agent, its panel walks you through signing in to Claude, Codex, or Grok, and the first one becomes your default agent. After that, the panel puts every subscription on one page: each agent and account with its plan, a meter for each of its 5-hour session and weekly limits with the time until it resets (hover for the exact percentage), or the remaining prepaid balance, under a line that rotates through what you've used across all of them, like tokens this week and your most used model. Under _Make something_ it offers starter prompts for a new theme, plugin, app, or game that hand the task to your default agent. Apps are built the way Omarchy's own Hype, Monologue, and Omacut are, in C++ and Qt Quick, following the omarchy-make-app agent skill, and the compiler and Qt pieces they need come installed. Games are a single three.js page in `~/Games/vibes`, following the omarchy-make-game agent skill, and all open from one Game Vibes launcher in the current theme; they load three.js from the web, so they need a connection to start. Claude Code, Codex, Grok, Kimi, Cursor and its Grok Bot allowance, GitHub Copilot, Muse, Antigravity, Kimchi, and Devin are covered out of the box with their limits, and Hermes, Mistral Vibe, and Qwen Code show their sessions and tokens once you've used them. Provider plans and keys you use through pi, omp, or opencode show up as well: OpenCode Zen and Go, the Z.ai GLM Coding Plan, Ollama Cloud, the MiniMax Token Plan, and Synthetic with their limits; Fireworks, OpenRouter, and DeepSeek with their prepaid balances; and the models you run on your own hardware under Local models. Every agent is counted once, under whoever bills it, however many harnesses you drive it through.
+The top bar has an agents icon. Before you've set up an agent, its panel walks you through signing in to Claude, Codex, or Grok, and the first one becomes your default agent. After that, the panel puts every subscription on one page: each agent and account with its plan, a meter for each of its 5-hour session and weekly limits with the time until it resets (hover for the exact percentage), or the remaining prepaid balance, under a line that rotates through what you've used across all of them, like tokens this week and your most used model. Under _Make something cool_ it offers starter prompts for a new theme, plugin, app, or game that hand the task to your default agent. Apps are built the way Omarchy's own Hype, Monologue, and Omacut are, in C++ and Qt Quick, following the omarchy-make-app agent skill, and the compiler and Qt pieces they need come installed. Games are a single three.js page in `~/Games/vibes`, following the omarchy-make-game agent skill, and all open from one Game Vibes launcher in the current theme; they load three.js from the web, so they need a connection to start. Claude Code, Codex, Grok, Kimi, Cursor and its Grok Bot allowance, GitHub Copilot, Muse, Antigravity, and Devin are covered out of the box with their limits, Kimchi with its plan, prepaid credits, and spend budgets, and Hermes, Mistral Vibe, and Qwen Code show their sessions and tokens once you've used them. Provider plans and keys you use through pi, omp, or opencode show up as well: OpenCode Zen and Go, the Z.ai GLM Coding Plan, Ollama Cloud, the MiniMax Token Plan, and Synthetic with their limits; OpenRouter and DeepSeek with their prepaid balances; Fireworks with its spend over the last 30 days; and the models you run on your own hardware under Local models. Every agent is counted once, under whoever bills it, however many harnesses you drive it through.
 
-Left-click the bar icon for the panel, right-click to launch your default agent. The usage records behind it are regenerated every 15 minutes by `omarchy agent usage-update`, and the panel can even merge usage from your other machines via a synced folder. See the README under `$OMARCHY_PATH/shell/plugins/agents/` for the full settings.
+Left-click the bar icon or press `Super + Ctrl + X` for the panel, right-click to launch your default agent, and middle-click to refresh. The usage records behind it are regenerated every 15 minutes by `omarchy agent usage update`, and the panel can even merge usage from your other machines via a synced folder. See the README under `$OMARCHY_PATH/shell/plugins/agents/` for the full settings.
 
 ### Several subscriptions
 
@@ -1407,19 +1454,19 @@ With more than one account, the panel shows each account's limits side by side, 
 
 ### Crash diagnosis
 
-Omarchy watches systemd-coredump for process crashes. When something segfaults, you'll get a "Process crashed" notification — click it, and the crash is handed to your default agent along with Omarchy's diagnose-crash skill, which walks the agent through establishing the facts from the core dump and deciding whether the crash is worth reporting upstream. You can also run it by hand against any PID from `coredumpctl list` with `omarchy agent crash <pid>`.
+Omarchy watches systemd-coredump for process crashes. Once you've picked a default agent, any program of yours that dumps core brings a "Process crashed" notification — click it, and the crash is handed to your default agent along with Omarchy's omarchy-diagnose-crash skill, which walks the agent through establishing the facts from the core dump and deciding whether the crash is worth reporting upstream. You can also run it by hand against any PID from `coredumpctl list` with `omarchy agent crash <pid>`.
 
-The watching is on by default. Turn it off under _Trigger > Toggle > Crash Capture_ (or with `omarchy toggle crash-capture`) and the notifications stop; `omarchy agent crash <pid>` still works by hand.
+The watching is on by default. Turn it off under _Trigger > Toggle > Crash Capture Off_ (or with `omarchy toggle crash-capture`) and the notifications stop; `omarchy agent crash <pid>` still works by hand.
 
 Crashes can also be silenced one program at a time, which is what the diagnosis offers you at the end. `omarchy crash mute hyprland` stops the notifications for that program only, `omarchy crash mute hyprland off` brings them back, and `omarchy crash mute` on its own lists what you've muted. It takes the binary's path as happily as its name, so `omarchy crash mute /usr/bin/hyprland` does the same thing. Quote a name with a space in it, as in `omarchy crash mute 'Some App'`. Everything else still notifies, and the muted program still crashes — this hides the reminder, it doesn't fix anything.
 
 ### Desktop apps
 
-The _Install > AI_ menu also carries a few graphical AI apps: the ChatGPT desktop app, the Claude desktop app (Anthropic's Linux beta, with Chat, Cowork, and Claude Code tabs), Grok Bot for chatting with xAI's models, Herdr Desktop, Hermes Desktop, OpenClaw, the Perplexity desktop app, and T3 Code. Grok Bot is the desktop chat app. The coding agent is the `grok` command.
+The _Install > AI_ menu also carries a few graphical AI apps: Amp Desktop, Antigravity Desktop, the ChatGPT desktop app, the Claude desktop app (Anthropic's Linux beta, with Chat, Cowork, and Claude Code tabs), Grok Bot for chatting with xAI's models, Herdr Desktop, Hermes Desktop, OpenClaw, the Perplexity desktop app, and T3 Code. Grok Bot is the desktop chat app. The coding agent is the `grok` command.
 
 Hermes Desktop is the one to know about, because a machine has one Hermes, and it is the app's: Hermes is only ever installed through the app, and the `hermes` command the default agent runs is the app's. Choosing Hermes as the default agent installs the same thing the _Install > AI_ entry does: the package, and a Hermes runtime under `~/.hermes` set up by Hermes' own installer, which takes a few minutes the first time. That runtime is the one Hermes the terminal `hermes` command, the default agent and the app all use, and it updates itself with `hermes update` rather than waiting on an Omarchy release. Installing it also hands Hermes the Omarchy theme as a skin named `omarchy`, which every Hermes surface follows as you switch themes; pick another under Hermes' Appearance settings or with `/skin` if you'd rather it didn't, and Omarchy leaves that choice alone. Removing the app under _Remove > AI_ closes Hermes first, gateway included, takes that runtime with it, and keeps your chats, memories, and the skills Hermes wrote for itself unless you tell it otherwise: it asks, defaulting to no, whether that data and your connection settings should go too.
 
-OpenClaw's desktop experience is its Control UI, which opens as a web app backed by its own local gateway. OpenClaw lives in `~/.openclaw` and updates itself: use the Control UI's "Update Gateway" button or run `openclaw update`, and the gateway restarts on the new version. Omarchy only chooses the release a fresh install starts from. Removing OpenClaw under _Remove > AI_ takes the gateway service and the app with it and then asks whether `~/.openclaw` should go too, since that holds your chats and credentials alongside OpenClaw itself and the plugin runtimes it downloads; the default keeps it, and installing OpenClaw again picks it back up.
+OpenClaw's desktop experience is its Control UI, which opens as a web app backed by its own local gateway. OpenClaw lives in `~/.openclaw` and updates itself: use the Control UI's "Update Gateway" button or run `openclaw update`, and the gateway restarts on the new version. Omarchy only chooses the release a fresh install starts from. OpenClaw can also be your default agent: choosing it under _Agent > Harness_ sets up that same copy in `~/.openclaw`, and the agent opens OpenClaw's terminal UI attached to its gateway. Removing OpenClaw under _Remove > AI_ takes the gateway service and the app with it and then asks whether `~/.openclaw` should go too, since that holds your chats and credentials alongside OpenClaw itself and the plugin runtimes it downloads; the default keeps it, and installing OpenClaw again picks it back up.
 
 Herdr Desktop is the [Herdr](https://herdr.dev) desktop app: spaces, tabs, and panes of terminals and coding agents that keep running in its core when you close the window. It comes from Herdr's own installer rather than a package, so it lives in `~/.local/share/herdr-app`, brings its core along in `~/.local/bin/herdr-core` when you don't have one yet, and updates both itself. It sits beside the `herdr` command Omarchy ships on `Super + Ctrl + Return` rather than replacing it, and gets that command's direct keys: `Alt + Return` and `Alt + Shift + Return` split a pane down or right, `Alt + Escape` closes it, `Ctrl + Alt + Arrow` moves between panes, `Alt + 1..9` and `Alt + Left/Right` pick a tab, and `Alt + Up/Down` move between spaces. `Ctrl + 1..9` picks a space and `Alt + Shift + Up/Down` steps through agents. The `Ctrl + Space` prefix keys stay terminal-only, since the app can't hold a plain Ctrl key for a sequence. Omarchy writes these to `~/.config/herdr-app/keys.json`, and `omarchy-refresh-herdr-app` puts them back. Installing it picks Herdr's Omarchy theme, which follows your Omarchy theme from then on. Herdr keeps one theme for light mode and one for dark, so after switching between a dark and a light Omarchy theme, pick Omarchy in Herdr's theme picker once more for the other mode.
 
@@ -1433,7 +1480,7 @@ Run an open model on your own machine for your coding agents. Your prompts and c
 omarchy agent local use best
 ```
 
-Or, in the agents panel in the top bar, choose + and then Local AI, which shows up when a model fits this machine. The first time, this installs Podman, which runs the models, and on an NVIDIA machine NVIDIA's container toolkit, which gives them the GPU. Omarchy then picks the recommended model for this machine, downloads it, and starts it. Expect a download of tens of GB and most of the machine's memory to be in use while the model runs: Flash Next uses about 100 GiB with its full 256K context. If other models hold the memory it needs, it's set up stopped, ready to start once you stop one. The model stops at logout; stop it yourself when you need the memory for something else.
+Or, in the agents panel in the top bar, choose + and then Local AI, which shows up when a model fits this machine. Podman, which runs the models, comes with Omarchy, as does NVIDIA's container toolkit on an NVIDIA machine, which gives them the GPU; if either is missing, the first setup installs it. Omarchy then picks the recommended model for this machine, downloads it, and starts it. Expect a download of tens of GB and most of the machine's memory to be in use while the model runs: Flash Next uses about 100 GiB with its full 256K context. If other models hold the memory it needs, it's set up stopped, ready to start once you stop one. The model stops at logout; stop it yourself when you need the memory for something else.
 
 `omarchy agent local list` shows the options and explains why some don't fit. To set up another one, run `omarchy agent local use <recipe>`. Today, `qwen3.8-flash-next-gufo` and `qwen3.8-27b-gufo` are available for 128 GB Strix Halo machines; the 27B takes about 40 GiB, so it leaves room for other work. On a 64 GB laptop with Intel's Arc B390, `qwen3.6-35b-a3b-llamacpp` runs in about 30 GiB. New recipes and recommendations arrive with `omarchy update`, through the package.
 
@@ -1441,9 +1488,11 @@ Every model you set up gets its own line in the agents panel, next to your subsc
 
 Every model you set up also gets its own entry in the app launcher, under the model's name and with its maker's logo, the way signing in to Claude, Codex or Grok adds one. It opens your agent on that model, and starts the model first if it isn't running: the terminal shows it loading and hands over to the agent once it's up. Removing a model removes its entry.
 
+Not every model is for coding. Image, video and music models open in Fantasi instead, Omarchy's app for making pictures, video and music with a model running on this machine, from their launcher entry and from their line in the agents panel.
+
 A model keeps running exactly as it was set up, so an Omarchy update never restarts one under your agents. When Omarchy has a newer runtime or newer weights for a model you have set up, its line shows an update button: press it and the model is set up again in the background, downloading only what changed, and restarts on the new version. A model that was stopped stays stopped. `omarchy agent local update` does the same for every model from a terminal.
 
-From the command line, `omarchy agent local start <recipe>` and `omarchy agent local stop <recipe>` do the same, `omarchy agent local status` shows every model, and `omarchy agent --local` opens your default agent on the last model you started. pi, OpenCode and Qwen Code can use one; with any other default it opens in pi. pi also lists every model you've set up, and those on machines you've paired with, in its own model picker, so plain `pi` reaches them too. Any OpenAI-compatible client can connect too: `status` shows each model's address (the first is `http://127.0.0.1:11435/v1`), the recipe name is the model, and the key is in `~/.config/omarchy/agent-local/key`.
+From the command line, `omarchy agent local start <recipe>` and `omarchy agent local stop <recipe>` do the same, `omarchy agent local status` shows every model, and `omarchy agent --local` opens your default agent on the last model you started. pi, OpenCode and Qwen Code can use one; with any other default it opens in pi, or in OpenCode if you don't have pi. pi also lists every model you've set up, and those on machines you've paired with, in its own model picker, so plain `pi` reaches them too. Any OpenAI-compatible client can connect too: `status` shows each model's address (the first is `http://127.0.0.1:11435/v1`), the recipe name is the model, and the key is in `~/.config/omarchy/agent-local/key`.
 
 `omarchy agent local remove <recipe>` deletes a model and the downloads no other model uses.
 
@@ -1453,17 +1502,17 @@ Third-party runtimes are labeled with their publisher. Omarchy runs every model 
 
 Omarchy recommends two ways of running local LLM models: LM Studio and Ollama. LM Studio provides a GUI interface for finding open-weight models, installing them, and running them. It's a great way to get going easily. Ollama offers a CLI for doing so similarly. But if you're new to local models, I'd start with LM Studio. You can install either under _Install > AI_ in the Omarchy Menu.
 
-### The Omarchy Skill
+### The Omarchy skills
 
-Agent skills help AI use specific tools in a specific way, and Omarchy ships with a default skill for tailoring the system. Like tweaking your Hyprland config, adjusting the bar, or even creating a new theme from scratch. It's symlinked into the skill directories for Claude Code (`~/.claude/skills`), Codex (`~/.codex/skills`), Pi (`~/.pi/agent/skills`), Antigravity (`~/.gemini/config/skills`), Hermes (`~/.hermes/skills` and each `~/.hermes/profiles/*/skills`), and the generic `~/.agents/skills` location, so most harnesses pick it up automatically.
+Agent skills help AI use specific tools in a specific way, and Omarchy ships seven of them. The omarchy skill covers tailoring the system, like tweaking your Hyprland config or adjusting the bar. omarchy-make-theme, omarchy-make-plugin, omarchy-make-app, and omarchy-make-game cover making something new, omarchy-contribute covers reporting a bug or sending a fix upstream, and omarchy-diagnose-crash works through a crash's core dump. They're symlinked into the skill directories for Claude Code (`~/.claude/skills`), Codex (`~/.codex/skills`), Pi (`~/.pi/agent/skills`), Antigravity (`~/.gemini/config/skills`), Hermes (`~/.hermes/skills` and each `~/.hermes/profiles/*/skills`), and the generic `~/.agents/skills` location, so most harnesses pick them up automatically. A skill folder of your own with the same name takes precedence.
 
-But you should treat this skill as experimental. Different models will use it to different effect. It's best to run in plan mode first, so you have an idea of what the agent would like to change. And then be ready to rollback changes or even invoking `omarchy reinstall configs`, if the agent makes a mess of everything.
+But you should treat these skills as experimental. Different models will use it to different effect. It's best to run in plan mode first, so you have an idea of what the agent would like to change. And then be ready to rollback changes or even invoking `omarchy reinstall configs`, if the agent makes a mess of everything.
 
 # Chapter 18: Development Tools
 
 ## Alternative Editors
 
-Omarchy ships with [Neovim](https://neovim.io/) by default, but if you'd like something a bit more mainstream and familiar, you can run the Omarchy Menu (`Super + Space`) and see the options under _Install > Editor_. We have VSCode, Cursor, Zed, Sublime Text, Helix, Vim, and Emacs listed there. If you don't find what you're looking for, checkout _Install > Package_, and see if it isn't in an Arch package (and if not, try _Install > AUR_ to check the AUR).
+Omarchy ships with Plain as the default editor on new installs and [Neovim](https://neovim.io/) preinstalled, but if you'd like something a bit more mainstream and familiar, you can run the Omarchy Menu (`Super + Space`) and see the options under _Install > Editor_. We have VSCode, Cursor, Zed, Sublime Text, Helix, Vim, and Emacs listed there. If you don't find what you're looking for, checkout _Install > Package_, and see if it isn't in an Arch package (and if not, try _Install > AUR_ to check the AUR).
 
 The original `vi` editor is also available out of the box. Run `vi filename` to edit a file in the terminal.
 
@@ -1481,7 +1530,7 @@ To install, say, Ruby, you'd run `mise use -g ruby`, which will both install Rub
 
 ## Preinstalled CLI tools
 
-Omarchy makes tools such as `gh`, `uv`, and most [coding agents](#chapter-17-ai) available through [mise's lazy installation](https://mise.jdx.dev/dev-tools/shims.html#lazy-tools). The first time you run one, mise installs it. Later runs reuse the installed version; they do not check for an update on every launch.
+Omarchy makes tools such as `gh`, `uv`, and most [coding agents](#chapter-17-ai) available through [mise's lazy installation](https://mise.jdx.dev/dev-tools/shims.html#lazy-tools). The first time you run one, mise installs it. Coding agents then check for an update before they run, at most once every four hours; other tools, like `gh` and `uv`, reuse the installed version until you update.
 
 You can also inspect the defaults or install them ahead of time:
 
@@ -1508,7 +1557,7 @@ If you already have a `[settings]` table, add the entry there; extend an existin
 
 ### Removing and restoring defaults
 
-_Remove Preinstalls_ has mise skip Omarchy's tool declarations for your user, by adding them to `ignored_config_paths` in `~/.config/mise/miserc.toml`. _Restore Preinstalls_ removes that line again. Tools you declare yourself, in your own config or in a project's `mise.toml`, keep working either way. If you choose a default agent or set up Python after removing the preinstalls, that tool is added to your own config. Both apply only to your user; other users on the machine keep their own choice.
+_Remove > Preinstalls_ removes Omarchy's preinstalled web apps, TUIs and apps, and has mise skip Omarchy's tool declarations for your user, by adding them to `ignored_config_paths` in `~/.config/mise/miserc.toml`. _Install > Preinstalls_ brings them back and removes that line again. Tools you declare yourself, in your own config or in a project's `mise.toml`, keep working either way. If you choose a default agent or set up Python after removing the preinstalls, that tool is added to your own config. The mise setting applies only to your user, and other users keep their own choice; the apps are packages, though, so removing or restoring them changes them for everyone on the machine.
 
 ## Docker
 
@@ -1654,7 +1703,7 @@ Omarchy calls it Activity Monitor, and you start it from the app launcher or by 
 
 ## Herdr
 
-[Herdr](https://github.com/omacom-io/herdr) is a terminal workspace manager that gives you workspaces, tabs, and panes, and keeps them all running in a persistent session you can detach from and come back to later.
+[Herdr](https://herdr.dev) is a terminal workspace manager that gives you workspaces, tabs, and panes, and keeps them all running in a persistent session you can detach from and come back to later.
 
 You start it (or reattach to your existing session) from the app launcher or with `Super + Ctrl + Return`. Omarchy ships a Herdr configuration that mirrors its Tmux config, so the prefix key is `Ctrl + Space` here too. You can browse all the keybindings with `Super + Ctrl + K`.
 
@@ -1684,7 +1733,7 @@ Files (Folio) is the graphical file manager. `Super + Shift + F` opens it, and `
 
 Plug in a USB stick or an SD card and it's mounted automatically, so it just shows up in the sidebar. For anything more involved — formatting a drive, checking SMART health, creating partitions — launch _Disks_ from the app launcher (`Super + Space`).
 
-Double-clicking follows sensible defaults: pictures, videos, and music open in Omaview, PDFs in Document Viewer, Markdown in Omawrite, and plain text in the editor picked under _Setup > Default > Editor_.
+Double-clicking follows sensible defaults: pictures, videos, and music open in Omaview, PDFs in Document Viewer, Markdown in Omawrite, and plain text in your editor, Plain unless you pick another under _Setup > Defaults > Editor_.
 
 ## Disktree
 
@@ -1755,7 +1804,7 @@ You start Signed via the application launcher (`Super + Space`), or open a PDF w
 
 ## Game Vibes
 
-Game Vibes, in the application launcher (`Super + Space`), is where Omarchy's little games live: Checkmate, a 3D chess game against a friend or the built-in opponent; Cards, Klondike solitaire; and Neon Swarm, an arcade shooter. Each is a single web page that follows your theme. Pick one with the arrows and `Enter`, and come back to the list with `Esc` from a game's title screen or `Q` while it's paused. It opens full screen: `Super + F` makes it a window, and `Super + W` closes it.
+Game Vibes, in the application launcher (`Super + Space`), is where Omarchy's little games live: Checkmate, a 3D chess game against a friend or the built-in opponent; Cards, Klondike solitaire; Death Wish, a pixel-precise platformer of ten rooms full of spikes and saws; and Neon Swarm, an arcade shooter. Each is a single web page that follows your theme. Pick one with the arrows and `Enter`, and come back to the list with `Esc` from a game's title screen or `Q` while it's paused. It opens full screen: `Super + F` makes it a window, and `Super + W` closes it.
 
 The games you make with an agent show up here too: choose _Make something cool → Game_ in the agents panel and describe one, or name a game already in Game Vibes to keep working on it. The agent copies it into `~/Games/vibes`, where it's yours to change, and opens it when it's done. You can make that copy yourself with `omarchy games vibes copy <game>`. A game someone else shares installs like a theme: choose _Install > Gaming > Game Vibes_ and paste its git address, or run `omarchy games vibes install <git-repo-url>`. _Remove > Gaming_ takes one out again, and _Update > Game Vibes Games_ fetches new versions. Games load three.js from the web, so they need a connection to start.
 
@@ -1795,13 +1844,13 @@ You start Monologue via the application launcher (`Super + Space`).
 
 # Chapter 23: Browsers
 
-Omarchy ships with [Google Chrome](https://www.google.com/chrome/) as the default browser. It's themed to match the rest of your system, and it's what `Super + Shift + Return` opens and what every [web app](#chapter-25-web-apps) runs inside. It opens straight to a browser window: there's no welcome screen or sign-in prompt, usage statistics and crash reports aren't sent to Google, and the ad privacy prompts are switched off. You can still sign in to your Google account from the profile button whenever you want sync.
+Omarchy ships with [Google Chrome](https://www.google.com/chrome/) as the default browser. It's themed to match the rest of your system, and it's what `Super + Shift + Return` (or `Super + Shift + B`) opens, with `Super + Shift + Alt + B` for a private window, and what every [web app](#chapter-25-web-apps) runs inside. It opens straight to a browser window: there's no welcome screen or sign-in prompt, usage statistics and crash reports aren't sent to Google, and the ad privacy prompts are switched off. You can still sign in to your Google account from the profile button whenever you want sync.
 
-If Chrome isn't your taste, you're not stuck with it. Under _Install > Browser_ in the Omarchy menu you'll find [Chromium](https://www.chromium.org/) (the plain open-source build Chrome is made from), Edge, Brave, Brave Origin, Firefox, and [Zen](https://zen-browser.app/). Pick one and Omarchy installs it, sets up its policy directory, and applies your current theme to it.
+If Chrome isn't your taste, you're not stuck with it. Under _Install > Browser_ in the Omarchy menu you'll find [Chromium](https://www.chromium.org/) (the plain open-source build Chrome is made from), Edge, Brave, Brave Origin, Firefox, and [Zen](https://zen-browser.app/) (Edge on x86 machines only). Pick one and Omarchy installs it, sets up its policy directory, and applies your current theme to it.
 
 ## Making one the default
 
-Installing a browser doesn't promote it. Once it's on the machine, go to _Setup > Defaults > Browser_ and pick it — the menu only lists browsers you actually have installed, and marks the current default with a check.
+Installing a browser doesn't promote it. To switch, go to _Setup > Defaults > Browser_ and pick one. The current default is marked with a check, and picking a browser you don't have yet installs it first.
 
 From the terminal it's:
 
@@ -1813,13 +1862,15 @@ Run it with no argument and it tells you the current default. This sets the XDG 
 
 ## Copy URL and Download Video
 
-The Chromium-family browsers (Chromium itself, Chrome, Edge, and Brave) come with two Omarchy extensions that reach out of the browser and into the rest of your system.
+The Chromium-family browsers (Chromium itself, Chrome, Edge, Brave, and Brave Origin) come with three Omarchy extensions: two that reach out of the browser and into the rest of your system, and one that tidies up WhatsApp.
 
 **Copy URL** puts the current tab's address on your clipboard with `Alt + Shift + L`. That's faster than clicking into the address bar and copying, and because it goes through the system clipboard rather than the browser's, you get an Omarchy notification confirming it and the URL is immediately available in [clipboard history](#chapter-8-unified-clipboard--history) and every other app. There's a toolbar button too, if you prefer clicking.
 
 **Download Video** grabs the video playing on the page you're looking at with `Alt + Shift + D`. It hands the URL to [yt-dlp](https://github.com/yt-dlp/yt-dlp), so it works on far more than YouTube, and the download lands in `~/Videos`. Progress shows up in the same on-screen display that volume and brightness use, updating in place rather than stacking up notifications. Set `OMARCHY_YTDLP_DIR` if you'd rather the files went somewhere else — see the [FAQ](#chapter-46-faq) for where to put environment variables.
 
 Both extensions talk to Omarchy through a small native messaging host, which gets installed for you along with the browser. That's the piece that lets a web page's video end up in your home directory and a URL end up in your clipboard manager, which a normal extension can't do on its own.
+
+**WhatsApp Slim** makes WhatsApp Web follow your system theme and collapses its chat list when the window is narrow.
 
 These are Chromium-family only. Firefox and Zen don't get them.
 
@@ -1841,7 +1892,7 @@ Omarchy is mostly focused on providing free, open source software, but it's not 
 
 Keeping your passwords in a password manager is a best practice. Doubly so if you're working with a team. And [1password](https://1password.com/) is a great solution, which also comes with a command line tool for integrating key lookups in scripts.
 
-You start 1Password with `Super + Shift + /`. If it isn't installed yet, that hotkey kicks off the installation first (you can also use _Install > Service > 1Password_ from the Omarchy menu). The installer sets up the 1Password extension for Chromium as well.
+You start 1Password with `Super + Shift + /`. If it isn't installed yet, that hotkey kicks off the installation first (you can also use _Install > Service > 1Password_ from the Omarchy menu). The installer also brings the 1Password command line tool and sets up the 1Password extension for Chrome and Chromium; restart your browser to load it.
 
 ## Bitwarden
 
@@ -1855,9 +1906,13 @@ You start 1Password with `Super + Shift + /`. If it isn't installed yet, that ho
 
 [Slack](https://slack.com/) is where a lot of teams do their chatting, both inside the company and with outside collaborators. Install it with _Install > Service > Slack_ from the Omarchy menu, and it'll open as soon as it's ready.
 
+## Notion
+
+[Notion](https://www.notion.com/) is a workspace for notes, docs, and projects. Install its desktop app with _Install > Service > Notion_ from the Omarchy menu.
+
 ## Dropbox
 
-[Dropbox](https://www.dropbox.com/) is a great way to sync files between machines while keeping a backup in the cloud. To set it up, select _Install > Service > Dropbox_ from the Omarchy menu. Once it's running, hover the tray in the top right of the bar and right-click the Dropbox icon to finish the setup.
+[Dropbox](https://www.dropbox.com/) is a great way to sync files between machines while keeping a backup in the cloud. To set it up, select _Install > Service > Dropbox_ from the Omarchy menu. It adds a Dropbox icon to the bar: click it to log in, then use the same panel to check your storage and open recently synced files.
 
 ## Tailscale
 
@@ -1917,7 +1972,7 @@ You can start Grok using `Super + Shift + Alt + A`.
 
 [WhatsApp](https://www.whatsapp.com/) is one of the most popular messaging services in the world, and the web version is a great option for Linux.
 
-You can start WhatsApp using `Super + Shift + Alt + G`.
+You can start WhatsApp using `Super + Shift + Alt + G`. It opens with Omarchy's WhatsApp Slim extension, which makes it follow your theme and collapses the chat list when the window is narrow.
 
 ## Google apps
 
@@ -1937,6 +1992,12 @@ You can start X using `Super + Shift + X` and go straight to writing a new post 
 
 You can start YouTube using `Super + Shift + Y`.
 
+## Netflix
+
+[Netflix](https://www.netflix.com/) is included as a web app on new installs.
+
+You start Netflix using the application launcher (`Super + Space`).
+
 ## Zoom
 
 [Zoom](https://zoom.us/) is the most popular video chat system used in the US. Great connections across the world. And 40-minute meetings can be held without a paying account. Omarchy wraps Zoom's web client, and zoom meeting links will open straight into it.
@@ -1953,7 +2014,7 @@ You start Discord using the application launcher (`Super + Space`).
 
 Select _Install > Service > Microsoft_ to add Outlook, Word, Excel, PowerPoint, Teams, and OneDrive as web apps. Each app has its own launcher and opens directly, using the commercial Microsoft 365 URLs and your existing browser profile. They open in the same browser app windows as Omarchy's other web apps; they do not install the separate Teams for Linux client.
 
-Remove the bundle with _Remove > Service > Microsoft_, or remove individual apps with _Remove > Web App_. You can also install just the apps you want through _Install > Web App_.
+Remove the bundle with _Remove > Services > Microsoft_, or remove individual apps with _Remove > Web App_. You can also install just the apps you want through _Install > Web App_.
 
 For a government or sovereign cloud, edit the URL on the `Exec=` line in the relevant launcher under `~/.local/share/applications/`, such as `Microsoft Teams.desktop`, using the URL supplied by your organization. Write any literal `%` in that line as `%%`. Changes apply on the next launch. Running the bundle installer again replaces its launchers with the default URLs.
 
@@ -1971,7 +2032,7 @@ Omarchy isn't just for _pRoDUcTiVItY_, it's also for having fun, and what's more
 
 Thanks to Valve's incredible work on [the proton compatibility layer](https://en.wikipedia.org/wiki/Proton_(software)), there are now tens of thousands of playable modern games on Linux. Oh, and did you know that the [Steam Deck](https://store.steampowered.com/steamdeck/) actually runs Arch!
 
-All gaming installers live under _Install > Gaming_ in the Omarchy menu (`Super + Space`). If you ever want to undo one, use _Remove > Gaming_.
+All gaming installers live under _Install > Gaming_ in the Omarchy menu (`Super + Space`). If you ever want to undo one, use _Remove > Gaming_. Minecraft, NVIDIA GeForce NOW, Battle.net, Lutris, and Heroic are offered on x86 machines only.
 
 ## Steam
 
@@ -2065,7 +2126,7 @@ When you're done, use _Save signed copy..._ (`Ctrl + S`) to save the filled-out 
 
 # Chapter 28: Windows VM
 
-Omarchy offers an easy way to run Windows through a Docker VM. You can install it using _Install > Windows_ from the Omarchy menu (`Super + Space`).
+Omarchy offers an easy way to run Windows through a Docker VM on x86_64 machines. You can install it using _Install > Windows_ from the Omarchy menu (`Super + Space`).
 
 Your machine needs KVM virtualization for this, which most do — but it's sometimes switched off in the BIOS, and the installer will tell you if that's the case. You'll also want the disk space: whatever you give Windows, plus about 10GB for the image itself.
 
@@ -2109,9 +2170,9 @@ The version installed is Windows 11 Pro, unactivated. You'll need your own licen
 
 If this computer shipped with Windows, the OEM key is still in firmware even after installing Omarchy. Print it with `omarchy windows key`. That key is bound to this machine — it will activate Windows reinstalled on this hardware, but it usually will not activate the VM.
 
-You can change the resource allocation later by re-running `omarchy-windows-vm install`, which rewrites the VM's configuration from your answers. The compose file itself now lives at `/var/lib/omarchy/windows/docker-compose.yml` and is owned by root — that is deliberate, so a process running as you cannot rewrite it and have the privileged bring-up mount your whole disk into the container. If you need to hand-edit it (for example to mount a USB device), edit it with `sudo` and see all the options on [the Dockur Windows project](https://github.com/dockur/windows).
+You can change the resource allocation later by running `omarchy windows vm install` in a terminal, which rewrites the VM's configuration from your answers. The compose file itself now lives at `/var/lib/omarchy/windows/docker-compose.yml` and is owned by root — that is deliberate, so a process running as you cannot rewrite it and have the privileged bring-up mount your whole disk into the container. If you need to hand-edit it (for example to mount a USB device), edit it with `sudo` and see all the options on [the Dockur Windows project](https://github.com/dockur/windows).
 
-To get rid of the whole thing, use _Remove > Windows_ from the Omarchy menu. That deletes the VM's disk and all its data, so make sure anything you care about is out of `~/Windows` first.
+To get rid of the whole thing, use _Remove > Windows_ from the Omarchy menu. That deletes the VM's disk in `~/.windows` and everything installed inside Windows, so copy anything you need out of the VM first. Your shared `~/Windows` folder is left alone.
 
 # Chapter 29: Other Packages
 
@@ -2143,11 +2204,11 @@ Before any new major release, we'll be doing final validation using the RC chann
 
 Finally, there's the dev channel, which links Omarchy directly to a git checkout of the source code in `~/omarchy`, combined with the edge packages. You should only use this channel if you're an experienced Linux user, working directly on Omarchy, and willing to tolerate breakage.
 
-You can switch between channels using _Update > Channel_ from the Omarchy menu (or `omarchy-channel-set` in the terminal).
+You can switch between channels using _Update > Channel_ from the Omarchy menu (or `omarchy channel set <stable|rc|edge|dev>` in the terminal, with `omarchy channel current` to see where you are).
 
 ### Switching kernels
 
-Omarchy boots its own `linux-omarchy` kernel, but you can keep others installed next to it, like the stock Arch `linux` kernel or an experimental build you're testing. When there's more than one, _Update > Kernel_ in the Omarchy menu lists them with a check next to the one that boots by default. Pick another, enter your password once, and it'll boot after the next restart. The other kernels stay in the boot menu, so you can still pick one by hand if the new default gives you trouble. In the terminal, it's `omarchy-kernel` to see the current default, `omarchy-kernel list` for what's installed, and `omarchy-kernel set <kernel>` to switch.
+Omarchy boots its own `linux-omarchy` kernel, but you can keep others installed next to it, like the stock Arch `linux` kernel or an experimental build you're testing. When there's more than one, _Update > Kernel_ in the Omarchy menu lists them with a check next to the one that boots by default. Pick another, enter your password once, and it'll boot after the next restart. The other kernels stay in the boot menu, so you can still pick one by hand if the new default gives you trouble. In the terminal, it's `omarchy kernel` to see the current default, `omarchy kernel list` for what's installed, and `omarchy kernel set <kernel>` to switch.
 
 ### Firmware updates
 
@@ -2165,7 +2226,7 @@ If you ever have a problem after doing an update, you can rollback your system t
 
 
 
-If somehow your configuration files have been corrupted, you can also perform an Omarchy reinstall using `omarchy reinstall` in the terminal. This will reinstall all the default Omarchy packages, put you on stable and downgrade any packages that are too new, and reset all the configuration files. Note that all your user config changes to the Omarchy defaults will be overwritten doing this!
+If somehow your configuration files have been corrupted, you can also perform an Omarchy reinstall using `omarchy reinstall` in the terminal. This will reinstall all the default Omarchy packages, put you on stable (edge on Apple Silicon) and downgrade any packages that are too new, and reset all the configuration files. Note that all your user config changes to the Omarchy defaults will be overwritten doing this!
 
 # Chapter 31: Dotfiles
 
@@ -2201,7 +2262,7 @@ That starts the command as part of the session, so it's properly cleaned up when
 
 ### Running scripts on system events
 
-Omarchy fires hooks at a handful of moments, and you can hang your own scripts off them. They live in `~/.config/omarchy/hooks/<event>.d/`, one directory per event, and every executable file in there runs when the event happens:
+Omarchy fires hooks at a handful of moments, and you can hang your own scripts off them. They live in `~/.config/omarchy/hooks/<event>.d/`, one directory per event, and every file in there that doesn't end in `.sample` runs with bash when the event happens:
 
 | Event | When it runs |
 | ----- | ------------ |
@@ -2212,7 +2273,7 @@ Omarchy fires hooks at a handful of moments, and you can hang your own scripts o
 | `font-set` | After a font change (font name in `$1`) |
 | `battery-low` | When the battery gets low (percentage in `$1`) |
 
-The `pre-refresh-pacman` hook is where custom repositories or `IgnorePkg` lines belong, since it runs before the package transaction. Both update-related hooks run as your user after Omarchy clears its cached sudo authorization, so a hook that uses `sudo` needs its own authorization and may ask for your password.
+The `pre-refresh-pacman` hook is where custom repositories or `IgnorePkg` lines belong, since it runs before the package transaction. Both run as your user. `post-update` runs while `omarchy update`'s sudo authorization is still fresh, so a hook that uses `sudo` won't ask for your password again; `pre-refresh-pacman` runs right after `omarchy refresh pacman` has used sudo itself.
 
 Each of those directories already holds a `.sample` file showing the shape of a hook — drop the `.sample` from the name to put it to work. To install a script you've written elsewhere, use `omarchy hook install post-boot ~/my-hook`, which copies it in and makes it executable.
 
@@ -2391,7 +2452,7 @@ That takes a pixel size between 9 and 20, and moves the Omarchy shell, GTK appli
 
 ### Extending and mirroring laptop displays
 
-When you connect an external screen to your laptop, the display is automatically extended. But you can change that to mirroring instead using _Trigger > Hardware_ in the Omarchy menu or `Super + Ctrl + Alt + Delete`. This is especially helpful if that external screen is a projector, and you want to show something while working.
+When you connect an external screen to your laptop, the display is automatically extended. But you can change that to mirroring instead with _Extend_ | _Mirror_ in the monitor panel in the top bar, _Trigger > Hardware_ in the Omarchy menu, or `Super + Ctrl + Alt + Delete`. This is especially helpful if that external screen is a projector, and you want to show something while working.
 
 When you're extending, closing the lid on the laptop will automatically turn off the internal screen. Opening the lid will turn it back on. You can also control this manually using _Trigger > Hardware_ in the Omarchy menu or `Super + Ctrl + Delete`.
 
@@ -2513,7 +2574,7 @@ The keyboard indicator appears on the right of the bar when you have multiple ke
 
 Use _Setup > Keyboard > Keyboard Inputs_ to select layouts such as English and French, from the same choices offered during installation. Use _Setup > Keyboard > Input Methods_ to select which composition engines are active. Both pickers open inside the Omarchy menu with your current selections checked. Click or press Enter to toggle a choice; each change applies immediately. Deselecting an input method removes it from the cycle without uninstalling it; the keyboard remains available.
 
-Run `omarchy setup keyboard` or `omarchy setup input` to open the same pickers. To append one language from the command line, use `omarchy setup input mozc`, `hangul`, `pinyin`, `chewing`, or `cangjie5`. Quick, Boshiamy, and Array come in the same package as Cangjie and appear in the Input Methods picker. Your custom switching keys are preserved. For alternative engine layouts or keys, install `fcitx5-configtool` with `omarchy pkg add fcitx5-configtool` and launch it from a terminal. Selecting an input language does not change the desktop language. Choosing Japanese, Korean, or Chinese under _Setup > Language_ adds its input method when you have none yet.
+Run `omarchy setup keyboard` or `omarchy setup input` to open the same pickers. To append one language from the command line, use `omarchy setup input mozc`, `hangul`, `pinyin`, `chewing`, or `cangjie5`. Quick, Boshiamy, and Array come in the same package as Cangjie and appear in the Input Methods picker. Your custom switching keys are preserved. For alternative engine layouts or keys, install `fcitx5-configtool` with `omarchy pkg add fcitx5-configtool` and launch it from a terminal. Selecting an input language does not change the desktop language. Choosing Japanese, Korean, or Chinese under _Setup > Region > Language_ adds its input method when you have none yet.
 
 Use `Super + I` to cycle through input methods or keyboard layouts, and `Super + Shift + I` to go back the other way, so with three configured you can move between two neighbours. The input indicator appears on the right of the bar only when more than one input method or layout is configured. This desktop binding works alongside your existing Fcitx switching keys; you can override it in `~/.config/hypr/bindings.lua`. Input engines and the compose sequences use the [Fcitx5](https://fcitx-im.org/) service already running in every session.
 
@@ -2577,7 +2638,7 @@ Before rebooting, try restarting the offending piece on its own. _Update > Hardw
 
 # Chapter 36: System sleep
 
-Omarchy enables suspend and hibernation by default, but if you're having issues with either on your machine, you can toggle them off.
+Omarchy enables suspend by default, and hibernation once it's set up, but if you're having issues with either on your machine, you can toggle them off.
 
 On NVIDIA GB10 machines, such as the DGX Spark and the ASUS Ascent GX10, suspend and hibernation are turned off, as they are in NVIDIA's DGX OS, because sleep hasn't been shown to work on that hardware yet. The same goes for the ASUS Zenbook A16 (UX3607OA), where suspend doesn't yet put the chip fully to sleep and can hang overnight. The suspend toggle and hibernation setup don't apply there. To turn sleep back on, remove `/etc/systemd/sleep.conf.d/omarchy-sleep-disabled.conf` with `sudo rm`; Suspend then returns to the menu, and hibernation can be set up as on other machines. Running `sudo omarchy apply hardware --install-user "$USER"` puts the file back.
 
@@ -2593,7 +2654,7 @@ You toggle suspend by running `omarchy toggle suspend` from the terminal. That j
 
 ### Toggle hibernation
 
-You set up hibernation by running `omarchy hibernation setup` from the terminal. Hibernation creates a /swap subvolume on your boot drive the size of your physical RAM allocation, so make sure you have plenty of room to spare. On a 32GB machine, you'll always need 32GB+ free for this volume. Hibernation also requires the default Limine bootloader.
+You set up hibernation by running `omarchy hibernation setup` from the terminal (it isn't available on Apple Silicon Macs). Hibernation creates a /swap subvolume on your boot drive the size of your physical RAM allocation, so make sure you have plenty of room to spare. On a 32GB machine, you'll always need 32GB+ free for this volume. Hibernation also requires the default Limine bootloader.
 
 When set up, you'll see the hibernate option under _System_ (or `Super + Esc`), and then you can see if it works consistently on your system. If not, you can remove it again by running `omarchy hibernation remove`.
 
@@ -2625,7 +2686,7 @@ Omarchy uses JetBrainsMono Nerd Font as both the terminal and system font by def
 
 You can change this through the _Appearance > Font_ menu in the Omarchy menu (`Super + Space`). That sets the monospace font everywhere: the terminal, the bar, and anything else that asks for it.
 
-You can install other popular programming fonts via _Install > Style > Font_ in the Omarchy menu: Cascadia Mono, Meslo LG Mono, Fira Code, Victor Code, Bitstream Vera Mono, and Iosevka are all one click away, in their Nerd Font versions so the glyphs in the bar and terminal keep working. After installing one, pick it under _Appearance > Font_.
+You can install other popular programming fonts via _Install > Style > Font_ in the Omarchy menu: Cascadia Mono, Meslo LG Mono, Fira Code, Victor Code, Bitstream Vera Mono, and Iosevka are all one click away, in their Nerd Font versions so the glyphs in the bar and terminal keep working. Installing one also switches the whole system to it, and you can switch back any time under _Appearance > Font_.
 
 ## Chinese, Japanese, and Korean
 
@@ -2641,9 +2702,9 @@ Backgrounds can be videos as well as stills. Drop an `mp4`, `m4v`, `mov`, `webm`
 
 Themes can include a short intro for a still background. For `backgrounds/road.webp`, the matching video lives at `backgrounds/intros/road.mp4`. It plays automatically at boot, when switching to a theme with that background selected, and when choosing that background, then returns to the still. Intro videos stay out of the background picker and never loop.
 
-Turning off _Appearance > Animations_ also turns off background intros. Omarchy does this by default in a virtual machine. The `omarchy theme bg intro toggle` command can toggle intros separately. Refreshing a theme does not play an intro.
+Choosing _Appearance > Animations Off_ also turns off background intros. Omarchy does this by default in a virtual machine. The `omarchy theme bg intro toggle` command can toggle intros separately. Refreshing a theme does not play an intro.
 
-A still can also have a loop, a quiet version of the same picture that keeps moving, at `backgrounds/loops/road.mp4`. It plays in the still's place, after its intro if it has one, and stops when animations are turned off. Loops stay out of the background picker and, like any video background, cost more power than a still.
+A still can also have a loop, a quiet version of the same picture that keeps moving, at `backgrounds/loops/road.mp4`. It plays in the still's place, after its intro if it has one, and stops when animations are turned off. On battery, the still shows instead, and the loop comes back once you plug in. Loops stay out of the background picker.
 
 You can find a huge collection of cool curated backgrounds in [dharmx/walls](https://github.com/dharmx/walls).
 
@@ -2689,7 +2750,7 @@ There are three entries in that menu:
 
 The same three options are under _Appearance > Branding > About_ for the _About_ screen you get from the Omarchy menu, and they work identically — the file is `~/.config/omarchy/branding/about.txt`, and the About window pops up after each change. The About art is converted to a smaller size than the screensaver's, since it has to fit in a window rather than fill your display.
 
-While the window is open a glint of green leans across the art every few seconds and then leaves it still again. Your own art gets it too, as long as every character in it is one column wide — anything _Set From Image_ produces is. Art built from emoji or double-width characters stays still instead, and so does the screen if you keep a fastfetch config of your own: a still logo in those cases is the animation keeping out of the way rather than failing, since sliding a glint across them would land the rest of the line in the wrong place.
+While the window is open a band of bright white light leans across the art every few seconds and then leaves it still again. Your own art gets it too, as long as every character in it is one column wide — anything _Set From Image_ produces is. Art built from emoji or double-width characters stays still instead, and so does the screen if you keep a fastfetch config of your own: a still logo in those cases is the animation keeping out of the way rather than failing, since sliding a glint across them would land the rest of the line in the wrong place.
 
 
 
@@ -2715,9 +2776,9 @@ It takes the text as arguments, or reads it from a pipe when given none. The fon
 
 # Chapter 42: Common tweaks
 
-This is a collection of common tailorings to the Omarchy setup. Know that it might occasionally be necessary for system updates to restore certain configs to their original condition. If this happens, your changes won't be lost, but put in a `.bak` file in the same directory.
+This is a collection of common tailorings to the Omarchy setup. Know that it might occasionally be necessary for system updates to restore certain configs to their original condition. If this happens, your changes won't be lost, but put in a `.bak.<timestamp>` file next to the original.
 
-If you screw something up, you can restore individual configs to their original setup via _Update > Config_ in the Omarchy menu. If you _really_ screw everything up, you can reset all configs via `omarchy-reinstall`.
+If you screw something up, you can restore individual configs to their original setup via _Update > Config_ in the Omarchy menu. If you _really_ screw everything up, you can reset all configs via `omarchy reinstall configs`, or reinstall every default package and config with `omarchy reinstall`.
 
 ### Reveal all tray icons all the time
 
@@ -2725,7 +2786,7 @@ By default, tray icons, like Dropbox, 1password, or Steam, are hidden behind the
 
 ### Rounded window corners
 
-Omarchy's default design is one of square corners, but if you like to soften that up a bit, you can change `~/.config/hypr/looknfeel.lua` so rounding is no longer commented out:
+Omarchy's default design is one of square corners, but if you like to soften that up a bit, pick _Appearance > Windows > Window Corners > Rounded Corners_ in the Omarchy menu, or run `omarchy hyprland corners rounded`. _Theme Corners_ goes back to whatever the theme uses. To pick your own radius, stay on _Theme Corners_ (`omarchy hyprland corners theme`), since Rounded and Sharp load after your config and override it, and uncomment rounding in `~/.config/hypr/looknfeel.lua`:
 
 ```
 hl.config({
@@ -2755,7 +2816,7 @@ hl.config({
 
 You can add your own themes to `~/.config/omarchy/themes`. Just copy one of the existing ones as a base (look in `/usr/share/omarchy/themes`), then tweak to your delight. As long as your theme is inside that folder, it'll be included in the theme selection menu.
 
-The main file you have to tweak is `colors.toml`. That defines the color set that's then used to generate configurations for the terminal (Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian, and the entire Omarchy shell (top bar, menu, notifications, OSD, and lock screen).
+The main file you have to tweak is `colors.toml`. That defines the color set that's then used to generate configurations for the terminal (Foot/Alacritty/Ghostty/Kitty), btop, Chromium, Hyprland, Neovim, Helix, VSCode, Obsidian, Qt apps, the keyboard backlight, the input method, the screen-share picker, the app icons, several AI tools (Claude, Pi, Hermes, T3 Code, Herdr), and the entire Omarchy shell (top bar, menu, notifications, OSD, and lock screen).
 
 You can also use the included Aether application to create a new theme using a lovely GUI interface to play with colors and search for backgrounds. Just start it from the app grid on `Super + Alt + Space`.
 
@@ -2913,7 +2974,7 @@ On some laptops, Omarchy automatically applies a speaker tuning that corrects th
 
 ### Why can't I login or sudo with my password?
 
-You probably typed it wrong too many times and got locked out. If this is happening on the lock screen, you can hit `CTRL + ALT + F2` to start a new TTY where you can login as root, then run `faillock --reset --user [your-username]`. That'll reset the lockout, and you're good to go.
+You probably typed it wrong ten times and got locked out. The lockout clears on its own after two minutes. If you can't wait, and this is happening on the lock screen, you can hit `CTRL + ALT + F2` to start a new TTY where you can login as root, then run `faillock --reset --user [your-username]`. That'll reset the lockout, and you're good to go.
 
 ### My password is accepted, but I return to the login screen
 
@@ -2988,7 +3049,7 @@ _Trigger > Speed Test > Disk Speed Test_ measures live read and write speed on y
 
 ### How do I add a printer?
 
-Printing is set up and running out of the box, and you add each printer yourself from _Print Settings_ in the app launcher (`Super + Space`).
+Printing is set up and running out of the box, and you add each printer yourself from _Print Settings_ in the app launcher (`Super + Alt + Space`).
 
 Choose _Add_, and give it a moment to look: a printer plugged in over USB, and most network printers, are found for you. If yours isn't in the list, pick _Network Printer > Internet Printing Protocol (ipp)_ and enter its address — the printer's own display or its web page will tell you what that is, usually something like `192.168.1.50` with a queue of `ipp/print`. _Forward_ then offers a driver, where a modern printer works best on the driverless _IPP Everywhere_ profile and an older one wants the model's own driver.
 
@@ -3055,9 +3116,9 @@ _Note: This feature is only available on installations using the Limine boot loa
 Omarchy takes security extremely seriously. This is meant to be an operating system that you can use to do _Real Work_ in the _Real World_. Where losing a laptop can't lead to a security emergency. So here's what we do:
 
 1. *Full-disk encryption is on by default*: This is the most important step to securing the physical protection of your data. If your computer is lost or stolen, the data is fully encrypted using standard LUKS (Linux Unified Key Setup). The installer lets you opt out for throw-away machines (see [Getting started](#chapter-2-getting-started)); an install without encryption has none of this protection, and anyone holding the drive can read it.
-2. *Firewall is enabled by default*: All incoming traffic is blocked by default, with a few exceptions: port 53317 for [LocalSend](https://localsend.org/); DNS queries to the computer's own resolver at the Docker bridge address (172.17.0.1), accepted from the private address ranges Docker gives its containers; and multicast DNS (port 5353), which lets printers and other devices on your network find each other and also announces your computer's name there. On top of those, the firewall keeps UFW's standard allowances for ping, getting an address from your router (DHCP), and UPnP discovery. Even ssh is off until you turn it on via _Setup > Security > SSHD_, which opens port 22 (rate limited against brute force) as part of the setup. We even lock down Docker access using the [ufw-docker](https://github.com/chaifeng/ufw-docker) setup to prevent your containers from accidentally being exposed to the world.
+2. *Firewall is enabled by default*: All incoming traffic is blocked by default, with a few exceptions: port 53317 for [LocalSend](https://localsend.org/); DNS queries to the computer's own resolver at the Docker bridge address (172.17.0.1), accepted from the private address ranges Docker gives its containers; and multicast DNS (port 5353), which lets printers and other devices on your network find each other and also announces your computer's name there. On top of those, the firewall keeps UFW's standard allowances for ping, getting an address from your router (DHCP), and UPnP discovery. Even ssh is off until you turn it on via _Setup > Security > SSHD_, which authorizes your SSH key, turns off password logins, and only then opens port 22 (rate limited against brute force). We even lock down Docker access using the [ufw-docker](https://github.com/chaifeng/ufw-docker) setup to prevent your containers from accidentally being exposed to the world.
 3. *Arch always has the latest updates*: Arch, the underlying distro that Omarchy is built on, is a rolling distribution. This means that any security vulnerability that's discovered and patched in any package is quickly available for install using `omarchy-update`. You're always running the latest, most secure versions of everything that way.
-4. *Omarchy maintains its own packages and mirror*: Omarchy only relies on packages from Arch's own core/extra/multilib repositories and its own Omarchy Package Repository by default. You can install software directly from AUR, but the base install doesn't — only a few optional installs, like the third-party browsers, pull from the AUR.
+4. *Omarchy maintains its own packages and mirror*: Omarchy only relies on packages from Arch's own core/extra/multilib repositories (Arch Linux ARM's on ARM machines, plus Asahi ALARM on Apple Silicon) and its own Omarchy Package Repository by default. You can install software directly from AUR, but the base install doesn't — only a few optional installs, like the third-party browsers, pull from the AUR.
 5. *Cloudflare protects us from DDoS*: Omarchy distribution infrastructure — the ISOs, the Omarchy packages, the Arch mirror — is protected behind Cloudflare's formidable DDoS shield and hosted on their CDN. This provides superb availability.
 
 ## Changing your passwords
@@ -3066,7 +3127,7 @@ You have two passwords on an encrypted install: the one that unlocks the drive a
 
 ## Passing on a machine you've already used
 
-If you're handing your machine over to someone else, you don't have to reinstall it. Run _Remove > Factory Reset_ in the Omarchy menu, type `reset` to confirm, and reboot. That wipes every user account and everything in `/home`, throws away all the packages and system changes you made since installation, and clears the machine's identity — network connections, host keys, and all. What comes back up is the setup wizard from the first boot, ready for its new owner to enter their own name, password, and encryption password.
+If you're handing your machine over to someone else, you don't have to reinstall it. Run _Remove > Factory Reset_ in the Omarchy menu, type `reset` to confirm, enter your drive encryption password if asked, and reboot. That wipes every user account and everything in `/home`, throws away all the packages and system changes you made since installation, and clears the machine's identity — network connections, host keys, and all. What comes back up is the setup wizard from the first boot, ready for its new owner to enter their own name, password, and encryption password.
 
 It works by restoring the baseline snapshot the installer takes, so it's only available on machines installed from the Omarchy ISO. And on a drive without encryption, a reset is deletion rather than a secure erase, so if the data was sensitive, do a fresh install instead.
 
@@ -3158,6 +3219,12 @@ To add other operating systems, run `limine-scan` and follow the prompts to add 
 ## Bitlocker
 
 It's important to note that this install method is not compatible with Bitlocker as it encrypts the entire drive, not just the partition. If you encounter an error stating that Bitlocker is enabled, boot to Windows, go to **Settings -> Privacy & Security -> Device encryption** and toggle Bitlocker off. It may take some time to decrypt the drive.
+
+
+
+## Reinstalling Windows
+
+If this computer shipped with Windows, its product key is stored in the firmware. Run `omarchy windows key` to print it, so you can activate Windows again if you ever reinstall it on this machine.
 
 # Chapter 51: Unattended Installs
 
