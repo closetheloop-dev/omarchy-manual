@@ -1375,7 +1375,7 @@ If you need to edit files that you can only change as a super user, run `sudoedi
 
 # Chapter 17: AI
 
-Omarchy includes launchers for the coding agents below without choosing a default for you. Run a command to install its CLI on first use, then authenticate when prompted. Hermes and OpenClaw are the exceptions: nothing is installed for them through mise, and choosing either sets up its own self-updating copy, as _Desktop apps_ below explains.
+Omarchy includes launchers for the coding agents below without choosing a default for you. Install one from _Install > AI > CLI_, then authenticate when prompted. Hermes and OpenClaw are the exceptions: choosing either sets up its own self-updating copy, as _Desktop apps_ below explains.
 
 | Command | Agent |
 |---|---|
@@ -1384,7 +1384,6 @@ Omarchy includes launchers for the coding agents below without choosing a defaul
 | `opencode` | [OpenCode](https://opencode.ai/) |
 | `agy` | [Google Antigravity CLI](https://github.com/google-antigravity/antigravity-cli) |
 | `amp` | [Amp](https://ampcode.com/) |
-| `commandcode` | [Command Code](https://commandcode.ai) |
 | `copilot` | [GitHub Copilot CLI](https://github.com/github/copilot-cli) |
 | `crush` | [Crush](https://github.com/charmbracelet/crush) |
 | `cursor-agent` | [Cursor CLI](https://cursor.com/cli) |
@@ -1395,7 +1394,6 @@ Omarchy includes launchers for the coding agents below without choosing a defaul
 | `hermes` | [Hermes](https://hermes-agent.nousresearch.com/), Nous Research's agent |
 | `kilo` | [Kilo](https://kilo.ai/docs/code-with-ai/platforms/cli), an OpenCode-based coding agent |
 | `kimi` | [Kimi Code](https://www.kimi.com/code/docs/en/) |
-| `kiro-cli` | [Kiro CLI](https://kiro.dev/docs/cli/) |
 | `mcode` | [MiniMax Code](https://github.com/MiniMax-AI/minimax-code), MiniMax's coding agent |
 | `muse` | [Muse Code](https://dev.meta.ai), Meta's coding agent |
 | `omp` | [Oh My Pi](https://github.com/can1357/oh-my-pi) |
@@ -1408,13 +1406,9 @@ Omarchy includes launchers for the coding agents below without choosing a defaul
 
 ### Installing and updating agents
 
-Except for Hermes and OpenClaw, these agents use mise's lazy installation: the first launch installs the CLI, and later launches reuse it. mise also checks an installed agent for a new release at most once every four hours, just before it starts or in the background at a shell prompt. If that update fails or you're offline, the installed version runs. `omarchy update` updates installed agents with the rest of Omarchy, and `mup` updates mise-managed tools only.
+Except for Hermes and OpenClaw, every agent is a package from Omarchy's own repository. Install one from _Install > AI > CLI_ or with `omarchy install ai cli <command>`, and remove it again from _Remove > AI > CLI_, which leaves its sign-ins and history in place. Picking an agent that isn't installed yet installs it too: starring it in the agents panel, choosing it with `omarchy default agent <name>`, or signing in to its subscription. Omarchy publishes each new release of an agent within the hour, to every channel, and `omarchy update` installs it with the rest of the system.
 
-An agent's own updater, such as `claude update`, `codex update`, or an update button in an app, does not update the mise-managed install. `codex update` fails, and `claude update` can report success while installing a separate copy that mise does not track. If you would rather use an agent's native installer and updater, add it to `disable_tools`; see [Preinstalled CLI tools](#preinstalled-cli-tools).
-
-To install all configured lazy tools before you need them, run `mise install --include-lazy`. This includes Omarchy's other default CLI tools as well as the agents. See [Preinstalled CLI tools](#preinstalled-cli-tools) for installing a single tool or using your own installation.
-
-`grok` is installed through mise's first-party `grok` package, the same way as `claude` and `codex`. Run `grok`, or star it in the agents panel. Skip the `curl | bash` installer on x.ai. That path puts a second copy in `~/.grok/bin`, prepends it on `PATH`, and overwrites Omarchy's wrapper.
+Since pacman keeps them current, the agents' own updaters are turned off: `claude update` or an update button in an app has nothing to do. If you'd rather run an agent from its own installer, use that and leave Omarchy's package uninstalled; a copy already on your `PATH` counts as installed. Skip `curl | bash` installers that put a second copy ahead of Omarchy's on `PATH`, such as x.ai's for `grok`.
 
 `dsh` opens its browser UI on `127.0.0.1:3080`, with the launch directory as its default workspace. Its browser UI takes no starting prompt, so `omarchy agent prompt` opens it with the prompt on your clipboard to paste. Omarchy starts it with DeepSeek's no-approval permission preset. DeepSeek Harness uploads session logs to DeepSeek when you use its official model API; turn that off under _Settings > General > Upload Session Log_ in its browser UI. Feedback you send it is uploaded with the session too, unless you start it with `DSH_TELEMETRY_MODE=DISABLED`.
 
@@ -1464,15 +1458,15 @@ Crashes can also be silenced one program at a time, which is what the diagnosis 
 
 ### Desktop apps
 
-The _Install > AI_ menu also carries a few graphical AI apps: Amp Desktop, Antigravity Desktop, the ChatGPT desktop app, the Claude desktop app (Anthropic's Linux beta, with Chat, Cowork, and Claude Code tabs), Grok Bot for chatting with xAI's models, Herdr Desktop, Hermes Desktop, OpenClaw, the Perplexity desktop app, and T3 Code. Grok Bot is the desktop chat app. The coding agent is the `grok` command.
+_Install > AI > Desktop_ carries the graphical AI apps: Amp Desktop, Antigravity Desktop, the ChatGPT desktop app, the Claude desktop app (Anthropic's Linux beta, with Chat, Cowork, and Claude Code tabs), Grok Bot for chatting with xAI's models, Herdr Desktop, Hermes Desktop, OpenClaw, the Perplexity desktop app, and T3 Code. Grok Bot is the desktop chat app. The coding agent is the `grok` command.
 
-Hermes Desktop is the one to know about, because a machine has one Hermes, and it is the app's: Hermes is only ever installed through the app, and the `hermes` command the default agent runs is the app's. Choosing Hermes as the default agent installs the same thing the _Install > AI_ entry does: the package, and a Hermes runtime under `~/.hermes` set up by Hermes' own installer, which takes a few minutes the first time. That runtime is the one Hermes the terminal `hermes` command, the default agent and the app all use, and it updates itself with `hermes update` rather than waiting on an Omarchy release. Installing it also hands Hermes the Omarchy theme as a skin named `omarchy`, which every Hermes surface follows as you switch themes; pick another under Hermes' Appearance settings or with `/skin` if you'd rather it didn't, and Omarchy leaves that choice alone. Removing the app under _Remove > AI_ closes Hermes first, gateway included, takes that runtime with it, and keeps your chats, memories, and the skills Hermes wrote for itself unless you tell it otherwise: it asks, defaulting to no, whether that data and your connection settings should go too.
+Hermes Desktop is the one to know about, because a machine has one Hermes, and it is the app's: Hermes is only ever installed through the app, and the `hermes` command the default agent runs is the app's. Choosing Hermes as the default agent installs the same thing the _Install > AI > Desktop_ entry does: the package, and a Hermes runtime under `~/.hermes` set up by Hermes' own installer, which takes a few minutes the first time. That runtime is the one Hermes the terminal `hermes` command, the default agent and the app all use, and it updates itself with `hermes update` rather than waiting on an Omarchy release. Installing it also hands Hermes the Omarchy theme as a skin named `omarchy`, which every Hermes surface follows as you switch themes; pick another under Hermes' Appearance settings or with `/skin` if you'd rather it didn't, and Omarchy leaves that choice alone. Removing the app under _Remove > AI > Desktop_ closes Hermes first, gateway included, takes that runtime with it, and keeps your chats, memories, and the skills Hermes wrote for itself unless you tell it otherwise: it asks, defaulting to no, whether that data and your connection settings should go too.
 
-OpenClaw's desktop experience is its Control UI, which opens as a web app backed by its own local gateway. OpenClaw lives in `~/.openclaw` and updates itself: use the Control UI's "Update Gateway" button or run `openclaw update`, and the gateway restarts on the new version. Omarchy only chooses the release a fresh install starts from. OpenClaw can also be your default agent: choosing it with `omarchy default agent openclaw` sets up that same copy in `~/.openclaw`, and the agent opens OpenClaw's terminal UI attached to its gateway. Removing OpenClaw under _Remove > AI_ takes the gateway service and the app with it and then asks whether `~/.openclaw` should go too, since that holds your chats and credentials alongside OpenClaw itself and the plugin runtimes it downloads; the default keeps it, and installing OpenClaw again picks it back up.
+OpenClaw's desktop experience is its Control UI, which opens as a web app backed by its own local gateway. OpenClaw lives in `~/.openclaw` and updates itself: use the Control UI's "Update Gateway" button or run `openclaw update`, and the gateway restarts on the new version. Omarchy only chooses the release a fresh install starts from. OpenClaw can also be your default agent: choosing it with `omarchy default agent openclaw` sets up that same copy in `~/.openclaw`, and the agent opens OpenClaw's terminal UI attached to its gateway. Removing OpenClaw under _Remove > AI > Desktop_ takes the gateway service and the app with it and then asks whether `~/.openclaw` should go too, since that holds your chats and credentials alongside OpenClaw itself and the plugin runtimes it downloads; the default keeps it, and installing OpenClaw again picks it back up.
 
 Herdr Desktop is the [Herdr](https://herdr.dev) desktop app: spaces, tabs, and panes of terminals and coding agents that keep running in its core when you close the window. It comes from Herdr's own installer rather than a package, so it lives in `~/.local/share/herdr-app`, brings its core along in `~/.local/bin/herdr-core` when you don't have one yet, and updates both itself. It sits beside the `herdr` command Omarchy ships on `Super + Ctrl + Return` rather than replacing it, and gets that command's direct keys: `Alt + Return` and `Alt + Shift + Return` split a pane down or right, `Alt + Escape` closes it, `Ctrl + Alt + Arrow` moves between panes, `Alt + 1..9` and `Alt + Left/Right` pick a tab, and `Alt + Up/Down` move between spaces. `Ctrl + 1..9` picks a space and `Alt + Shift + Up/Down` steps through agents. The `Ctrl + Space` prefix keys stay terminal-only, since the app can't hold a plain Ctrl key for a sequence. Omarchy writes these to `~/.config/herdr-app/keys.json`, and `omarchy-refresh-herdr-app` puts them back. Installing it picks Herdr's Omarchy theme, which follows your Omarchy theme from then on. Herdr keeps one theme for light mode and one for dark, so after switching between a dark and a light Omarchy theme, pick Omarchy in Herdr's theme picker once more for the other mode.
 
-T3 Code runs from its official AppImage release in `~/.local/share/t3code` rather than from a package, so it updates itself. Installing it asks whether to start on the Stable or Nightly channel; switch later in T3 Code's settings. Your threads and settings live in `~/.t3`, and removing T3 Code under _Remove > AI_ takes them with it.
+T3 Code runs from its official AppImage release in `~/.local/share/t3code` rather than from a package, so it updates itself. Installing it asks whether to start on the Stable or Nightly channel; switch later in T3 Code's settings. Your threads and settings live in `~/.t3`, and removing T3 Code under _Remove > AI > Desktop_ takes them with it.
 
 ### Local models
 
@@ -1504,7 +1498,7 @@ Third-party runtimes are labeled with their publisher. Omarchy runs every model 
 
 ### Local LLMs
 
-Omarchy recommends two ways of running local LLM models: LM Studio and Ollama. LM Studio provides a GUI interface for finding open-weight models, installing them, and running them. It's a great way to get going easily. Ollama offers a CLI for doing so similarly. But if you're new to local models, I'd start with LM Studio. You can install either under _Install > AI_ in the Omarchy Menu.
+Omarchy recommends two ways of running local LLM models: LM Studio and Ollama. LM Studio provides a GUI interface for finding open-weight models, installing them, and running them. It's a great way to get going easily. Ollama offers a CLI for doing so similarly. But if you're new to local models, I'd start with LM Studio. Install LM Studio from _Install > AI > Desktop_ and Ollama from _Install > AI > CLI_ in the Omarchy Menu.
 
 ### The Omarchy skills
 
@@ -1534,34 +1528,9 @@ To install, say, Ruby, you'd run `mise use -g ruby`, which will both install Rub
 
 ## Preinstalled CLI tools
 
-Omarchy makes tools such as `gh`, `uv`, and most [coding agents](#chapter-17-ai) available through [mise's lazy installation](https://mise.jdx.dev/dev-tools/shims.html#lazy-tools). The first time you run one, mise installs it. Coding agents then check for an update before they run, at most once every four hours; other tools, like `gh` and `uv`, reuse the installed version until you update.
+`uv`, Node.js, and `playwright-cli` (for agents to drive a browser, using the installed Chrome) come installed as packages, and `omarchy update` keeps them current with the rest of the system. [Hunk](https://github.com/modem-dev/hunk) and the GitHub, Basecamp, Cloudflare and HEY CLIs are a pick away under _Install > CLI_, and [coding agents](#chapter-17-ai) under _Install > AI > CLI_.
 
-You can also inspect the defaults or install them ahead of time:
-
-```bash
-mise ls --current              # List the tools configured for this directory
-mise install gh               # Install one tool now
-mise install --include-lazy    # Install all configured tools, including lazy tools
-```
-
-Run `omarchy update` to update installed tools with the rest of Omarchy. The `mup` alias updates mise-managed tools only. To add another tool to your own configuration, use `mise use -g <tool>`.
-
-Python setup also installs `uv` through mise. Removing the Python development environment leaves `uv` available as an independent tool.
-
-### Using your own installation
-
-mise's commands come before `~/.local/bin` on `PATH`, so a tool you installed yourself, for example with Claude Code's or Cursor's own installer, still runs mise's copy. Apps launched from the desktop also find mise's commands before system packages, so an app that runs `gh` gets mise's copy even if you installed `github-cli` with pacman, and mise installs that copy the first time. To use yours instead, disable mise's copy in `~/.config/mise/config.toml`. For example, if you installed Cursor CLI yourself:
-
-```toml
-[settings]
-disable_tools = ["cursor-agent"]
-```
-
-If you already have a `[settings]` table, add the entry there; extend an existing `disable_tools` list rather than replacing it. Make sure your installation is on `PATH`. Use the mise tool name, which can differ from its command: `oh-my-pi` provides `omp`, for example. The default-agent launcher also prefers a user-installed Cursor or Muse in `~/.local/bin`.
-
-### Removing and restoring defaults
-
-_Remove > Preinstalls_ removes Omarchy's preinstalled web apps, TUIs and apps, and has mise skip Omarchy's tool declarations for your user, by adding them to `ignored_config_paths` in `~/.config/mise/miserc.toml`. _Install > Preinstalls_ brings them back and removes that line again. Tools you declare yourself, in your own config or in a project's `mise.toml`, keep working either way. If you choose a default agent or set up Python after removing the preinstalls, that tool is added to your own config. The mise setting applies only to your user, and other users keep their own choice; the apps are packages, though, so removing or restoring them changes them for everyone on the machine.
+mise only manages the runtimes you set up from _Install > Development_; Omarchy installs nothing through it on its own. Run `omarchy update` to update them with the rest of Omarchy; the `mup` alias updates mise-managed tools only. To add another tool to your own configuration, use `mise use -g <tool>`.
 
 ## Docker
 
@@ -1573,9 +1542,9 @@ You can setup the common databases for local development in Docker using _Instal
 
 ## GitHub CLI
 
-[GitHub CLI](https://cli.github.com/) is available as `gh` for working with repositories, issues, and pull requests from the terminal. Run `gh auth login` to install it on first use and authenticate, then `gh repo clone org/repo` to clone a repository. Run `gh --help` to explore its commands.
+[GitHub CLI](https://cli.github.com/) is `gh`, for working with repositories, issues, and pull requests from the terminal. _Setup > Git_ installs it when you choose to sign in to GitHub there, or install it on its own from _Install > CLI > GitHub_. Then `gh repo clone org/repo` clones a repository; run `gh --help` to explore its commands.
 
-For a terminal interface to pull requests, run `ghui`; mise installs it on first use too. [Lazygit](https://github.com/jesseduffield/lazygit) is preinstalled for working with Git itself.
+[Lazygit](https://github.com/jesseduffield/lazygit) is preinstalled for working with Git itself.
 
 # Chapter 19: Shell Tools
 
@@ -2706,6 +2675,8 @@ Every theme ships with its own set of backgrounds, and you can add extras of you
 
 You can do this most easily by going to _Install > Style > Background_ in the Omarchy Menu. That'll bring up the folder where the backgrounds for that theme is stored. Hit `Super + Shift + F` to start another file manager, find your background, copy it over.  Now it'll be included in the choices of backgrounds you can select between using `Super + Ctrl + W`.
 
+A theme with no backgrounds of its own gets one drawn from its colors: the Omarchy logo in the theme's accent color on its background color. Add your own to replace it.
+
 Backgrounds can be videos as well as stills. Drop an `mp4`, `m4v`, `mov`, `webm`, `mkv`, or `avi` file in the same folder and it appears alongside the images. Videos are played by the OWE wallpaper engine. It decodes the video once for all monitors and plays its sound through the default audio output, and it stops playback whenever nothing can see it. A video wallpaper still costs far more power than a still one.
 
 Themes can include a short intro for a still background. For `backgrounds/road.webp`, the matching video lives at `backgrounds/intros/road.mp4`. It plays automatically at boot, when switching to a theme with that background selected, and when choosing that background, then returns to the still. Intro videos stay out of the background picker and never loop.
@@ -3313,7 +3284,7 @@ The files are exactly what the installer's own wizard writes, so the easiest way
 | File | Required | Purpose |
 |------|----------|---------|
 | `user_configuration.json` | Yes | Disk, hostname, timezone, keyboard |
-| `user_credentials.json` | Yes | Username and password hash |
+| `user_credentials.json` | Yes | Username and password hash, and the LUKS passphrase for an encrypted install |
 | `user_encrypt_installation.txt` | No | `true` when the configuration carries a `disk_encryption` block |
 | `authorized_keys` | No | SSH public keys, one per line |
 | `tailscale_authkey` | No | Tailscale auth key for joining your tailnet on first boot |
@@ -3360,4 +3331,4 @@ The boot order lists the disk first on purpose: the empty disk falls through to 
 
 ## Two caveats
 
-Encrypted unattended installs aren't fully unattended — someone still has to type the LUKS passphrase at the first boot. And the `disk_encryption` block in `user_configuration.json` carries that passphrase in plaintext, so treat a cidata drive built from an encrypted install as the secret it is.
+Encrypted unattended installs aren't fully unattended — someone still has to type the LUKS passphrase at the first boot. And that passphrase goes at the top level of `user_credentials.json` as `encryption_password` — archinstall reads it there, not from the `disk_encryption` block in `user_configuration.json` — so treat a cidata drive built from an encrypted install as the secret it is.
