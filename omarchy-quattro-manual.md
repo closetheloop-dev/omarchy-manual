@@ -2433,6 +2433,8 @@ When you connect an external screen to your laptop, the display is automatically
 
 When you're extending, closing the lid on the laptop will automatically turn off the internal screen. Opening the lid will turn it back on. You can also control this manually using _Trigger > Hardware_ in the Omarchy menu or `Super + Ctrl + Delete`.
 
+While the laptop is plugged in, closing the lid never puts it to sleep, so a docked laptop stays awake even if the external screen briefly disconnects. With no external screen attached, closing the lid on power just locks it. On battery, closing the lid suspends as usual.
+
 ### Arranging multiple screens
 
 Hyprland works great with multiple screens. The monitor panel in the top bar draws them where they sit: drag one against the side of another to move it there, and the arrangement is saved with each monitor's other settings. For anything the panel doesn't cover, read more about how to lay them out in [the Hyprland monitor documentation](https://wiki.hypr.land/Configuring/Basics/Monitors/). In Omarchy, these go in `~/.config/hypr/monitors.lua` as `hl.monitor` entries — the file ships with commented examples for keeping a monitor off, modes the panel doesn't offer, 10-bit color, and variable refresh rate.
@@ -2641,7 +2643,7 @@ When set up, you'll see the hibernate option under _System_ (or `Super + Esc`), 
 
 A lot of laptops come with a fingerprint sensor to do authentication. You can use this with Omarchy by running _Setup > Security > Fingerprint_ in the Omarchy menu (`Super + Space`).
 
-That'll install the fingerprint package, collect your print, verify it, and you'll be set to go using your fingerprint to unlock from the lock screen (which you can trigger with `Super + Ctrl + L`), enter sudo mode, and authorize system prompts.
+That opens a full-screen fingerprint that fills in as you touch the sensor. Behind it, Omarchy will install the fingerprint package, collect your print, verify it, and you'll be set to go using your fingerprint to unlock from the lock screen (which you can trigger with `Super + Ctrl + L`), enter sudo mode, and authorize system prompts.
 
 Once the lock screen has turned the display off, the sensor rests to save power, so wake the screen with any key or the touchpad before touching it.
 
