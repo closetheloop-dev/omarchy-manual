@@ -68,9 +68,9 @@ All the muscle memory you've built around Cmd or the Windows key transfers to on
 
 Your Spotlight or Raycast or Start-menu reflex becomes `Super + Space`. That opens the Omarchy menu, which launches apps, changes settings, installs software, captures the screen — just about everything. Start typing to filter. `Super + Alt + Space` shows every app on one grid, the way Launchpad does. See [navigation](#chapter-4-navigation).
 
-### No desktop icons, and the dock only shows up when you float
+### No desktop icons, and the dock stays out of the way
 
-No icons to arrange on the desktop, and no dock on a tiling workspace — the dock only appears on a floating workspace (see [navigation](#chapter-4-navigation)). Apps start from a hotkey (`Super + Return` for the terminal, `Super + Shift + Return` for the browser, and `Super + K` for a list of everything that's mapped) or from the menu. The one persistent piece of UI is [the top bar](#chapter-5-the-top-bar), which covers what the menu bar, system tray, and Notification Center did for you before — and nearly every widget on it does something on left, right, and middle click.
+No icons to arrange on the desktop, and the dock hides once a workspace has a window, until you push the pointer to its edge of the screen, the bottom one unless you move it (see [navigation](#chapter-4-navigation)). Apps start from a hotkey (`Super + Return` for the terminal, `Super + Shift + Return` for the browser, and `Super + K` for a list of everything that's mapped) or from the menu. The one persistent piece of UI is [the top bar](#chapter-5-the-top-bar), which covers what the menu bar, system tray, and Notification Center did for you before — and nearly every widget on it does something on left, right, and middle click.
 
 ### Windows place themselves
 
@@ -134,7 +134,7 @@ You can then hit `Super + J` to stack them on top of each other instead of side 
 
 Hit `Super + J` again to return them to their side-by-side positions. Then try `Super + Shift + Arrow Right` while in the browser to swap the windows.
 
-Now try `Super + Shift + T` to start the Activity monitor. That will appear as a floating window. You can tile it using `Super + T` (and hit that again to make it floating again). Now press `Super + Shift + F` to open the file manager. You'll have a neat four-way setup:
+Now try `Super + Shift + T` to start the Activity monitor. That will appear as a floating window, with a titlebar to drag it by and buttons to minimize, maximize, and close it. Every floating window gets one, wherever it is. You can tile it using `Super + T` (and hit that again to make it floating again). Now press `Super + Shift + F` to open the file manager. You'll have a neat four-way setup:
 
 
 
@@ -178,7 +178,7 @@ hl.config({
 
 A floating workspace works like a traditional desktop: windows overlap, and you move and size them yourself. Each window gets a titlebar in your theme's colors, with buttons to minimize, maximize, and close. `Super + M` minimizes the focused window too. A minimized window waits in the dock; click its app to bring it back. Click a window to bring it forward. Resize it from any edge or corner. Double-click a titlebar to maximize the window while keeping the top bar in view, and again to get its old size back. Chrome and other Chromium-based browsers, Disks and Document Viewer skip the titlebar and use their own header instead; `Super + Alt + F` maximizes them, and `Super + M` minimizes them.
 
-A floating workspace also shows a dock, with your pinned apps, everything that's running, and a grid of every app behind the apps button, which `Super + Alt + Space` and _Apps_ in the Omarchy menu open too. Right-click an app on the grid, or press `Delete`, to uninstall it. Click an app to open it, or to bring its window forward; click again to cycle through its windows. Files only brings back a window from the workspace you're on and otherwise opens a new one, and Terminal and Agent always start another, though a minimized window comes back first. Middle-click opens a new window. Drag an icon along the dock to move it; dragging a running app in among the others keeps it there. Right-click to keep an app in the dock, take it out, or quit it. The dock gets out of the way of a fullscreen window. Right-click the apps button to move the dock to another edge or have it hide until the pointer reaches its edge. The position is also under _Appearance > Dock > Dock Position_, and `omarchy dock position left` and `omarchy dock autohide on` set both from a terminal. Apps you keep in the dock are faded while they aren't running.
+Every workspace has a dock, with your pinned apps, everything that's running, and a grid of every app behind the apps button, which `Super + Alt + Space` and _Apps_ in the Omarchy menu open too. Right-click an app on the grid, or press `Delete`, to uninstall it. Click an app to open it, or to bring its window forward; click again to cycle through its windows. Files only brings back a window from the workspace you're on and otherwise opens a new one, and Terminal and Agent always start another, though a minimized window comes back first. Middle-click opens a new window. Drag an icon along the dock to move it; dragging a running app in among the others keeps it there. Right-click to keep an app in the dock, take it out, or quit it. The dock stays out while a workspace is empty, and once the workspace has a window it hides until the pointer reaches its edge. A fullscreen window hides it altogether. Drag the apps button toward another edge of the screen to move the dock there. Right-click it for _Position_, to pick an edge, _Layout_, to set the default layout as _Appearance > Workspace Layout_ does, and _Visibility_, to keep the dock always on, have the first app hide it, or keep it always hidden. `omarchy dock visibility always` sets that from a terminal. The position is also under _Appearance > Dock > Dock Position_, and `omarchy dock position left` sets it from a terminal. Apps you keep in the dock are faded while they aren't running. To keep the dock to floating workspaces, use _Appearance > Dock > Dock Only on Floating_ or `omarchy dock tiling off`.
 
 New workspaces, and any you haven't given a layout of their own with `Super + L`, use the default layout. Changing the default resets every workspace without windows to it, while one with windows on it keeps the layout it has. A window minimized to the dock still counts as a window on the workspace it left. Pick it under _Appearance > Workspace Layout_: Tiling, Scrolling, or Floating. `omarchy hyprland workspace layout default scrolling` sets it from a terminal.
 
@@ -337,7 +337,7 @@ All of it is stored in `~/.config/omarchy/shell.json`, under the `bar` key. Here
   "version": 1,
   "bar": {
     "position": "top",
-    "background": "opaque",
+    "background": "none",
     "layout": {
       "left": [{ "id": "omarchy.menu" }, { "id": "omarchy.workspaces" }],
       "centerBegin": [{ "id": "omarchy.indicators" }],
@@ -448,75 +448,9 @@ You can install an icon set someone else has made with _Install > Style > Icons_
 
 To make your own, put your icons in `~/.config/omarchy/icons/<name>/`, one file per app, named after the `Icon=` line of the app's `.desktop` file. A file ending in `.svg` is shown as it is. A file ending in `.svg.tpl` is drawn in the theme's colors: write `{{ icon_main }}`, `{{ icon_mark }}`, `{{ icon_paper }}`, `{{ icon_body }}`, `{{ icon_edge }}`, `{{ icon_ink }}` or `{{ icon_shadow }}` where a color goes. The default set in `/usr/share/omarchy/icons/papercraft/` is a good place to start from. Add a `preview.png` to show your set in the picker; without one, Omarchy draws a preview from your icons. To change a single icon of the default set, put your version in `~/.config/omarchy/icons/papercraft/`.
 
-### Unlocks
+### Boot and login
 
-Themes can also have a custom unlock design, which is used for the boot decryption process. You can select one of these under _Appearance > Unlock_. They look like this:
-
-
-_Catppuccin_
-
-
-_Catppuccin Latte_
-
-
-_Ethereal_
-
-
-_Everforest_
-
-
-_Flexoki Light_
-
-
-_Gruvbox_
-
-
-_Hackerman_
-
-
-_Jade Horse_
-
-
-_Kanagawa_
-
-
-_Last Horizon_
-
-
-_Lumon_
-
-
-_Lupine_
-
-
-_Matte Black_
-
-
-_Miasma_
-
-
-_Nord_
-
-
-_Retro 82_
-
-
-_Ristretto_
-
-
-_Rose Pine_
-
-
-_Solitude_
-
-
-_Tokyo Night_
-
-
-_Vantablack_
-
-
-_White_
+The screen that asks for your drive password when the computer starts, and the login screen, follow the theme too. Every time you switch themes, they pick up its background, text, accent, and red colors, so there's no separate unlock design to pick. On Apple Silicon Macs, the drive password screen keeps Omarchy's default look whatever the theme.
 
 # Chapter 7: Hotkeys
 
@@ -1821,7 +1755,7 @@ You start Monologue via the application launcher (`Super + Space`).
 
 Omarchy ships with [Google Chrome](https://www.google.com/chrome/) as the default browser. It's themed to match the rest of your system, and it's what `Super + Shift + Return` (or `Super + Shift + B`) opens, with `Super + Shift + Alt + B` for a private window, and what every [web app](#chapter-25-web-apps) runs inside. It opens straight to a browser window: there's no welcome screen or sign-in prompt, usage statistics and crash reports aren't sent to Google, and the ad privacy prompts are switched off. You can still sign in to your Google account from the profile button whenever you want sync.
 
-If Chrome isn't your taste, you're not stuck with it. Under _Install > Browser_ in the Omarchy menu you'll find [Chromium](https://www.chromium.org/) (the plain open-source build Chrome is made from), Edge, Brave, Brave Origin, Firefox, and [Zen](https://zen-browser.app/) (Edge on x86 machines only). Pick one and Omarchy installs it, sets up its policy directory, and applies your current theme to it.
+If Chrome isn't your taste, you're not stuck with it. Under _Install > Browser_ in the Omarchy menu you'll find [Chromium](https://www.chromium.org/) (the plain open-source build Chrome is made from), Edge, Brave, Brave Origin, Firefox, [Zen](https://zen-browser.app/), and [Ladybird](https://ladybird.org/) (Edge on x86 machines only). Pick one and Omarchy installs it, sets up its policy directory, and applies your current theme to it.
 
 ## Making one the default
 
@@ -1854,6 +1788,10 @@ These are Chromium-family only. Firefox and Zen don't get them.
 Firefox and Zen are a different family, so they get different treatment: Omarchy installs a policies file for sensible defaults and switches them into native Wayland mode, which you want for fractional scaling and smooth trackpad scrolling.
 
 They don't get the Chromium extensions above, and they're not themed by Omarchy, so those parts of the experience are yours to set up.
+
+## Ladybird
+
+Ladybird is a browser written from scratch, with its own engine rather than Chromium's or Firefox's. It's still in alpha, so expect sites that don't work yet, and Omarchy installs it as it comes: no extensions, no theme, no policies. It has no private window either, so `Super + Shift + Alt + B` opens it with a temporary profile that's deleted when you close it. [Web apps](#chapter-25-web-apps) keep running in Chrome or Chromium.
 
 ## Removing one again
 
@@ -2703,19 +2641,7 @@ If you want more information or style, you can change the [Starship.rs](https://
 
 # Chapter 41: Branding
 
-Omarchy allows you to set your company logo or personal image for both the boot unlock, the screensaver, and the about screen.
-
-### Boot unlock
-
-You can use `omarchy plymouth preview` to see what your custom logo and colors would look like. It takes a background color, a text color, a logo png, and a path for the preview image:
-
-```
-omarchy plymouth preview '#1d2021' '#ebdbb2' logo.png preview.png
-```
-
-Then apply the setup with `omarchy plymouth set '#1d2021' '#ebdbb2' logo.png`, which will also give the SDDM login screen the same colors and logo. If you want to revert, you can use `omarchy plymouth reset`.
-
-
+Omarchy allows you to set your company logo or personal image for both the screensaver and the about screen.
 
 ### Screensaver
 
@@ -2817,9 +2743,9 @@ Omarchy tells the two apart by whether the theme has its own git repo inside it,
 
 If you're making a light mode theme, set `mode = "light"` at the top of your `colors.toml`. Then it'll automatically be paired with light mode for all the apps. (The old way of dropping an empty file called `light.mode` in the root of your theme still works too.)
 
-### Unlock image
+### Boot and login screens
 
-Themes supplied with `unlock.png` and `preview-unlock.png` images will be listed under _Appearance > Unlock_. Your `unlock.png` should preferably be a transparent png. And you can create the preview image using `omarchy plymouth preview`.
+The screen that asks for the drive password at boot, and the login screen, draw the Omarchy logo in your theme's `accent` color on its `background`, with the password field in its `foreground` and `red` for a wrong password. There's nothing extra to ship for them: Omarchy no longer uses a theme's `unlock.png` or `preview-unlock.png`. On Apple Silicon Macs, the drive password screen keeps Omarchy's default look whatever the theme.
 
 ### Theming apps Omarchy doesn't cover
 
